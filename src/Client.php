@@ -40,40 +40,6 @@ class Client
     }
 
     /**
-     * Read the file with config
-     *
-     * @param   string $file Filename
-     * @param   bool $autoload Automatically apply the configuration
-     * @return  mixed
-     */
-    public function readConfig($file, $autoload = true)
-    {
-        if (file_exists($file)) {
-            $this->_config = require_once $file;
-            if ($autoload === true) $this->loadConfig();
-            return $this->_config;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Parse the incoming config
-     */
-    public function loadConfig()
-    {
-        // If _config variable is exist and if this variable is array
-        if (!empty($this->_config) && is_array($this->_config)) {
-            // Read array and store into values
-            foreach ($this->_config as $key => $value) {
-                $this->$key = $value;
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Make the request and analyze the result
      *
      * @param   string $type Request method
@@ -91,16 +57,10 @@ class Client
 
         switch ($type) {
             case 'get':
-                $result = $this->_client->get($url);
-                break;
             case 'post':
-                $result = $this->_client->post($url, $params);
-                break;
             case 'delete':
-                $result = $this->_client->delete($url, $params);
-                break;
             case 'put':
-                $result = $this->_client->put($url, $params);
+                $result = $this->_client->request($type, $url, array('form_params' => $params));
                 break;
             default:
                 $result = null;

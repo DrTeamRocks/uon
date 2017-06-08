@@ -1,13 +1,12 @@
 {
-  "name": "drteam/pcrecruiter",
+  "name": "drteam/uon",
   "type": "library",
-  "description": "PHP library for work with PCRecruiter RESTful API",
+  "description": "U-On Travel RESTful API Client",
   "keywords": [
-    "pcrecruiter",
-    "pcr",
+    "u-on",
     "rest-api"
   ],
-  "homepage": "https://github.com/DrTeamRocks/pcrecruiter",
+  "homepage": "https://api.u-on.ru/doc",
   "license": "MIT",
   "authors": [
     {
@@ -27,7 +26,7 @@
   },
   "autoload": {
     "psr-4": {
-      "PCRecruiter\\": "/src/"
+      "UON\\": "/src/"
     }
   },
   "minimum-stability": "stable"

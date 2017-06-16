@@ -13,16 +13,19 @@ class Cities extends Client
     }
 
     /**
+     * Get all cities by country id
      * @link https://api.u-on.ru/{key}/cities/{country_id}.{_format}
+     * @param integer $id_country - Unique ID of country
      * @return array
      */
-    public function all()
+    public function all($id_country)
     {
-        $endpoint = '/cities';
+        $endpoint = '/cities/' . $id_country;
         return $this->doRequest('get', $endpoint);
     }
 
     /**
+     * Create new city in country
      * @link https://api.u-on.ru/{key}/city/create.{_format}
      * @param array $parameters
      * @return array

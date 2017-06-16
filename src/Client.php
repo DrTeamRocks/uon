@@ -32,10 +32,15 @@ class Client
     public $format = 'json';
 
     /**
-     * GuzzleHttp constructor
+     * Client constructor.
+     * @param null|string $token - User defined token
      */
-    public function __construct()
+    public function __construct($token = null)
     {
+        // If token is not empty
+        if (!empty($token)) $this->token = $token;
+
+        // Store the client object
         $this->_client = new \GuzzleHttp\Client();
     }
 

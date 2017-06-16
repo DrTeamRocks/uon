@@ -3,7 +3,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 require_once __DIR__ . "/../src/Client.php";
 require_once __DIR__ . "/../src/Users.php";
 
-$_config = require_once __DIR__ . "/config.php";
+$_config = require_once __DIR__ . "/../tests/config.php";
 $_token = $_config['token'];
 $_users = new \UON\Users($_token);
 

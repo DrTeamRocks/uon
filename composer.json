@@ -1,33 +1,33 @@
 {
-  "name": "drteam/uon",
-  "type": "library",
-  "description": "U-On Travel RESTful API Client",
-  "keywords": [
-    "u-on",
-    "rest-api"
-  ],
-  "homepage": "https://api.u-on.ru/doc",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Paul Rock",
-      "email": "paul@drteam.rocks",
-      "homepage": "http://drteam.rocks/",
-      "role": "Developer"
-    }
-  ],
-  "require": {
-    "php": ">=5.4.0",
-    "ext-curl": "*",
-    "guzzlehttp/guzzle": "~6.0"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "~5.7"
-  },
-  "autoload": {
-    "psr-4": {
-      "UON\\": "/src/"
-    }
-  },
-  "minimum-stability": "stable"
+    "authors": [
+        {
+            "homepage": "http://drteam.rocks/",
+            "email": "paul@drteam.rocks",
+            "name": "Paul Rock",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "UON\\": "src/"
+        }
+    },
+    "description": "U-On Travel RESTful API Client",
+    "homepage": "https://api.u-on.ru/doc",
+    "keywords": [
+        "u-on",
+        "rest-api"
+    ],
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "name": "drteam/uon",
+    "require": {
+        "php": "^5.4",
+        "ext-curl": "*",
+        "guzzlehttp/guzzle": "^6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
+    "type": "library"
 }

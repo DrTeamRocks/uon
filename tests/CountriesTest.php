@@ -28,7 +28,7 @@ class CountriesTest extends TestCase
 
     public function testAll()
     {
-        $result = $this->_countries->all('1');
+        $result = $this->_countries->all();
         $this->assertTrue(is_array($result));
     }
 

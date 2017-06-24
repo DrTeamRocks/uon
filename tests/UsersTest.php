@@ -34,7 +34,7 @@ class UsersTest extends TestCase
 
     public function testID()
     {
-        $result = $this->_users->id('0');
+        $result = $this->_users->get('0');
         $this->assertTrue(is_array($result));
     }
 

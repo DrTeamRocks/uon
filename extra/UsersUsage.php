@@ -11,7 +11,7 @@ $_users = new \UON\Users($_token);
 $users = $_users->all();
 
 // Get single user by ID
-$userById = $_users->id('1234');
+$userById = $_users->get('1234');
 
 // Get single user by phone number
 $userByPhone = $_users->phone('123456789');

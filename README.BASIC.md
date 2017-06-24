@@ -1,9 +1,9 @@
 ## Simple example of basic usage from official website
 
-* https://u-on.ru
-* https://api.u-on.ru/doc
+Basic examples from [this](https://api.u-on.ru/doc) page.
 
 ### Create new task
+
 ```php
 <?php
 $curl = curl_init();
@@ -22,6 +22,24 @@ curl_setopt_array($curl, array(
 $resp = curl_exec($curl);
 curl_close($curl);
 ```
+
+### Get a list of countries
+
+```php
+<?php
+$curl = curl_init();
+curl_setopt_array($curl, array(
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_URL => 'https://api.u-on.ru/1ga3bkGsm1km4/countries.json',
+    CURLOPT_POST => false,
+    CURLOPT_SSL_VERIFYHOST => false,
+    CURLOPT_SSL_VERIFYPEER => false
+));
+$resp = curl_exec($curl);
+curl_close($curl);
+```
+
+### Create ne lead from site
 
 ```php
 <?php
@@ -60,4 +78,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <button type="submit" class="btn btn-success" name="sbm">Отправить заявку</button>
     </div>
 </form>
+```
+
+### Send a list of services of request creation stage
+
+```php
+<?php
+$curl = curl_init();
+curl_setopt_array($curl, array(
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_URL => 'https://api.u-on.ru/1ga3bkGsm1km4/request/create.json',
+    CURLOPT_POST => true,
+    CURLOPT_SSL_VERIFYHOST => false,
+    CURLOPT_SSL_VERIFYPEER => false,
+    CURLOPT_POSTFIELDS => http_build_query(array(
+        'note' => 'заявка с сайта',
+        'services' => array(
+            array(
+                'type_id' => 1,
+                'country' => 'Испания',
+            ),
+            array(
+                'type_id' => 2,
+                'country' => 'Испания',
+            )
+        )
+    ))
+));
+$resp = curl_exec($curl);
+curl_close($curl);
 ```

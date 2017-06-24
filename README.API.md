@@ -110,7 +110,7 @@
     \UON\Statuses->all($params);        // Получение списка статусов
     \UON\Statuses->lead($params);       // Получение списка статусов обращений
 
-### Suppliers
+### Class Suppliers
 
 Методы для работы с партнёрами компании, и типами партнёров.
 
@@ -121,7 +121,7 @@
     \UON\Suppliers->getType($id);       // Получение типов партнеров
     \UON\Suppliers->createType($params); // Добавление типа партнера
 
-### Users
+### Class Users
 
     \UON\Users->all();              // Список туристов
     \UON\Users->get($id);           // Получение данных по конкретному туристу

@@ -1,34 +1,53 @@
-## U-On Travel RESTful API Client (unofficial)
+![U-On Travel Logo](extra/u-on.png)
+
+# U-On Travel RESTful API Client (unofficial)
 
 A simple client that allows to work with RESTful API of U-On Travel company.
 
 This library is ready for production usage, all source codes provided "as is".
 
+
 ## Example of usage
 
-    <?php
-    require_once __DIR__ . "/vendor/autoload.php";
-    
-    $_config = require_once __DIR__ . "/config.php";
-    $_token = $_config['token'];
-    $_users = new \UON\Users($_token);
-    $_requests = new \UON\Requests($_token);
-    $_misc = new \UON\Misc($_token);
-    
-    // Get a list of all users
-    $users = $_users->all();
-    // Get user by unique id
-    $userId = $_users->get(1);
-    
-    // Get list of requests
-    $requests = $_requests->all();
-    
-    // Get list of managers
-    $managers = $_misc->manager();
+```php
+<?php
+require_once __DIR__ . "/vendor/autoload.php";
+
+$_config = require_once __DIR__ . "/config.php";
+$_token = $_config['token'];
+$_users = new \UON\Users($_token);
+$_requests = new \UON\Requests($_token);
+$_misc = new \UON\Misc($_token);
+
+// Get a list of all users
+$users = $_users->all();
+// Get user by unique id
+$userId = $_users->get(1);
+
+// Get list of requests
+$requests = $_requests->all();
+
+// Get list of managers
+$managers = $_misc->manager();
+```
 
 See other examples of usage [here](extra) separated by class names.
 
 All available methods of all classes with descriptions you can find [here](README.API.md).
+
+
+## How to install
+
+### Via composer
+
+    composer require drteam/uon
+
+### Classic style
+
+* Download the latest [release](https://github.com/DrTeamRocks/uon/releases) of package
+* Extract the archive
+* Initiate the scripts, just run `composer update` from directory with sources
+
 
 ## Note about Unit Tests
 
@@ -44,10 +63,12 @@ But, please don't run tests on your production account (API token), you can loos
 
 Good luck!
 
+
 ## Some documents
 
 * [List of API methods](README.API.md) urls of methods with classes
 * [Basic examples](README.BASIC.md) of usage written on PHP-Curl library
+
 
 ## Useful links
 

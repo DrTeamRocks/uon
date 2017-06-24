@@ -16,7 +16,7 @@ class RequestActions extends Client
      * Get touch of the request by ID
      * @link https://api.u-on.ru/{key}/request-action/create.{_format}
      * @param integer $r_id - List of parameters
-     * @return array
+     * @return array|false
      */
     public function get($r_id)
     {
@@ -29,7 +29,7 @@ class RequestActions extends Client
      * @link https://api.u-on.ru/{key}/request/{date_from}/{date_to}.{_format}
      * @param $date_from
      * @param $date_to
-     * @return array
+     * @return array|false
      */
     public function date($date_from, $date_to)
     {
@@ -41,7 +41,7 @@ class RequestActions extends Client
      * Adding touch to the request
      * @link https://api.u-on.ru/{key}/request-action/create.{_format}
      * @param null|array $parameters - List of parameters
-     * @return array
+     * @return array|false
      */
     public function create($parameters)
     {

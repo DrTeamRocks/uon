@@ -15,10 +15,10 @@ class Sources extends Client
     /**
      * Get sources list
      * @link https://api.u-on.ru/{key}/source.{_format}
-     * @param null|array $parameters - List of parameters
+     * @param array|null $parameters - List of parameters
      * @return array
      */
-    public function get($parameters = null)
+    public function all($parameters = null)
     {
         $endpoint = '/source';
         return $this->doRequest('get', $endpoint, $parameters);

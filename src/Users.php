@@ -29,7 +29,7 @@ class Users extends Client
      * @param string $id
      * @return array|false
      */
-    public function id($id)
+    public function get($id)
     {
         $endpoint = '/user/' . $id;
         return $this->doRequest('get', $endpoint);

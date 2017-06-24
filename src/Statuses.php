@@ -15,10 +15,10 @@ class Statuses extends Client
     /**
      * Get statuses list
      * @link https://api.u-on.ru/{key}/status.{_format}
-     * @param null|array $parameters - List of parameters
-     * @return array
+     * @param array|null $parameters - List of parameters
+     * @return array|false
      */
-    public function get($parameters = null)
+    public function all($parameters = null)
     {
         $endpoint = '/status';
         return $this->doRequest('get', $endpoint, $parameters);
@@ -27,7 +27,7 @@ class Statuses extends Client
     /**
      * Get a list of statuses for leads
      * @link https://api.u-on.ru/{key}/status_lead.{_format}
-     * @param null $parameters
+     * @param array|null $parameters - List of parameters
      * @return array|false
      */
     public function lead($parameters = null)

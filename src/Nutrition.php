@@ -13,19 +13,21 @@ class Nutrition extends Client
     }
 
     /**
+     * Get all types of nutrition
      * @link https://api.u-on.ru/{key}/nutrition.{_format}
-     * @return array
+     * @return array|false
      */
-    public function get()
+    public function all()
     {
         $endpoint = '/nutrition';
         return $this->doRequest('get', $endpoint);
     }
 
     /**
+     * Create new nutrition
      * @link https://api.u-on.ru/{key}/city/create.{_format}
-     * @param array $parameters
-     * @return array
+     * @param array $parameters - List of parameters
+     * @return array|false
      */
     public function create($parameters)
     {
@@ -35,8 +37,8 @@ class Nutrition extends Client
 
     /**
      * @link https://api.u-on.ru/{key}/nutrition/update/{id}.{_format}
-     * @param string $id
-     * @return array
+     * @param string $id - Unique nutrition ID
+     * @return array|false
      */
     public function update($id)
     {

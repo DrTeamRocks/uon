@@ -13,17 +13,6 @@ class Services extends Client
     }
 
     /**
-     * @link https://api.u-on.ru/{key}/service/create.{_format}
-     * @param integer $parameters - List of parameters
-     * @return array
-     */
-    public function get($parameters = null)
-    {
-        $endpoint = '/service';
-        return $this->doRequest('get', $endpoint, $parameters);
-    }
-
-    /**
      * Get a list of service types for voucher
      * @link https://api.u-on.ru/{key}/service_type.{_format}
      * @return array

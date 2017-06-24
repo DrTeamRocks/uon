@@ -16,7 +16,7 @@ class Requests extends Client
      * Get request by ID
      * @link https://api.u-on.ru/{key}/request/{id}.{_format}
      * @param integer $id - Request unique ID
-     * @param null|array $parameters - List of parameters
+     * @param array|null $parameters - List of parameters
      * @return array
      */
     public function get($id, $parameters = null)
@@ -44,8 +44,8 @@ class Requests extends Client
      * @link https://api.u-on.ru/{key}/request/{date_from}/{date_to}/{source_id}.{_format}
      * @param integer $date_from
      * @param integer $date_to
-     * @param null|integer $source_id
-     * @return array
+     * @param integer|null $source_id - Source ID, eg ID of SMS or JivoSite
+     * @return array|false
      */
     public function date($date_from, $date_to, $source_id = null)
     {
@@ -58,12 +58,42 @@ class Requests extends Client
      * Create new request
      * @link https://api.u-on.ru/{key}/request/create.{_format}
      * @param null|array $parameters - List of parameters
-     * @return array
+     * @return array|false
      */
     public function create($parameters)
     {
         $endpoint = '/request/create';
         return $this->doRequest('post', $endpoint, $parameters);
     }
+
+    /**
+     * Update request by ID
+     * @param integer $id - Unique request ID
+     * @param $parameters - List of parameters
+     * @return array|false
+     */
+    // TODO: Enable this after API will be ready
+    /*
+    public function update($id, $parameters)
+    {
+        $endpoint = '/request/update/' . $id;
+        return $this->doRequest('post', $endpoint, $parameters);
+    }
+    */
+
+    /**
+     * Delete request by ID
+     * @param integer $id - Unique request ID
+     * @param $parameters - List of parameters
+     * @return array|false
+     */
+    // TODO: Enable this after API will be ready
+    /*
+    public function delete($id)
+    {
+        $endpoint = '/request/delete/' . $id;
+        return $this->doRequest('post', $endpoint);
+    }
+    */
 
 }

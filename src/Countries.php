@@ -13,8 +13,9 @@ class Countries extends Client
     }
 
     /**
+     * Get all countries
      * @link https://api.u-on.ru/{key}/countries.{_format}
-     * @return array
+     * @return array|false
      */
     public function all()
     {
@@ -23,8 +24,9 @@ class Countries extends Client
     }
 
     /**
+     * Create new country
      * @link https://api.u-on.ru/{key}/country/create.{_format}
-     * @param array $parameters
+     * @param array $parameters - List of parameters
      * @return array
      */
     public function create($parameters)
@@ -35,8 +37,8 @@ class Countries extends Client
 
     /**
      * @link https://api.u-on.ru/{key}/country/update/{id}.{_format}
-     * @param string $id
-     * @param array $parameters
+     * @param integer $id - Unique country ID
+     * @param array $parameters - List of parameters
      * @return array
      */
     public function update($id, $parameters)

@@ -1,7 +1,7 @@
 <?php namespace UON;
 
 /**
- * Class Hotel
+ * Class Hotels
  * @package UON
  */
 class Hotels extends Client
@@ -13,8 +13,10 @@ class Hotels extends Client
     }
 
     /**
+     * Get a list of hotels (divided by pages, 100 hotels per page)
      * @link https://api.u-on.ru/{key}/hotels/{page}.{_format}
-     * @return array
+     * @param integer $page - Number of page with hotels
+     * @return array|false
      */
     public function all($page)
     {
@@ -23,20 +25,22 @@ class Hotels extends Client
     }
 
     /**
+     * Get information about hotel
      * @link https://api.u-on.ru/{key}/hotel/{id}.{_format}
-     * @param $id
+     * @param integer $id - Unique hotel ID
      * @return array|false
      */
-    public function id($id)
+    public function get($id)
     {
         $endpoint = '/hotel/' . $id;
         return $this->doRequest('get', $endpoint);
     }
 
     /**
+     * Delete selected hotel from database
      * @link https://api.u-on.ru/{key}/hotel/delete/{id}.{_format}
-     * @param string $id
-     * @return array
+     * @param string $id - Unique hotel ID
+     * @return array|false
      */
     public function delete($id)
     {
@@ -45,9 +49,10 @@ class Hotels extends Client
     }
 
     /**
+     * Create new hotel
      * @link https://api.u-on.ru/{key}/hotel/create.{_format}
-     * @param array $parameters
-     * @return array
+     * @param array $parameters - List of parameters
+     * @return array|false
      */
     public function create($parameters)
     {
@@ -56,10 +61,11 @@ class Hotels extends Client
     }
 
     /**
+     * Update information about hotel
      * @link https://api.u-on.ru/{key}/hotel/update/{id}.{_format}
-     * @param string $id
-     * @param array $parameters
-     * @return array
+     * @param string $id - Unique hotel ID
+     * @param array $parameters - List of parameters
+     * @return array|false
      */
     public function update($id, $parameters)
     {

@@ -13,23 +13,34 @@ class Suppliers extends Client
     }
 
     /**
-     * Get a list of partners ot partner by ID
-     * @link https://api.u-on.ru/{key}/supplier.{_format}
-     * @param integer $id - ID of partner
-     * @param integer $parameters - List of parameters
-     * @return array
+     * Get a list of partners ot
+     * @link https://api.u-on.ru/{key}/supplier/{id}.{_format}
+     * @param array|null $parameters - List of parameters
+     * @return array|false
      */
-    public function get($id = null, $parameters = null)
+    public function all($parameters = null)
     {
         $endpoint = '/supplier';
-        if (!empty($id)) $endpoint .= '/' . $id;
+        return $this->doRequest('get', $endpoint, $parameters);
+    }
+
+    /**
+     * Get partner by ID
+     * @link https://api.u-on.ru/{key}/supplier.{_format}
+     * @param integer $id - ID of partner
+     * @param array|null $parameters - List of parameters
+     * @return array|false
+     */
+    public function get($id, $parameters = null)
+    {
+        $endpoint = '/supplier/' . $id;
         return $this->doRequest('get', $endpoint, $parameters);
     }
 
     /**
      * Get a list of partners types
      * @link https://api.u-on.ru/{key}/supplier_type.{_format}
-     * @param null $parameters
+     * @param array|null $parameters - List of parameters
      * @return array|false
      */
     public function getType($parameters = null)
@@ -42,7 +53,7 @@ class Suppliers extends Client
      * Add new partner
      * @link https://api.u-on.ru/{key}/supplier/create.{_format}
      * @param array $parameters - List of parameters
-     * @return array
+     * @return array|false
      */
     public function create($parameters)
     {
@@ -54,7 +65,7 @@ class Suppliers extends Client
      * Create new type for partners
      * @link https://api.u-on.ru/{key}/supplier_type/create.{_format}
      * @param $parameters - List of parameters
-     * @return array
+     * @return array|false
      */
     public function createType($parameters)
     {
@@ -67,7 +78,7 @@ class Suppliers extends Client
      * @link https://api.u-on.ru/{key}/supplier/update/{id}.{_format}
      * @param integer $id - Unique ID of service
      * @param array $parameters - List of parameters
-     * @return array
+     * @return array|false
      */
     public function update($id, $parameters)
     {

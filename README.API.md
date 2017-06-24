@@ -1,106 +1,131 @@
-## List of API classes and methods
+## Список классов и их методов
 
-* https://u-on.ru
-* https://api.u-on.ru/doc
+### Class Cities
 
-### Cities
+Набор методов для работы со списком городов.
 
-* [x] GET   api.u-on.ru/{key}/cities/{country_id}.{_format} Получение списка городов
-* [x] POST  api.u-on.ru/{key}/city/create.{_format} Добавление города
-* [x] POST  api.u-on.ru/{key}/city/update/{id}.{_format} Обновление данных по городу
+    \UON\Cities->all($country_id);      // Получение списка городов
+    \UON\Cities->create($params);       // Добавление города
+    \UON\Cities->update($id, $params);  // Обновление данных по городу
 
-### Hotels
+### Class Hotels
 
-* [x] GET   api.u-on.ru/{key}/hotels/{page}.{_format} Получение списка отелей (постранично, на каждой странице 100 отелей)
-* [x] POST  api.u-on.ru/{key}/hotel/create.{_format} Добавление отеля
-* [x] POST  api.u-on.ru/{key}/hotel/delete/{id}.{_format} Удаление отеля
-* [x] POST  api.u-on.ru/{key}/hotel/update/{id}.{_format} Обновление данных по отелю
-* [x] GET   api.u-on.ru/{key}/hotel/{id}.{_format} Получение данных по отелю
+Набор методов для работы со списком отелей.
 
-### Countries
+    \UON\Hotels->all($page);            // Получение списка отелей (постранично, на каждой странице 100 отелей)
+    \UON\Hotels->get($id);              // Получение данных по отелю
+    \UON\Hotels->create($params);       // Добавление отеля
+    \UON\Hotels->update($id, $params);  // Обновление данных по отелю
+    \UON\Hotels->delete($id);           // Удаление отеля
 
-* [x] GET   api.u-on.ru/{key}/countries.{_format} Получение списка стран
-* [x] POST  api.u-on.ru/{key}/country/create.{_format} Добавление страны
-* [x] POST  api.u-on.ru/{key}/country/update/{id}.{_format} Обновление данных по стране
+### Class Countries
 
-### Lead
+Набор методов для работы со списком стран.
 
-* [x] POST  api.u-on.ru/{key}/lead/create.{_format} Добавление обращения
-* [x] GET   api.u-on.ru/{key}/lead/{date_from}/{date_to}.{_format} Получение данных по лидам / обращениям
-* [x] GET   api.u-on.ru/{key}/lead/{date_from}/{date_to}/{source_id}.{_format} Получение данных по лидам / обращениям согласно источнику
-* [x] GET   api.u-on.ru/{key}/lead/{id}.{_format} Получение данных лида / обращения
+    \UON\Countries->all();              // Получение списка стран
+    \UON\Countries->create($params);    // Добавление страны
+    \UON\Countries->update($id, $params); // Обновление данных по стране
 
-### Misc
+### Class Leads
 
-* [x] POST  api.u-on.ru/{key}/avia/create.{_format} Добавление авиаперелета в услугу
-* [x] POST  api.u-on.ru/{key}/call_history/create.{_format} Добавление информации о звонке
-* [x] GET   api.u-on.ru/{key}/cash.{_format} Получение списка касс
-* [x] GET   api.u-on.ru/{key}/currency.{_format} Получение списка валют
-* [x] GET   api.u-on.ru/{key}/manager.{_format} Список сотрудников компании
+Методы для работы со списком лидов.
 
-### Nutrition
+    \UON\Leads->get($id);               // Получение данных лида / обращения
+    \UON\Leads->create($params);        // Добавление обращения
+    \UON\Leads->date($date_from, $date_to); // Получение данных по лидам / обращениям
+    \UON\Leads->date($date_from, $date_to, $source_id); // Получение данных по лидам / обращениям согласно источнику
 
-* [x] GET   api.u-on.ru/{key}/nutrition.{_format} Получение типов питания
-* [x] POST  api.u-on.ru/{key}/nutrition/create.{_format} Добавление питания
-* [x] POST  api.u-on.ru/{key}/nutrition/update/{id}.{_format} Обновление типа питания
+### Class Misc
 
-### Payments
+Некоторые единичные методы.
 
-* [x] POST  api.u-on.ru/{key}/payment/create.{_format} Добавление платежа в заявку
-* [x] POST  api.u-on.ru/{key}/payment/delete/{id}.{_format} Удаление платежа
-* [x] GET   api.u-on.ru/{key}/payment/list/{date_from}/{date_to}.{_format} Получение списка платежей (поля при получении см. /payment/create)
-* [x] POST  api.u-on.ru/{key}/payment/update/{id}.{_format} Изменение платежа
-* [x] GET   api.u-on.ru/{key}/payment/{id}.{_format} Получение платежа (поля при получении см. /payment/create)
+    \UON\Misc->aviaCreate($params);     // Добавление авиаперелета в услугу
+    \UON\Misc->callHistoryCreate($params); // Добавление информации о звонке
+    \UON\Misc->cash();                  // Получение списка касс
+    \UON\Misc->currency();              // Получение списка валют
+    \UON\Misc->manager();               // Список сотрудников компании
 
-### Reminders
+### Class Nutrition
 
-* [x] POST  api.u-on.ru/{key}/reminder/create.{_format} Добавление напоминания в заявку
-* [x] GET   api.u-on.ru/{key}/reminder/{r_id}.{_format} Получение списка напоминаний по заявке
+Методы для работы со списком питание.
 
-### RequestActions
+    \UON\Nutrition->all();              // Получение типов питания
+    \UON\Nutrition->create($params);    // Добавление питания
+    \UON\Nutrition->update($id, $params); // Обновление типа питания
 
-* [x] POST  api.u-on.ru/{key}/request-action/create.{_format} Добавление касания в заявку
-* [x] GET   api.u-on.ru/{key}/request-action/{date_from}/{date_to}.{_format} Получение списка касаний за период
-* [x] GET   api.u-on.ru/{key}/request-action/{r_id}.{_format} Получение списка касаний по заявке
+### Class Payments
 
-### Requests
+Методы для работы со списком платежей.
 
-* [x] POST  api.u-on.ru/{key}/request/create.{_format} Добавление заявки
-* [x] GET   api.u-on.ru/{key}/request/updated/{date_from}/{date_to}.{_format} Получение данных по обновленным заявкам
-* [x] GET   api.u-on.ru/{key}/request/{date_from}/{date_to}.{_format} Получение данных по заявкам
-* [x] GET   api.u-on.ru/{key}/request/{date_from}/{date_to}/{source_id}.{_format} Получение данных по заявкам согласно источнику
-* [x] GET   api.u-on.ru/{key}/request/{id}.{_format} Получение данных заявки
+    \UON\Payments->all();               // Получение списка платежей (поля при получении см. /payment/create)
+    \UON\Payments->get($id);            // Получение платежа (поля при получении см. /payment/create)
+    \UON\Payments->create($params);     // Добавление платежа в заявку
+    \UON\Payments->update($id, $params); // Изменение платежа
+    \UON\Payments->delete($id);         // Удаление платежа
 
-### Services
+### Class Reminders
 
-* [x] POST  api.u-on.ru/{key}/service/create.{_format} Добавление услуги в заявку
-* [x] POST  api.u-on.ru/{key}/service/update/{id}.{_format} Обновление данных по услуге
-* [x] GET   api.u-on.ru/{key}/service_type.{_format} Список типов услуг для заявки
+Методы для работы с напоминаниями по заявкам.
 
-### Sources
+    \UON\Reminders->all();              // Получение списка напоминаний по заявке
+    \UON\Reminders->create($r_id);      // Добавление напоминания в заявку
 
-* [x] GET   api.u-on.ru/{key}/source.{_format} Список источников заявки
-* [x] POST  api.u-on.ru/{key}/source/create.{_format} Добавление источника заявки
+### Class RequestActions
 
-### Statuses
+Методы для работы со списком касаний заявки.
 
-* [x] GET   api.u-on.ru/{key}/status.{_format} Получение списка статусов
-* [x] GET   api.u-on.ru/{key}/status_lead.{_format} Получение списка статусов обращений
+    \UON\RequestActions->get($r_id);    // Получение списка касаний по заявке
+    \UON\RequestActions->date($date_from, $date_to); // Получение списка касаний за период
+    \UON\RequestActions->create($params); // Добавление касания в заявку
+
+### Class Requests
+
+Методы для работы с заявками.
+
+    \UON\Requests->get($id);            // Получение данных заявки
+    \UON\Requests->date($date_from, $date_to); // Получение данных по заявкам
+    \UON\Requests->date($date_from, $date_to, $source_id); // Получение данных по заявкам согласно источнику
+    \UON\Requests->updated($date_from, $date_to); // Получение данных по обновленным заявкам
+    \UON\Requests->create($params);     // Добавление заявки
+
+### Class Services
+
+Методы для работы с услугами заявки.
+
+    \UON\Services->type();              // Список типов услуг для заявки
+    \UON\Services->create($params);     // Добавление услуги в заявку
+    \UON\Services->update($id, $params); // Обновление данных по услуге
+
+### Class Sources
+
+Методы для работы с источниками заявок и лидов.
+
+    \UON\Sources->all();                // Список источников заявки
+    \UON\Sources->create($params);      // Добавление источника заявки
+
+### Class Statuses
+
+Методы для работы со статусами заявок и обращений.
+
+    \UON\Statuses->all($params);        // Получение списка статусов
+    \UON\Statuses->lead($params);       // Получение списка статусов обращений
 
 ### Suppliers
 
-* [x] GET   api.u-on.ru/{key}/supplier.{_format} Получение списка партнеров
-* [x] POST  api.u-on.ru/{key}/supplier/create.{_format} Добавление партнера
-* [x] POST  api.u-on.ru/{key}/supplier/update/{id}.{_format} Обновление данных по партнеру
-* [x] GET   api.u-on.ru/{key}/supplier/{id}.{_format} Получение партнера
-* [x] GET   api.u-on.ru/{key}/supplier_type.{_format} Получение типов партнеров
-* [x] POST  api.u-on.ru/{key}/supplier_type/create.{_format} Добавление типа партнера
+Методы для работы с партнёрами компании, и типами партнёров.
+
+    \UON\Suppliers->all();              // Получение списка партнеров
+    \UON\Suppliers->get($id);           // Получение партнера
+    \UON\Suppliers->create($params);    // Добавление партнера
+    \UON\Suppliers->update($id, $params); // Обновление данных по партнеру
+    \UON\Suppliers->getType($id);       // Получение типов партнеров
+    \UON\Suppliers->createType($params); // Добавление типа партнера
 
 ### Users
 
-* [x] GET   api.u-on.ru/{key}/user.{_format} Список туристов
-* [x] GET   api.u-on.ru/{key}/user/{id}.{_format} Получение данных по конкретному туристу
-* [x] POST  api.u-on.ru/{key}/user/create.{_format} Добавление туриста
-* [x] GET   api.u-on.ru/{key}/user/phone/{phone}.{_format} Поиск туриста по номеру телефона
-* [x] POST  api.u-on.ru/{key}/user/update/{id}.{_format} Обновление туриста
-* [x] GET   api.u-on.ru/{key}/user/updated/{date_from}/{date_to}.{_format} Список обновленных туристов
+    \UON\Users->all();              // Список туристов
+    \UON\Users->get($id);           // Получение данных по конкретному туристу
+    \UON\Users->phone($phone);      // Поиск туриста по номеру телефона
+    \UON\Users->updated($date_from, $date_to); // Список обновленных туристов
+    \UON\Users->create($params);    // Добавление туриста
+    \UON\Users->update($id, $params); // Обновление туриста

@@ -16,7 +16,7 @@ class CitiesTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
 
-        $this->_config = require_once __DIR__ . "/../tests/config.php";
+        $this->_config = include __DIR__ . "/config.php";
         $this->_token = $this->_config['token'];
         $this->_cities = new \UON\Cities($this->_token);
 

@@ -1,9 +1,9 @@
 <?php
 
 require_once(__DIR__ . '/../src/Client.php');
+require_once(__DIR__ . '/../src/Cities.php');
 
 use PHPUnit\Framework\TestCase;
-use UON\Client;
 
 class ClientTest extends TestCase
 {
@@ -13,16 +13,17 @@ class ClientTest extends TestCase
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        $this->_config = require_once __DIR__ . "/../tests/config.php";
+
+        $this->_config = include __DIR__ . "/config.php";
         $this->_token = $this->_config['token'];
     }
 
     public function testDoRequest()
     {
-        $factory = new Client($this->_token);
+        $factory = new UON\Client($this->_token);
 
         // Check if request return the array
-        $result = $factory->doRequest('get', '/users');
+        $result = $factory->doRequest('get', '/user');
         $this->assertTrue(is_array($result));
     }
 

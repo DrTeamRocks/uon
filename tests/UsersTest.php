@@ -1,7 +1,7 @@
 <?php
 
 require_once(__DIR__ . '/../src/Client.php');
-require_once(__DIR__ . '/../src/Users.php');
+require_once(__DIR__ . '/../src/Cities.php');
 
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +16,7 @@ class UsersTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
 
-        $this->_config = require_once __DIR__ . "/../tests/config.php";
+        $this->_config = include __DIR__ . "/config.php";
         $this->_token = $this->_config['token'];
         $this->_users = new \UON\Users($this->_token);
 
@@ -34,7 +34,7 @@ class UsersTest extends TestCase
 
     public function testID()
     {
-        $result = $this->_users->get('0');
+        $result = $this->_users->get('2');
         $this->assertTrue(is_array($result));
     }
 

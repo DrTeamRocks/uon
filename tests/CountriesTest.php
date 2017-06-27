@@ -26,22 +26,24 @@ class CountriesTest extends TestCase
         );
     }
 
-    public function testAll()
+    public function testCURD()
     {
+        /**
+         * Create
+         */
+        $create = $this->_countries->create($this->country);
+        $this->assertTrue(is_array($create));
+
+        /**
+         * Update
+         */
+        $update = $this->_countries->update($create['message']->id, $this->country);
+        $this->assertTrue(is_array($update));
+
+        /**
+         * Read
+         */
         $result = $this->_countries->all();
-        $this->assertTrue(is_array($result));
-    }
-
-    public function testCreate()
-    {
-        $result = $this->_countries->create($this->country);
-        $this->assertTrue(is_array($result));
-    }
-
-    public function testUpdate()
-    {
-        $this->country['id'] = '1';
-        $result = $this->_countries->update('1', $this->country);
         $this->assertTrue(is_array($result));
     }
 

@@ -27,22 +27,24 @@ class CitiesTest extends TestCase
         );
     }
 
-    public function testAll()
+    public function testCURD()
     {
-        $result = $this->_cities->all('1');
-        $this->assertTrue(is_array($result));
-    }
+        /**
+         * Create
+         */
+        $create = $this->_cities->create($this->city);
+        $this->assertTrue(is_array($create));
 
-    public function testCreate()
-    {
-        $result = $this->_cities->create($this->city);
-        $this->assertTrue(is_array($result));
-    }
+        /**
+         * Update
+         */
+        $update = $this->_cities->update($create['message']->id, $this->city);
+        $this->assertTrue(is_array($update));
 
-    public function testUpdate()
-    {
-        $this->city['id'] = '1';
-        $result = $this->_cities->update('1', $this->city);
+        /**
+         * Read
+         */
+        $result = $this->_cities->all($this->city['country_id']);
         $this->assertTrue(is_array($result));
     }
 

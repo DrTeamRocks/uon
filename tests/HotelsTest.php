@@ -27,33 +27,33 @@ class HotelsTest extends TestCase
         );
     }
 
-    public function testAll()
+    public function testCURD()
     {
-        $result = $this->_hotels->all('1');
-        $this->assertTrue(is_array($result));
-    }
-
-    public function testID()
-    {
-        $result = $this->_hotels->get('2');
-        $this->assertTrue(is_array($result));
-    }
-
-    public function testUpdate()
-    {
-        $this->hotel['id'] = '1';
-        $result = $this->_hotels->update('1', $this->hotel);
-        $this->assertTrue(is_array($result));
-    }
-
-    public function testCreateDelete()
-    {
+        /**
+         * Create
+         */
         $create = $this->_hotels->create($this->hotel);
-        error_log(print_r($create,true));
         $this->assertTrue(is_array($create));
 
+        /**
+         * Update
+         */
+        $update = $this->_hotels->update($create['message']->id, $this->hotel);
+        $this->assertTrue(is_array($update));
+
+        /**
+         * Read
+         */
+        $result = $this->_hotels->all('1');
+        $this->assertTrue(is_array($result));
+
+        $result = $this->_hotels->get($create['message']->id);
+        $this->assertTrue(is_array($result));
+
+        /**
+         * Delete
+         */
         $delete = $this->_hotels->delete($create['message']->id);
-        error_log(print_r($delete,true));
         $this->assertTrue(is_array($delete));
     }
 }

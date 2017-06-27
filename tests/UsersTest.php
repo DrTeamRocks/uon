@@ -22,44 +22,43 @@ class UsersTest extends TestCase
 
         // Data array of new user (or details for update)
         $this->user = array(
-            'u_name' => 'text user'
+            'u_name' => 'User',
+            'u_sname' => 'Test',
+            'u_phone' => '123456789'
         );
     }
 
-    public function testAll()
+    public function testCURD()
     {
+        /**
+         * Create
+         */
+        $create = $this->_users->create($this->user);
+        $this->assertTrue(is_array($create));
+
+        /**
+         * Update
+         */
+        $update = $this->_users->update($create['message']->id, $this->user);
+        $this->assertTrue(is_array($update));
+
+        /**
+         * Read
+         */
         $result = $this->_users->all();
         $this->assertTrue(is_array($result));
-    }
 
-    public function testID()
-    {
-        $result = $this->_users->get('2');
+        $result = $this->_users->get($create['message']->id);
         $this->assertTrue(is_array($result));
-    }
 
-    public function testPhone()
-    {
         $result = $this->_users->phone('123456789');
         $this->assertTrue(is_array($result));
-    }
 
-    public function testUpdated()
-    {
-        $result = $this->_users->updated('2017-06-01', '2017-06-10');
-        $this->assertTrue(is_array($result));
-    }
+        // Date for next method
+        $today = date('Y-m-d');
+        $tomorrow = date('Y-m-d', strtotime('tomorrow'));
 
-    public function testCreate()
-    {
-        $result = $this->_users->create($this->user);
-        // TODO: Request the user ID in response and store this into variable
-        $this->assertTrue(is_array($result));
-    }
-
-    public function testUpdate()
-    {
-        $result = $this->_users->update('1', $this->user);
+        $result = $this->_users->updated($today, $tomorrow);
         $this->assertTrue(is_array($result));
     }
 }

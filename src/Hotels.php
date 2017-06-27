@@ -45,7 +45,7 @@ class Hotels extends Client
     public function delete($id)
     {
         $endpoint = '/hotel/delete/' . $id;
-        return $this->doRequest('get', $endpoint);
+        return $this->doRequest('post', $endpoint);
     }
 
     /**

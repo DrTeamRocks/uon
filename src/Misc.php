@@ -65,7 +65,7 @@ class Misc extends Client
      * @link https://api.u-on.ru/{key}/manager.{_format}
      * @return array
      */
-    public function manager()
+    public function managers()
     {
         $endpoint = '/manager';
         return $this->doRequest('post', $endpoint);

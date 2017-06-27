@@ -84,7 +84,7 @@ Good luck!
 
 ## How to help to project
 
-If you have a desire, you can help with testing and finding of bugs hunting or make some donation.
+If you have a desire, you can help with testing and bugs hunting or make some donation.
 
 ## Some documents
 

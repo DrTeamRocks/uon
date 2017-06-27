@@ -24,11 +24,11 @@ $users = $_users->all();
 // Get user by unique id
 $userId = $_users->get(1);
 
-// Get list of requests
-$requests = $_requests->all();
+// Get request by unique ID
+$requests = $_requests->get(1);
 
 // Get list of managers
-$managers = $_misc->manager();
+$managers = $_misc->managers();
 ```
 
 See other examples of usage [here](extra) separated by class names.
@@ -63,6 +63,28 @@ But, please don't run tests on your production account (API token), you can loos
 
 Good luck!
 
+### Tested classes
+
+* [x] Cities.php
+* [x] Client.php
+* [x] Countries.php
+* [x] Hotels.php
+* [x] Leads.php
+* [ ] Misc.php
+* [ ] Nutrition.php
+* [ ] Payments.php
+* [ ] Reminders.php
+* [ ] RequestActions.php
+* [ ] Requests.php
+* [ ] Services.php
+* [ ] Sources.php
+* [ ] Statuses.php
+* [ ] Suppliers.php
+* [x] Users.php
+
+## How to help to project
+
+If you have a desire, you can help with testing and finding of bugs hunting or make some donation.
 
 ## Some documents
 

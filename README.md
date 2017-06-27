@@ -75,7 +75,7 @@ Good luck!
 * [ ] Payments.php
 * [ ] Reminders.php
 * [ ] RequestActions.php
-* [ ] Requests.php
+* [x] Requests.php
 * [ ] Services.php
 * [ ] Sources.php
 * [ ] Statuses.php

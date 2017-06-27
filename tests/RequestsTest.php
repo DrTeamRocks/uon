@@ -27,4 +27,29 @@ class RequestsTest extends TestCase
         );
     }
 
+    public function testCURD()
+    {
+        /**
+         * Create
+         */
+        $create = $this->_requests->create($this->request);
+        $this->assertTrue(is_array($create));
+
+        /**
+         * Read
+         */
+        $result = $this->_requests->get($create['message']->id);
+        $this->assertTrue(is_array($result));
+
+        // Date for next method
+        $today = date('Y-m-d');
+        $tomorrow = date('Y-m-d', strtotime('tomorrow'));
+
+        $result = $this->_requests->updated($today, $tomorrow);
+        $this->assertTrue(is_array($result));
+
+        $result = $this->_requests->date($today, $tomorrow);
+        $this->assertTrue(is_array($result));
+    }
+
 }

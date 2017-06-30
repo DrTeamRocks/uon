@@ -34,7 +34,6 @@ class RemindersTest extends TestCase
          * Create
          */
         $create = $this->_reminders->create($this->reminder);
-        error_log(print_r($create,true));
         $this->assertTrue(is_array($create));
 
         /**

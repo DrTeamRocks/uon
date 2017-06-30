@@ -34,7 +34,6 @@ class RequestActionsTest extends TestCase
          * Create
          */
         $create = $this->_r_actions->create($this->r_action);
-        error_log(print_r($create, true));
         $this->assertTrue(is_array($create));
 
         /**

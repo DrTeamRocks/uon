@@ -22,7 +22,7 @@ class Payments extends Client
     public function all($date_from, $date_to)
     {
         $endpoint = '/payment/list/' . $date_from . '/' . $date_to;
-        return $this->doRequest('post', $endpoint);
+        return $this->doRequest('get', $endpoint);
     }
 
     /**
@@ -34,7 +34,7 @@ class Payments extends Client
     public function get($id)
     {
         $endpoint = '/payment/' . $id;
-        return $this->doRequest('post', $endpoint);
+        return $this->doRequest('get', $endpoint);
     }
 
     /**
@@ -53,7 +53,7 @@ class Payments extends Client
      * Update selected payment by id
      * @link https://api.u-on.ru/{key}/payment/update/{id}.{_format}
      * @param string $id - Unique payment ID
-     * @param string $parameters - List of parameters
+     * @param array $parameters - List of parameters
      * @return array|false
      */
     public function update($id, $parameters)
@@ -71,7 +71,7 @@ class Payments extends Client
     public function delete($id)
     {
         $endpoint = '/payment/delete/' . $id;
-        return $this->doRequest('get', $endpoint);
+        return $this->doRequest('post', $endpoint);
     }
 
 }

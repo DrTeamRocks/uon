@@ -17,7 +17,7 @@ class Requests extends Client
      * @link https://api.u-on.ru/{key}/request/{id}.{_format}
      * @param integer $id - Request unique ID
      * @param array|null $parameters - List of parameters
-     * @return array
+     * @return array|false
      */
     public function get($id, $parameters = null)
     {
@@ -30,7 +30,7 @@ class Requests extends Client
      * @link https://api.u-on.ru/{key}/request/updated/{date_from}/{date_to}.{_format}
      * @param integer $date_from
      * @param integer $date_to
-     * @return array
+     * @return array|false
      */
     public function updated($date_from, $date_to)
     {

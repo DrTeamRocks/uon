@@ -15,7 +15,7 @@ class Users extends Client
     /**
      * Get all users from database
      * @link api.u-on.ru/{key}/user.{_format}
-     * @return array
+     * @return array|false
      */
     public function all()
     {
@@ -39,7 +39,7 @@ class Users extends Client
      * Get single user by phone number
      * @link https://api.u-on.ru/{key}/user/phone/{phone}.{_format}
      * @param string $phone
-     * @return array
+     * @return array|false
      */
     public function phone($phone)
     {
@@ -64,7 +64,7 @@ class Users extends Client
      * Create new user in database
      * @link https://api.u-on.ru/{key}/user/create.{_format}
      * @param array $parameters
-     * @return array
+     * @return array|false
      */
     public function create($parameters)
     {
@@ -77,7 +77,7 @@ class Users extends Client
      * @link https://api.u-on.ru/{key}/user/update/{id}.{_format}
      * @param string $id
      * @param array $parameters
-     * @return array
+     * @return array|false
      */
     public function update($id, $parameters)
     {

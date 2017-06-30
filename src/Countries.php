@@ -27,7 +27,7 @@ class Countries extends Client
      * Create new country
      * @link https://api.u-on.ru/{key}/country/create.{_format}
      * @param array $parameters - List of parameters
-     * @return array
+     * @return array|false
      */
     public function create($parameters)
     {
@@ -39,7 +39,7 @@ class Countries extends Client
      * @link https://api.u-on.ru/{key}/country/update/{id}.{_format}
      * @param integer $id - Unique country ID
      * @param array $parameters - List of parameters
-     * @return array
+     * @return array|false
      */
     public function update($id, $parameters)
     {

@@ -1,5 +1,4 @@
 <?php
-
 require_once(__DIR__ . '/../src/Client.php');
 require_once(__DIR__ . '/../src/Requests.php');
 
@@ -27,12 +26,13 @@ class RequestsTest extends TestCase
         );
     }
 
-    public function testCURD()
+    public function testCRUD()
     {
         /**
          * Create
          */
         $create = $this->_requests->create($this->request);
+        error_log(print_r($create, true));
         $this->assertTrue(is_array($create));
 
         /**

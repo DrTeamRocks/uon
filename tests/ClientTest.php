@@ -1,5 +1,4 @@
 <?php
-
 require_once(__DIR__ . '/../src/Client.php');
 require_once(__DIR__ . '/../src/Cities.php');
 

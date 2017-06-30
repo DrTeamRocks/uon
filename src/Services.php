@@ -15,7 +15,7 @@ class Services extends Client
     /**
      * Get a list of service types for voucher
      * @link https://api.u-on.ru/{key}/service_type.{_format}
-     * @return array
+     * @return array|false
      */
     public function type()
     {
@@ -27,7 +27,7 @@ class Services extends Client
      * Add service to voucher
      * @link https://api.u-on.ru/{key}/request-action/create.{_format}
      * @param array $parameters - List of parameters
-     * @return array
+     * @return array|false
      */
     public function create($parameters)
     {
@@ -40,7 +40,7 @@ class Services extends Client
      * @link https://api.u-on.ru/{key}/service/update/{id}.{_format}
      * @param integer $id - Unique ID of service
      * @param array $parameters - List of parameters
-     * @return array
+     * @return array|false
      */
     public function update($id, $parameters)
     {

@@ -16,7 +16,7 @@ class Misc extends Client
      * Add flights into voucher
      * @link https://api.u-on.ru/{key}/avia/create.{_format}
      * @param array $parameters - List of parameters
-     * @return array
+     * @return array|false
      */
     public function aviaCreate($parameters)
     {
@@ -28,7 +28,7 @@ class Misc extends Client
      * Add information about call
      * @link https://api.u-on.ru/{key}/call_history/create.{_format}
      * @param array $parameters - List of parameters
-     * @return array
+     * @return array|false
      */
     public function callHistoryCreate($parameters)
     {
@@ -40,35 +40,35 @@ class Misc extends Client
      * Get a list of checkouts
      * @link https://api.u-on.ru/{key}/cash.{_format}
      * @param null|array $parameters - List of parameters
-     * @return array
+     * @return array|false
      */
     public function cash($parameters = null)
     {
         $endpoint = '/cash';
-        return $this->doRequest('post', $endpoint, $parameters);
+        return $this->doRequest('get', $endpoint, $parameters);
     }
 
     /**
      * Get a list of currencies
      * @link https://api.u-on.ru/{key}/currency.{_format}
      * @param null|array $parameters - List of parameters
-     * @return array
+     * @return array|false
      */
     public function currency($parameters = null)
     {
         $endpoint = '/currency';
-        return $this->doRequest('post', $endpoint, $parameters);
+        return $this->doRequest('get', $endpoint, $parameters);
     }
 
     /**
      * Get a list of managers
      * @link https://api.u-on.ru/{key}/manager.{_format}
-     * @return array
+     * @return array|false
      */
     public function managers()
     {
         $endpoint = '/manager';
-        return $this->doRequest('post', $endpoint);
+        return $this->doRequest('get', $endpoint);
     }
 
 }

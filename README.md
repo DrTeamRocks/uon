@@ -70,15 +70,15 @@ Good luck!
 * [x] Countries.php
 * [x] Hotels.php
 * [x] Leads.php
-* [ ] Misc.php
-* [ ] Nutrition.php
-* [ ] Payments.php
-* [ ] Reminders.php
-* [ ] RequestActions.php
+* [x] Misc.php
+* [x] Nutrition.php
+* [x] Payments.php
+* [x] Reminders.php
+* [x] RequestActions.php
 * [x] Requests.php
-* [ ] Services.php
-* [ ] Sources.php
-* [ ] Statuses.php
+* [x] Services.php
+* [x] Sources.php
+* [x] Statuses.php
 * [ ] Suppliers.php
 * [x] Users.php
 

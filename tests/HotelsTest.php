@@ -1,5 +1,4 @@
 <?php
-
 require_once(__DIR__ . '/../src/Client.php');
 require_once(__DIR__ . '/../src/Countries.php');
 
@@ -27,7 +26,7 @@ class HotelsTest extends TestCase
         );
     }
 
-    public function testCURD()
+    public function testCRUD()
     {
         /**
          * Create

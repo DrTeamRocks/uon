@@ -28,7 +28,7 @@ class UsersTest extends TestCase
         );
     }
 
-    public function testCURD()
+    public function testCRUD()
     {
         /**
          * Create

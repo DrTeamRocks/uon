@@ -32,7 +32,6 @@ class RequestsTest extends TestCase
          * Create
          */
         $create = $this->_requests->create($this->request);
-        error_log(print_r($create, true));
         $this->assertTrue(is_array($create));
 
         /**

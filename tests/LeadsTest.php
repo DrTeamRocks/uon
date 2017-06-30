@@ -33,7 +33,6 @@ class LeadsTest extends TestCase
          * Create
          */
         $create = $this->_leads->create($this->lead);
-        error_log(print_r($create, true));
         $this->assertTrue(is_array($create));
 
         /**

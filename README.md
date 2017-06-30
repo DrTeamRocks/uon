@@ -79,7 +79,7 @@ Good luck!
 * [x] Services.php
 * [x] Sources.php
 * [x] Statuses.php
-* [ ] Suppliers.php
+* [x] Suppliers.php
 * [x] Users.php
 
 ## How to help to project

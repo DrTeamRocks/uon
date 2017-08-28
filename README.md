@@ -4,8 +4,9 @@
 
 A simple client that allows to work with RESTful API of U-On Travel company.
 
-This library is ready for production usage, all source codes provided "as is".
+    composer require drteam/uon
 
+This library is ready for production usage, all source codes provided "as is".
 
 ## Example of usage
 
@@ -13,11 +14,12 @@ This library is ready for production usage, all source codes provided "as is".
 <?php
 require_once __DIR__ . "/vendor/autoload.php";
 
-$_config = require_once __DIR__ . "/config.php";
-$_token = $_config['token'];
-$_users = new \UON\Users($_token);
-$_requests = new \UON\Requests($_token);
-$_misc = new \UON\Misc($_token);
+// Your personal API token
+define("UON_API_TOKEN", "[YOUR_API_TOKEN]");
+
+$_users = new \UON\Users();
+$_requests = new \UON\Requests();
+$_misc = new \UON\Misc();
 
 // Get a list of all users
 $users = $_users->all();
@@ -28,59 +30,27 @@ $userId = $_users->get(1);
 $requests = $_requests->get(1);
 
 // Get list of managers
-$managers = $_misc->managers();
+$managers = $_misc->getManagers();
 ```
 
 See other examples of usage [here](extra) separated by class names.
 
 All available methods of all classes with descriptions you can find [here](README.API.md).
 
+## How to get API token
 
-## How to install
-
-### Via composer
-
-    composer require drteam/uon
-
-### Classic style
-
-* Download the latest [release](https://github.com/DrTeamRocks/uon/releases) of package
-* Extract the archive
-* Initiate the scripts, just run `composer update` from directory with sources
-
+You need login into your account, then go to the  **Settings > API and WebHooks** page and copy token code from API block.
 
 ## Note about Unit Tests
 
-To make test, you need an account on the [U-On Travel website](https://u-on.ru/), after registration you
-need to get your personal API key from **Settings > API** page.
-
-This token should be placed into the file **tests/config.php**, an example of this file
-you can find in the same directory, only with another name [config.example.php](tests/config.example.php),
+Token should be placed into the file **extra/config.php**, an example of this file
+you can find in the same directory, only with another name [config.example.php](extra/config.example.php),
 so you can just copy with rename and place your token inside.
 
 After all this steps you can run `./vendor/bin/phpunit` from source root.
 But, please don't run tests on your production account (API token), you can loose some critical data! 
 
 Good luck!
-
-### Tested classes
-
-* [x] Cities.php
-* [x] Client.php
-* [x] Countries.php
-* [x] Hotels.php
-* [x] Leads.php
-* [x] Misc.php
-* [x] Nutrition.php
-* [x] Payments.php
-* [x] Reminders.php
-* [x] RequestActions.php
-* [x] Requests.php
-* [x] Services.php
-* [x] Sources.php
-* [x] Statuses.php
-* [x] Suppliers.php
-* [x] Users.php
 
 ## How to help to project
 
@@ -90,7 +60,6 @@ If you have a desire, you can help with testing and bugs hunting or make some do
 
 * [List of API methods](README.API.md) urls of methods with classes
 * [Basic examples](README.BASIC.md) of usage written on PHP-Curl library
-
 
 ## Useful links
 

@@ -6,17 +6,25 @@
  */
 class Hotels extends Client
 {
-    public function __construct($token)
+    /**
+     * Create new hotel
+     *
+     * @link    https://api.u-on.ru/{key}/hotel/create.{_format}
+     * @param   array $parameters - List of parameters
+     * @return  array|false
+     */
+    public function create($parameters)
     {
-        parent::__construct();
-        $this->token = $token;
+        $endpoint = '/hotel/create';
+        return $this->doRequest('post', $endpoint, $parameters);
     }
 
     /**
      * Get a list of hotels (divided by pages, 100 hotels per page)
-     * @link https://api.u-on.ru/{key}/hotels/{page}.{_format}
-     * @param integer $page - Number of page with hotels
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/hotels/{page}.{_format}
+     * @param   int $page - Number of page with hotels
+     * @return  array|false
      */
     public function all($page)
     {
@@ -26,9 +34,10 @@ class Hotels extends Client
 
     /**
      * Get information about hotel
-     * @link https://api.u-on.ru/{key}/hotel/{id}.{_format}
-     * @param integer $id - Unique hotel ID
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/hotel/{id}.{_format}
+     * @param   int $id - Unique hotel ID
+     * @return  array|false
      */
     public function get($id)
     {
@@ -37,40 +46,30 @@ class Hotels extends Client
     }
 
     /**
-     * Delete selected hotel from database
-     * @link https://api.u-on.ru/{key}/hotel/delete/{id}.{_format}
-     * @param string $id - Unique hotel ID
-     * @return array|false
-     */
-    public function delete($id)
-    {
-        $endpoint = '/hotel/delete/' . $id;
-        return $this->doRequest('post', $endpoint);
-    }
-
-    /**
-     * Create new hotel
-     * @link https://api.u-on.ru/{key}/hotel/create.{_format}
-     * @param array $parameters - List of parameters
-     * @return array|false
-     */
-    public function create($parameters)
-    {
-        $endpoint = '/hotel/create';
-        return $this->doRequest('post', $endpoint, $parameters);
-    }
-
-    /**
      * Update information about hotel
-     * @link https://api.u-on.ru/{key}/hotel/update/{id}.{_format}
-     * @param string $id - Unique hotel ID
-     * @param array $parameters - List of parameters
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/hotel/update/{id}.{_format}
+     * @param   int $id - Unique hotel ID
+     * @param   array $parameters - List of parameters
+     * @return  array|false
      */
     public function update($id, $parameters)
     {
         $endpoint = '/hotel/update/' . $id;
         return $this->doRequest('post', $endpoint, $parameters);
+    }
+
+    /**
+     * Delete selected hotel from database
+     *
+     * @link    https://api.u-on.ru/{key}/hotel/delete/{id}.{_format}
+     * @param   int $id - Unique hotel ID
+     * @return  array|false
+     */
+    public function delete($id)
+    {
+        $endpoint = '/hotel/delete/' . $id;
+        return $this->doRequest('post', $endpoint);
     }
 
 }

@@ -6,29 +6,12 @@
  */
 class Cities extends Client
 {
-    public function __construct($token)
-    {
-        parent::__construct();
-        $this->token = $token;
-    }
-
-    /**
-     * Get all cities by country id
-     * @link https://api.u-on.ru/{key}/cities/{country_id}.{_format}
-     * @param integer $id_country - Unique ID of country
-     * @return array|false
-     */
-    public function all($id_country)
-    {
-        $endpoint = '/cities/' . $id_country;
-        return $this->doRequest('get', $endpoint);
-    }
-
     /**
      * Create new city in country
-     * @link https://api.u-on.ru/{key}/city/create.{_format}
-     * @param array $parameters - List of parameters
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/city/create.{_format}
+     * @param   array $parameters - List of parameters
+     * @return  array|false
      */
     public function create($parameters)
     {
@@ -37,11 +20,25 @@ class Cities extends Client
     }
 
     /**
+     * Get all cities by country id
+     *
+     * @link    https://api.u-on.ru/{key}/cities/{country_id}.{_format}
+     * @param   int $id - Unique ID of country
+     * @return  array|false
+     */
+    public function all($id)
+    {
+        $endpoint = '/cities/' . $id;
+        return $this->doRequest('get', $endpoint);
+    }
+
+    /**
      * Update some city by ID
-     * @link https://api.u-on.ru/{key}/city/update/{id}.{_format}
-     * @param integer $id - Unique city ID
-     * @param array $parameters - List of parameters
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/city/update/{id}.{_format}
+     * @param   int $id - Unique city ID
+     * @param   array $parameters - List of parameters
+     * @return  array|false
      */
     public function update($id, $parameters)
     {

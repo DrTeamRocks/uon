@@ -6,28 +6,12 @@
  */
 class Services extends Client
 {
-    public function __construct($token)
-    {
-        parent::__construct();
-        $this->token = $token;
-    }
-
-    /**
-     * Get a list of service types for voucher
-     * @link https://api.u-on.ru/{key}/service_type.{_format}
-     * @return array|false
-     */
-    public function type()
-    {
-        $endpoint = '/service_type';
-        return $this->doRequest('get', $endpoint);
-    }
-
     /**
      * Add service to voucher
-     * @link https://api.u-on.ru/{key}/request-action/create.{_format}
-     * @param array $parameters - List of parameters
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/request-action/create.{_format}
+     * @param   array $parameters - List of parameters
+     * @return  array|false
      */
     public function create($parameters)
     {
@@ -36,11 +20,24 @@ class Services extends Client
     }
 
     /**
+     * Get a list of service types for voucher
+     *
+     * @link    https://api.u-on.ru/{key}/service_type.{_format}
+     * @return  array|false
+     */
+    public function getTypes()
+    {
+        $endpoint = '/service_type';
+        return $this->doRequest('get', $endpoint);
+    }
+
+    /**
      * Update service by ID
-     * @link https://api.u-on.ru/{key}/service/update/{id}.{_format}
-     * @param integer $id - Unique ID of service
-     * @param array $parameters - List of parameters
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/service/update/{id}.{_format}
+     * @param   int $id - Unique ID of service
+     * @param   array $parameters - List of parameters
+     * @return  array|false
      */
     public function update($id, $parameters)
     {

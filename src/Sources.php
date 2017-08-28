@@ -6,29 +6,12 @@
  */
 class Sources extends Client
 {
-    public function __construct($token)
-    {
-        parent::__construct();
-        $this->token = $token;
-    }
-
-    /**
-     * Get sources list
-     * @link https://api.u-on.ru/{key}/source.{_format}
-     * @param array|null $parameters - List of parameters
-     * @return array|false
-     */
-    public function all($parameters = null)
-    {
-        $endpoint = '/source';
-        return $this->doRequest('get', $endpoint, $parameters);
-    }
-
     /**
      * Create new source
-     * @link https://api.u-on.ru/{key}/source/create.{_format}
-     * @param array $parameters - List of parameters
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/source/create.{_format}
+     * @param   array $parameters - List of parameters
+     * @return  array|false
      */
     public function create($parameters)
     {
@@ -36,4 +19,16 @@ class Sources extends Client
         return $this->doRequest('post', $endpoint, $parameters);
     }
 
+    /**
+     * Get sources list
+     *
+     * @link    https://api.u-on.ru/{key}/source.{_format}
+     * @param   array|null $parameters - List of parameters
+     * @return  array|false
+     */
+    public function all($parameters = null)
+    {
+        $endpoint = '/source';
+        return $this->doRequest('get', $endpoint, $parameters);
+    }
 }

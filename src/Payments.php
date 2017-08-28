@@ -6,18 +6,26 @@
  */
 class Payments extends Client
 {
-    public function __construct($token)
+    /**
+     * Create new payment
+     *
+     * @link    https://api.u-on.ru/{key}/payment/create.{_format}
+     * @param   array $parameters - List of parameters
+     * @return  array|false
+     */
+    public function create($parameters)
     {
-        parent::__construct();
-        $this->token = $token;
+        $endpoint = '/payment/create';
+        return $this->doRequest('post', $endpoint, $parameters);
     }
 
     /**
      * Get full list of payments in dates range
-     * @link https://api.u-on.ru/{key}/payment/list/{date_from}/{date_to}.{_format}
-     * @param string $date_from
-     * @param string $date_to
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/payment/list/{date_from}/{date_to}.{_format}
+     * @param   string $date_from
+     * @param   string $date_to
+     * @return  array|false
      */
     public function all($date_from, $date_to)
     {
@@ -27,9 +35,10 @@ class Payments extends Client
 
     /**
      * Get a single payment
-     * @link https://api.u-on.ru/{key}/payment/{id}.{_format}
-     * @param array $id - Unique payment ID
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/payment/{id}.{_format}
+     * @param   int $id - Unique payment ID
+     * @return  array|false
      */
     public function get($id)
     {
@@ -38,23 +47,12 @@ class Payments extends Client
     }
 
     /**
-     * Create new payment
-     * @link https://api.u-on.ru/{key}/payment/create.{_format}
-     * @param array $parameters - List of parameters
-     * @return array|false
-     */
-    public function create($parameters)
-    {
-        $endpoint = '/payment/create';
-        return $this->doRequest('post', $endpoint, $parameters);
-    }
-
-    /**
      * Update selected payment by id
-     * @link https://api.u-on.ru/{key}/payment/update/{id}.{_format}
-     * @param string $id - Unique payment ID
-     * @param array $parameters - List of parameters
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/payment/update/{id}.{_format}
+     * @param   int $id - Unique payment ID
+     * @param   array $parameters - List of parameters
+     * @return  array|false
      */
     public function update($id, $parameters)
     {
@@ -64,9 +62,10 @@ class Payments extends Client
 
     /**
      * Delete selected payment from database
-     * @link https://api.u-on.ru/{key}/payment/delete/{id}.{_format}
-     * @param array $id - Unique payment ID
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/payment/delete/{id}.{_format}
+     * @param   int $id - Unique payment ID
+     * @return  array|false
      */
     public function delete($id)
     {

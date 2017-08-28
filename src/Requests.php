@@ -6,18 +6,39 @@
  */
 class Requests extends Client
 {
-    public function __construct($token)
+    /**
+     * Create new request
+     *
+     * @link    https://api.u-on.ru/{key}/request/create.{_format}
+     * @param   array $parameters - List of parameters
+     * @return  array|false
+     */
+    public function create($parameters)
     {
-        parent::__construct();
-        $this->token = $token;
+        $endpoint = '/request/create';
+        return $this->doRequest('post', $endpoint, $parameters);
+    }
+
+    /**
+     * Adding touch to the request
+     *
+     * @link    https://api.u-on.ru/{key}/request-action/create.{_format}
+     * @param   array $parameters - List of parameters
+     * @return  array|false
+     */
+    public function createActions($parameters)
+    {
+        $endpoint = '/request-action/create';
+        return $this->doRequest('post', $endpoint, $parameters);
     }
 
     /**
      * Get request by ID
-     * @link https://api.u-on.ru/{key}/request/{id}.{_format}
-     * @param integer $id - Request unique ID
-     * @param array|null $parameters - List of parameters
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/request/{id}.{_format}
+     * @param   int $id - Request unique ID
+     * @param   array $parameters - List of parameters
+     * @return  array|false
      */
     public function get($id, $parameters = null)
     {
@@ -26,26 +47,27 @@ class Requests extends Client
     }
 
     /**
-     * Get updates requests by dates range
-     * @link https://api.u-on.ru/{key}/request/updated/{date_from}/{date_to}.{_format}
-     * @param integer $date_from
-     * @param integer $date_to
-     * @return array|false
+     * Get touch of the request by ID
+     *
+     * @link    https://api.u-on.ru/{key}/request-action/create.{_format}
+     * @param   int $id - List of parameters
+     * @return  array|false
      */
-    public function updated($date_from, $date_to)
+    public function getActions($id)
     {
-        $endpoint = '/request/updated/' . $date_from . '/' . $date_to;
+        $endpoint = '/request-action/' . $id;
         return $this->doRequest('get', $endpoint);
     }
 
     /**
      * Get requests by dates range (and by source ID)
-     * @link https://api.u-on.ru/{key}/request/{date_from}/{date_to}.{_format}
-     * @link https://api.u-on.ru/{key}/request/{date_from}/{date_to}/{source_id}.{_format}
-     * @param integer $date_from
-     * @param integer $date_to
-     * @param integer|null $source_id - Source ID, eg ID of SMS or JivoSite
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/request/{date_from}/{date_to}.{_format}
+     * @link    https://api.u-on.ru/{key}/request/{date_from}/{date_to}/{source_id}.{_format}
+     * @param   string $date_from
+     * @param   string $date_to
+     * @param   int|null $source_id - Source ID, eg ID of SMS or JivoSite
+     * @return  array|false
      */
     public function date($date_from, $date_to, $source_id = null)
     {
@@ -55,45 +77,31 @@ class Requests extends Client
     }
 
     /**
-     * Create new request
-     * @link https://api.u-on.ru/{key}/request/create.{_format}
-     * @param null|array $parameters - List of parameters
-     * @return array|false
+     * Get touch of the requests in dates range
+     *
+     * @link    https://api.u-on.ru/{key}/request/{date_from}/{date_to}.{_format}
+     * @param   string $date_from
+     * @param   string $date_to
+     * @return  array|false
      */
-    public function create($parameters)
+    public function dateActions($date_from, $date_to)
     {
-        $endpoint = '/request/create';
-        return $this->doRequest('post', $endpoint, $parameters);
+        $endpoint = '/request-action/' . $date_from . '/' . $date_to;
+        return $this->doRequest('get', $endpoint);
     }
 
     /**
-     * Update request by ID
-     * @param integer $id - Unique request ID
-     * @param $parameters - List of parameters
-     * @return array|false
+     * Get updates requests by dates range
+     *
+     * @link    https://api.u-on.ru/{key}/request/updated/{date_from}/{date_to}.{_format}
+     * @param   string $date_from
+     * @param   string $date_to
+     * @return  array|false
      */
-    // TODO: Enable this after API will be ready
-    /*
-    public function update($id, $parameters)
+    public function updated($date_from, $date_to)
     {
-        $endpoint = '/request/update/' . $id;
-        return $this->doRequest('post', $endpoint, $parameters);
+        $endpoint = '/request/updated/' . $date_from . '/' . $date_to;
+        return $this->doRequest('get', $endpoint);
     }
-    */
-
-    /**
-     * Delete request by ID
-     * @param integer $id - Unique request ID
-     * @param $parameters - List of parameters
-     * @return array|false
-     */
-    // TODO: Enable this after API will be ready
-    /*
-    public function delete($id)
-    {
-        $endpoint = '/request/delete/' . $id;
-        return $this->doRequest('post', $endpoint);
-    }
-    */
 
 }

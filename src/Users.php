@@ -6,16 +6,11 @@
  */
 class Users extends Client
 {
-    public function __construct($token)
-    {
-        parent::__construct();
-        $this->token = $token;
-    }
-
     /**
      * Get all users from database
-     * @link api.u-on.ru/{key}/user.{_format}
-     * @return array|false
+     *
+     * @link    api.u-on.ru/{key}/user.{_format}
+     * @return  array|false
      */
     public function all()
     {
@@ -25,9 +20,10 @@ class Users extends Client
 
     /**
      * Get single user by ID
-     * @link https://api.u-on.ru/{key}/user/{id}.{_format}
-     * @param string $id
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/user/{id}.{_format}
+     * @param   int $id
+     * @return  array|false
      */
     public function get($id)
     {
@@ -37,9 +33,10 @@ class Users extends Client
 
     /**
      * Get single user by phone number
-     * @link https://api.u-on.ru/{key}/user/phone/{phone}.{_format}
-     * @param string $phone
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/user/phone/{phone}.{_format}
+     * @param   string $phone
+     * @return  array|false
      */
     public function phone($phone)
     {
@@ -49,10 +46,11 @@ class Users extends Client
 
     /**
      * Get all users. profiles which were updated in the specified date range
-     * @link https://api.u-on.ru/{key}/user/updated/{date_from}/{date_to}.{_format}
-     * @param string $date_from
-     * @param string $date_to
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/user/updated/{date_from}/{date_to}.{_format}
+     * @param   string $date_from
+     * @param   string $date_to
+     * @return  array|false
      */
     public function updated($date_from, $date_to)
     {
@@ -62,9 +60,10 @@ class Users extends Client
 
     /**
      * Create new user in database
-     * @link https://api.u-on.ru/{key}/user/create.{_format}
-     * @param array $parameters
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/user/create.{_format}
+     * @param   array $parameters
+     * @return  array|false
      */
     public function create($parameters)
     {
@@ -74,10 +73,11 @@ class Users extends Client
 
     /**
      * Update existing user by their ID
-     * @link https://api.u-on.ru/{key}/user/update/{id}.{_format}
-     * @param string $id
-     * @param array $parameters
-     * @return array|false
+     *
+     * @link    https://api.u-on.ru/{key}/user/update/{id}.{_format}
+     * @param   int $id
+     * @param   array $parameters
+     * @return  array|false
      */
     public function update($id, $parameters)
     {

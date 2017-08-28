@@ -1,48 +1,42 @@
 <?php
-require_once(__DIR__ . '/../src/Client.php');
-require_once(__DIR__ . '/../src/Nutrition.php');
-
 use PHPUnit\Framework\TestCase;
 
 class NutritionTest extends TestCase
 {
-    private $_config;
-    private $_token;
+    private $_file = __DIR__ . '/../extra/tmp.txt';
+    private $_nutritions;
     private $_nutrition;
-    private $nutrition;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
+        include __DIR__ . "/../extra/config.php";
 
-        $this->_config = include __DIR__ . "/config.php";
-        $this->_token = $this->_config['token'];
-        $this->_nutrition = new \UON\Nutrition($this->_token);
-
-        $this->nutrition = array(
+        $this->_nutritions = new \UON\Nutrition();
+        $this->_nutrition = array(
             'name' => 'Хавчик',
             'name_en' => 'Yammi'
         );
     }
 
-    public function testCRUD()
+    public function testCreate()
     {
-        /**
-         * Create
-         */
-        $create = $this->_nutrition->create($this->nutrition);
-        $this->assertTrue(is_array($create));
-
-        /**
-         * Read
-         */
-        $result = $this->_nutrition->all();
+        $result = $this->_nutritions->create($this->_nutrition);
+        file_put_contents($this->_file, $result['message']->id);
         $this->assertTrue(is_array($result));
-
-        /**
-         * Update
-         */
-        $update = $this->_nutrition->update($create['message']->id);
-        $this->assertTrue(is_array($update));
     }
+
+    public function testRead()
+    {
+        $result = $this->_nutritions->all();
+        $this->assertTrue(is_array($result));
+    }
+
+    public function testUpdate()
+    {
+        $id = file_get_contents($this->_file);
+        $result = $this->_nutritions->update($id);
+        $this->assertTrue(is_array($result));
+    }
+
 }

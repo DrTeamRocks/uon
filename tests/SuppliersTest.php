@@ -6,57 +6,61 @@ use PHPUnit\Framework\TestCase;
 
 class SuppliersTest extends TestCase
 {
-    private $_config;
-    private $_token;
+    private $_file = __DIR__ . '/../extra/tmp.txt';
     private $_suppliers;
-    private $supplier;
-    private $supplierType;
+    private $_supplier;
+    private $_supplierType;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
+        include __DIR__ . "/../extra/config.php";
 
-        $this->_config = include __DIR__ . "/config.php";
-        $this->_token = $this->_config['token'];
-        $this->_suppliers = new \UON\Suppliers($this->_token);
-
-        $this->supplier = array(
+        $this->_suppliers = new \UON\Suppliers();
+        $this->_supplier = array(
             'name' => 'supplier name',
             'type_id' => '1'
         );
-
-        $this->supplierType = array(
+        $this->_supplierType = array(
             'name' => 'supplier type name',
         );
     }
 
-    public function testCRUD()
+    public function testCreate()
     {
-        /**
-         * Create
-         */
-        $create = $this->_suppliers->create($this->supplier);
-        $this->assertTrue(is_array($create));
+        $result = $this->_suppliers->create($this->_supplier);
+        file_put_contents($this->_file, $result['message']->id);
+        $this->assertTrue(is_array($result));
+    }
 
-        $createType = $this->_suppliers->createType($this->supplierType);
-        $this->assertTrue(is_array($createType));
-
-        /**
-         * Update
-         */
-        $update = $this->_suppliers->update($create['message']->id, $this->supplier);
-        $this->assertTrue(is_array($update));
-
-        /**
-         * Read
-         */
+    public function testRead()
+    {
         $result = $this->_suppliers->all();
         $this->assertTrue(is_array($result));
 
-        $result = $this->_suppliers->get($create['message']->id);
+        $id = file_get_contents($this->_file);
+        $result = $this->_suppliers->get($id);
         $this->assertTrue(is_array($result));
+    }
 
-        $result = $this->_suppliers->getType(array('id' => $createType['message']->id));
+    public function testUpdate()
+    {
+        $id = file_get_contents($this->_file);
+        $update = $this->_suppliers->update($id, $this->_supplier);
+        $this->assertTrue(is_array($update));
+    }
+
+    public function testCreateType()
+    {
+        $result = $this->_suppliers->createType($this->_supplierType);
+        file_put_contents($this->_file, $result['message']->id);
+        $this->assertTrue(is_array($result));
+    }
+
+    public function testReadType()
+    {
+        $id = file_get_contents($this->_file);
+        $result = $this->_suppliers->getTypes(array('id' => $id));
         $this->assertTrue(is_array($result));
     }
 }

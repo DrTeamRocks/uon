@@ -1,43 +1,36 @@
 <?php
-require_once(__DIR__ . '/../src/Client.php');
-require_once(__DIR__ . '/../src/Payments.php');
-
 use PHPUnit\Framework\TestCase;
 
 class PaymentsTest extends TestCase
 {
-    private $_config;
-    private $_token;
+    private $_file = __DIR__ . '/../extra/tmp.txt';
     private $_payments;
-    private $payment;
+    private $_payment;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
+        include __DIR__ . "/../extra/config.php";
 
-        $this->_config = include __DIR__ . "/config.php";
-        $this->_token = $this->_config['token'];
-        $this->_payments = new \UON\Payments($this->_token);
-
-        $this->payment = array(
+        $this->_payments = new \UON\Payments();
+        $this->_payment = array(
             'r_id' => '1',
             'type_id' => '1',
             'cio_id' => '1'
         );
     }
 
-    public function testCRUD()
+    public function testCreate()
     {
-        /**
-         * Create
-         */
-        $create = $this->_payments->create($this->payment);
-        $this->assertTrue(is_array($create));
+        $result = $this->_payments->create($this->_payment);
+        file_put_contents($this->_file, $result['message']->id);
+        $this->assertTrue(is_array($result));
+    }
 
-        /**
-         * Read
-         */
-        $result = $this->_payments->get($create['message']->id);
+    public function testRead()
+    {
+        $id = file_get_contents($this->_file);
+        $result = $this->_payments->get($id);
         $this->assertTrue(is_array($result));
 
         // Date for next method
@@ -46,17 +39,19 @@ class PaymentsTest extends TestCase
 
         $result = $this->_payments->all($today, $tomorrow);
         $this->assertTrue(is_array($result));
+    }
 
-        /**
-         * Update
-         */
-        $update = $this->_payments->update($create['message']->id, $this->payment);
-        $this->assertTrue(is_array($update));
+    public function testUpdate()
+    {
+        $id = file_get_contents($this->_file);
+        $result = $this->_payments->update($id, $this->_payment);
+        $this->assertTrue(is_array($result));
+    }
 
-        /**
-         * Delete
-         */
-        $update = $this->_payments->delete($create['message']->id);
-        $this->assertTrue(is_array($update));
+    public function testDelete()
+    {
+        $id = file_get_contents($this->_file);
+        $result = $this->_payments->delete($id);
+        $this->assertTrue(is_array($result));
     }
 }

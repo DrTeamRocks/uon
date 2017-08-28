@@ -1,38 +1,28 @@
 <?php
-require_once(__DIR__ . '/../src/Client.php');
-require_once(__DIR__ . '/../src/Statuses.php');
-
 use PHPUnit\Framework\TestCase;
 
 class StatusesTest extends TestCase
 {
-    private $_config;
-    private $_token;
     private $_statuses;
-    private $status;
+    private $_status;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
+        include __DIR__ . "/../extra/config.php";
 
-        $this->_config = include __DIR__ . "/config.php";
-        $this->_token = $this->_config['token'];
-        $this->_statuses = new \UON\Statuses($this->_token);
-
-        $this->status = array(
+        $this->_statuses = new \UON\Statuses();
+        $this->_status = array(
             'rs_name' => 'statuse name'
         );
     }
 
-    public function testCRUD()
+    public function testRead()
     {
-        /**
-         * Read
-         */
         $result = $this->_statuses->all();
         $this->assertTrue(is_array($result));
 
-        $result = $this->_statuses->lead();
+        $result = $this->_statuses->allLead();
         $this->assertTrue(is_array($result));
     }
 }

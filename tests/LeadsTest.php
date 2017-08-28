@@ -1,46 +1,41 @@
 <?php
-require_once(__DIR__ . '/../src/Client.php');
-require_once(__DIR__ . '/../src/Leads.php');
-
 use PHPUnit\Framework\TestCase;
 
 class LeadsTest extends TestCase
 {
-    private $_config;
-    private $_token;
+    private $_file = __DIR__ . '/../extra/tmp.txt';
     private $_leads;
-    private $lead;
+    private $_lead;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
+        include __DIR__ . "/../extra/config.php";
 
-        $this->_config = include __DIR__ . "/config.php";
-        $this->_token = $this->_config['token'];
-        $this->_leads = new \UON\Leads($this->_token);
-
-        // Data array of new user (or details for update)
-        $this->lead = array(
+        $this->_leads = new \UON\Leads();
+        $this->_lead = array(
             'note' => 'Test lead',
             'u_email' => 'test@example.com',
             'u_phone' => '123456789'
         );
     }
 
-    public function testCURD()
+    public function testCreate()
     {
-        /**
-         * Create
-         */
-        $create = $this->_leads->create($this->lead);
-        $this->assertTrue(is_array($create));
-
-        /**
-         * Read
-         */
-        $result = $this->_leads->get($create['message']->id);
+        $result = $this->_leads->create($this->_lead);
+        file_put_contents($this->_file, $result['message']->id);
         $this->assertTrue(is_array($result));
+    }
 
+    public function testRead()
+    {
+        $id = file_get_contents($this->_file);
+        $result = $this->_leads->get($id);
+        $this->assertTrue(is_array($result));
+    }
+
+    public function testReadByDate()
+    {
         // Date for next method
         $today = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime('tomorrow'));

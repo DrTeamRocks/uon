@@ -1,48 +1,41 @@
 <?php
-require_once(__DIR__ . '/../src/Client.php');
-require_once(__DIR__ . '/../src/Services.php');
-
 use PHPUnit\Framework\TestCase;
 
 class ServicesTest extends TestCase
 {
-    private $_config;
-    private $_token;
+    private $_file = __DIR__ . '/../extra/tmp.txt';
     private $_services;
-    private $service;
+    private $_service;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
+        include __DIR__ . "/../extra/config.php";
 
-        $this->_config = include __DIR__ . "/config.php";
-        $this->_token = $this->_config['token'];
-        $this->_services = new \UON\Services($this->_token);
-
-        $this->service = array(
+        $this->_services = new \UON\Services();
+        $this->_service = array(
             'r_id' => '1',
             'type_id' => '1'
         );
     }
 
-    public function testCRUD()
+    public function testCreate()
     {
-        /**
-         * Create
-         */
-        $create = $this->_services->create($this->service);
-        $this->assertTrue(is_array($create));
-
-        /**
-         * Read
-         */
-        $result = $this->_services->type();
+        $result = $this->_services->create($this->_service);
+        file_put_contents($this->_file, $result['message']->id);
         $this->assertTrue(is_array($result));
+    }
 
-        /**
-         * Update
-         */
-        $update = $this->_services->update($create['message']->id, $this->service);
-        $this->assertTrue(is_array($update));
+    public function testRead()
+    {
+        $result = $this->_services->getTypes();
+        $this->assertTrue(is_array($result));
+    }
+
+    public function testUpdate()
+    {
+        $id = file_get_contents($this->_file);
+        $result = $this->_services->update($id, $this->_service);
+        $this->assertTrue(is_array($result));
     }
 }

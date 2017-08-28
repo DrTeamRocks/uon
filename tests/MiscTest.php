@@ -1,56 +1,48 @@
 <?php
-require_once(__DIR__ . '/../src/Client.php');
-require_once(__DIR__ . '/../src/Misc.php');
-
 use PHPUnit\Framework\TestCase;
 
 class MiscTest extends TestCase
 {
-    private $_config;
-    private $_token;
     private $_misc;
-    private $avia;
-    private $call;
+    private $_avia;
+    private $_call;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
+        include __DIR__ . "/../extra/config.php";
 
-        $this->_config = include __DIR__ . "/config.php";
-        $this->_token = $this->_config['token'];
-        $this->_misc = new \UON\Misc($this->_token);
-
-        $this->avia = array(
+        $this->_misc = new \UON\Misc();
+        $this->_avia = array(
             'service_id' => 1
         );
-
-        $this->call = array(
+        $this->_call = array(
             'phone' => '123456789',
             'start' => date('Y-m-d H:i:s')
         );
     }
 
-    public function test()
+    public function testCreateAvia()
     {
-        /**
-         * Create
-         */
-        $create = $this->_misc->aviaCreate($this->avia);
-        $this->assertTrue(is_array($create));
+        $result = $this->_misc->createAvia($this->_avia);
+        $this->assertTrue(is_array($result));
+    }
 
-        $create = $this->_misc->callHistoryCreate($this->call);
-        $this->assertTrue(is_array($create));
+    public function testCreateCall()
+    {
+        $result = $this->_misc->createCall($this->_call);
+        $this->assertTrue(is_array($result));
+    }
 
-        /**
-         * Read
-         */
-        $result = $this->_misc->cash();
+    public function testRead()
+    {
+        $result = $this->_misc->getCash();
         $this->assertTrue(is_array($result));
 
-        $result = $this->_misc->currency();
+        $result = $this->_misc->getCurrency();
         $this->assertTrue(is_array($result));
 
-        $result = $this->_misc->managers();
+        $result = $this->_misc->getManagers();
         $this->assertTrue(is_array($result));
     }
 

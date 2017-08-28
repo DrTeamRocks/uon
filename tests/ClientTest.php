@@ -1,28 +1,29 @@
 <?php
-require_once(__DIR__ . '/../src/Client.php');
-require_once(__DIR__ . '/../src/Cities.php');
-
 use PHPUnit\Framework\TestCase;
 
 class ClientTest extends TestCase
 {
-    private $_config;
-    private $_token;
+    private $_client;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
+        include __DIR__ . "/../extra/config.php";
+    }
 
-        $this->_config = include __DIR__ . "/config.php";
-        $this->_token = $this->_config['token'];
+    public function testConstruct()
+    {
+        try {
+            new \UON\Client();
+        } catch(\Exception $e) {
+            $this->assertContains('Must be initialized ', $e->getMessage());
+        }
     }
 
     public function testDoRequest()
     {
-        $factory = new UON\Client($this->_token);
-
-        // Check if request return the array
-        $result = $factory->doRequest('get', '/user');
+        $client = new \UON\Client();
+        $result = $client->doRequest('get', '/user');
         $this->assertTrue(is_array($result));
     }
 

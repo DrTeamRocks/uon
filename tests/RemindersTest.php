@@ -1,25 +1,19 @@
 <?php
-require_once(__DIR__ . '/../src/Client.php');
-require_once(__DIR__ . '/../src/Reminders.php');
-
 use PHPUnit\Framework\TestCase;
 
 class RemindersTest extends TestCase
 {
-    private $_config;
-    private $_token;
+    private $_file = __DIR__ . '/../extra/tmp.txt';
     private $_reminders;
-    private $reminder;
+    private $_reminder;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
+        include __DIR__ . "/../extra/config.php";
 
-        $this->_config = include __DIR__ . "/config.php";
-        $this->_token = $this->_config['token'];
-        $this->_reminders = new \UON\Reminders($this->_token);
-
-        $this->reminder = array(
+        $this->_reminders = new \UON\Reminders();
+        $this->_reminder = array(
             'r_id' => '1',
             'type_id' => '1',
             'datetime' => date('Y-m-d H:i:s'),
@@ -28,18 +22,18 @@ class RemindersTest extends TestCase
     }
 
 
-    public function testCRUD()
+    public function testCreate()
     {
-        /**
-         * Create
-         */
-        $create = $this->_reminders->create($this->reminder);
-        $this->assertTrue(is_array($create));
-
-        /**
-         * Read
-         */
-        $result = $this->_reminders->get($create['message']->id);
+        $result = $this->_reminders->create($this->_reminder);
+        file_put_contents($this->_file, $result['message']->id);
         $this->assertTrue(is_array($result));
     }
+
+    public function testRead()
+    {
+        $id = file_get_contents($this->_file);
+        $result = $this->_reminders->get($id);
+        $this->assertTrue(is_array($result));
+    }
+
 }

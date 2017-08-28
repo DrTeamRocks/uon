@@ -7,48 +7,37 @@ use PHPUnit\Framework\TestCase;
 
 class UsersTest extends TestCase
 {
-    private $_config;
-    private $_token;
+    private $_file = __DIR__ . '/../extra/tmp.txt';
     private $_users;
-    private $user;
+    private $_user;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
+        include __DIR__ . "/../extra/config.php";
 
-        $this->_config = include __DIR__ . "/config.php";
-        $this->_token = $this->_config['token'];
-        $this->_users = new \UON\Users($this->_token);
-
-        // Data array of new user (or details for update)
-        $this->user = array(
+        $this->_users = new \UON\Users();
+        $this->_user = array(
             'u_name' => 'User',
             'u_sname' => 'Test',
             'u_phone' => '123456789'
         );
     }
 
-    public function testCRUD()
+    public function testCreate()
     {
-        /**
-         * Create
-         */
-        $create = $this->_users->create($this->user);
-        $this->assertTrue(is_array($create));
+        $result = $this->_users->create($this->_user);
+        file_put_contents($this->_file, $result['message']->id);
+        $this->assertTrue(is_array($result));
+    }
 
-        /**
-         * Update
-         */
-        $update = $this->_users->update($create['message']->id, $this->user);
-        $this->assertTrue(is_array($update));
-
-        /**
-         * Read
-         */
+    public function testRead()
+    {
         $result = $this->_users->all();
         $this->assertTrue(is_array($result));
 
-        $result = $this->_users->get($create['message']->id);
+        $id = file_get_contents($this->_file);
+        $result = $this->_users->get($id);
         $this->assertTrue(is_array($result));
 
         $result = $this->_users->phone('123456789');
@@ -60,5 +49,12 @@ class UsersTest extends TestCase
 
         $result = $this->_users->updated($today, $tomorrow);
         $this->assertTrue(is_array($result));
+    }
+
+    public function testUpdate()
+    {
+        $id = file_get_contents($this->_file);
+        $update = $this->_users->update($id, $this->_user);
+        $this->assertTrue(is_array($update));
     }
 }

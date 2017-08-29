@@ -13,10 +13,10 @@ class HotelsTest extends TestCase
         include __DIR__ . "/../extra/config.php";
 
         $this->_hotels = new \UON\Hotels();
-        $this->_hotel = array(
+        $this->_hotel = [
             'name' => 'Кингконгстоунт',
             'name_en' => 'Kinkongstoun'
-        );
+        ];
     }
 
     public function testCreate()

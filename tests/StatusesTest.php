@@ -19,10 +19,10 @@ class StatusesTest extends TestCase
 
     public function testRead()
     {
-        $result = $this->_statuses->all();
+        $result = $this->_statuses->get();
         $this->assertTrue(is_array($result));
 
-        $result = $this->_statuses->allLead();
+        $result = $this->_statuses->getLead();
         $this->assertTrue(is_array($result));
     }
 }

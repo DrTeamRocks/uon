@@ -1,4 +1,5 @@
-<?php
+<?php namespace UON;
+
 use PHPUnit\Framework\TestCase;
 
 class CitiesTest extends TestCase

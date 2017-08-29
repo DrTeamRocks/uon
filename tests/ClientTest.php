@@ -3,8 +3,6 @@ use PHPUnit\Framework\TestCase;
 
 class ClientTest extends TestCase
 {
-    private $_client;
-
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);

@@ -13,11 +13,11 @@ class LeadsTest extends TestCase
         include __DIR__ . "/../extra/config.php";
 
         $this->_leads = new \UON\Leads();
-        $this->_lead = array(
+        $this->_lead = [
             'note' => 'Test lead',
             'u_email' => 'test@example.com',
             'u_phone' => '123456789'
-        );
+        ];
     }
 
     public function testCreate()

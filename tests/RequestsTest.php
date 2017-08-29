@@ -15,10 +15,10 @@ class RequestsTest extends TestCase
         include __DIR__ . "/../extra/config.php";
 
         $this->_requests = new \UON\Requests();
-        $this->_request = array(
+        $this->_request = [
             'note' => 'Test request',
             'price' => '100000',
-        );
+        ];
         $this->_requestAction = [
             'r_id' => 1,
             'text' => 'Some text',
@@ -49,10 +49,10 @@ class RequestsTest extends TestCase
         $today = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime('tomorrow'));
 
-        $result = $this->_requests->updated($today, $tomorrow);
+        $result = $this->_requests->getUpdated($today, $tomorrow);
         $this->assertTrue(is_array($result));
 
-        $result = $this->_requests->date($today, $tomorrow);
+        $result = $this->_requests->getDate($today, $tomorrow);
         $this->assertTrue(is_array($result));
     }
 
@@ -73,7 +73,7 @@ class RequestsTest extends TestCase
         $today = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime('tomorrow'));
 
-        $result = $this->_requests->dateActions($today, $tomorrow);
+        $result = $this->_requests->getDateActions($today, $tomorrow);
         $this->assertTrue(is_array($result));
     }
 

@@ -13,10 +13,10 @@ class CountriesTest extends TestCase
         include __DIR__ . "/../extra/config.php";
 
         $this->_countries = new \UON\Countries();
-        $this->_country = array(
+        $this->_country = [
             'name' => 'Кингконгстоунт',
             'name_en' => 'Kinkongstoun'
-        );
+        ];
     }
 
     public function testCreate()

@@ -9,7 +9,7 @@ class Leads extends Client
     /**
      * Create new lead
      *
-     * @link    https://api.u-on.ru/{key}/city/create.{_format}
+     * @link    https://api.u-on.ru/{key}/lead/create.{_format}
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
@@ -20,9 +20,22 @@ class Leads extends Client
     }
 
     /**
+     * Get leads data by client ID
+     *
+     * @link    https://api.u-on.ru/{key}/lead-by-client/{id}.{_format}
+     * @param   int $id - Unique lead ID
+     * @return  array|false
+     */
+    public function getByClient($id)
+    {
+        $endpoint = '/lead-by-client/' . $id;
+        return $this->doRequest('get', $endpoint);
+    }
+
+    /**
      * Get lead by ID
      *
-     * @link    https://api.u-on.ru/{key}/lead/create.{_format}
+     * @link    https://api.u-on.ru/{key}/lead/{id}.{_format}
      * @param   int $id - Unique lead ID
      * @return  array|false
      */

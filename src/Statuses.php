@@ -13,7 +13,7 @@ class Statuses extends Client
      * @param   array|null $parameters - List of parameters
      * @return  array|false
      */
-    public function all($parameters = null)
+    public function get($parameters = null)
     {
         $endpoint = '/status';
         return $this->doRequest('get', $endpoint, $parameters);
@@ -26,7 +26,7 @@ class Statuses extends Client
      * @param   array|null $parameters - List of parameters
      * @return  array|false
      */
-    public function allLead($parameters = null)
+    public function getLead($parameters = null)
     {
         $endpoint = '/status_lead';
         return $this->doRequest('get', $endpoint, $parameters);

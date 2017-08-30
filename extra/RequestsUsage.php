@@ -2,10 +2,9 @@
 require_once __DIR__ . "/../vendor/autoload.php";
 require_once __DIR__ . "/../src/Client.php";
 require_once __DIR__ . "/../src/Requests.php";
+require_once __DIR__ . "/../extra/config.php";
 
-$_config = require_once __DIR__ . "/../tests/config.php";
-$_token = $_config['token'];
-$_requests = new \UON\Requests($_token);
+$_requests = new \UON\Requests();
 
 // Get request by id
 $requests = $_requests->get('1234');

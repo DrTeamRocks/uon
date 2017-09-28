@@ -40,17 +40,17 @@ class UsersTest extends TestCase
         $result = $this->_users->get($id);
         $this->assertTrue(is_array($result));
 
-        $result = $this->_users->phone('123456789');
+        $result = $this->_users->getPhone('123456789');
         $this->assertTrue(is_array($result));
 
-        $result = $this->_users->label();
+        $result = $this->_users->getLabel();
         $this->assertTrue(is_array($result));
 
         // Date for next method
         $today = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime('tomorrow'));
 
-        $result = $this->_users->updated($today, $tomorrow);
+        $result = $this->_users->getUpdated($today, $tomorrow);
         $this->assertTrue(is_array($result));
     }
 

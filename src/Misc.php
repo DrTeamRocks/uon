@@ -33,6 +33,19 @@ class Misc extends Client
     }
 
     /**
+     * Add information about mail item
+     *
+     * @link    https://api.u-on.ru/{key}/mail/create.{_format}
+     * @param   array $parameters - List of parameters
+     * @return  array|false
+     */
+    public function createMail($parameters)
+    {
+        $endpoint = '/mail/create';
+        return $this->doRequest('post', $endpoint, $parameters);
+    }
+
+    /**
      * Get a list of checkouts
      *
      * @link    https://api.u-on.ru/{key}/cash.{_format}

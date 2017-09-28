@@ -6,6 +6,7 @@ class MiscTest extends TestCase
     private $_misc;
     private $_avia;
     private $_call;
+    private $_mail;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -20,6 +21,13 @@ class MiscTest extends TestCase
             'phone' => '123456789',
             'start' => date('Y-m-d H:i:s')
         );
+        $this->_mail = array(
+            'email_to' => 'test@mail.com',
+            'email_from' => 'test@mail.com',
+            'subject' => 'Test subject',
+            'text' => 'Some text',
+            'datetime' => date('Y-m-d H:i:s')
+        );
     }
 
     public function testCreateAvia()
@@ -31,6 +39,12 @@ class MiscTest extends TestCase
     public function testCreateCall()
     {
         $result = $this->_misc->createCall($this->_call);
+        $this->assertTrue(is_array($result));
+    }
+
+    public function testCreateMail()
+    {
+        $result = $this->_misc->createMail($this->_mail);
         $this->assertTrue(is_array($result));
     }
 

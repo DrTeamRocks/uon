@@ -43,6 +43,9 @@ class UsersTest extends TestCase
         $result = $this->_users->phone('123456789');
         $this->assertTrue(is_array($result));
 
+        $result = $this->_users->label();
+        $this->assertTrue(is_array($result));
+
         // Date for next method
         $today = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime('tomorrow'));

@@ -32,6 +32,19 @@ class Users extends Client
     }
 
     /**
+     * Get list of user's labels
+     *
+     * @link    https://api.u-on.ru/{key}/user/{id}.{_format}
+     * @param   array $parameters
+     * @return  array|false
+     */
+    public function label($parameters = array())
+    {
+        $endpoint = '/user-label';
+        return $this->doRequest('get', $endpoint, $parameters);
+    }
+
+    /**
      * Get single user by phone number
      *
      * @link    https://api.u-on.ru/{key}/user/phone/{phone}.{_format}

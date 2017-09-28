@@ -10,13 +10,13 @@ $_requests = new \UON\Requests();
 $requests = $_requests->get('1234');
 
 // Get all requests. which were updated in the specified date range
-$requestsUpdated = $_requests->updated('2017-06-01', '2017-06-10');
+$requestsUpdated = $_requests->getUpdated('2017-06-01', '2017-06-10');
 
 // Get all requests from dates range
-$requestsDate = $_requests->date('2017-06-01', '2017-06-10');
+$requestsDate = $_requests->getDate('2017-06-01', '2017-06-10');
 
 // Get all requests from dates range, for some source id
-$requestsDateSource = $_requests->date('2017-06-01', '2017-06-10','1');
+$requestsDateSource = $_requests->getDate('2017-06-01', '2017-06-10','1');
 
 // Data array of new user (or details for update)
 $request = array(

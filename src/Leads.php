@@ -54,7 +54,7 @@ class Leads extends Client
      * @param   int|null $source_id - Source ID, eg ID of SMS or JivoSite
      * @return  array|false
      */
-    public function date($date_from, $date_to, $source_id = null)
+    public function getDate($date_from, $date_to, $source_id = null)
     {
         $endpoint = '/lead/' . $date_from . '/' . $date_to;
         if (!empty($source_id)) $endpoint .= '/' . $source_id;

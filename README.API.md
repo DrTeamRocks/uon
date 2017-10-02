@@ -112,15 +112,16 @@ create($r_id);              // Добавление напоминания в з
 
 ```php
 get($id);                   // Получение данных заявки
-date($date_from, $date_to); // Получение данных по заявкам
-date($date_from, $date_to, $source_id); // Получение данных по заявкам согласно источнику
-updated($date_from, $date_to); // Получение данных по обновленным заявкам
+getByClient($id_client);    // Получение данных по идентификатору клиента
+getDate($date_from, $date_to); // Получение данных по заявкам
+getDate($date_from, $date_to, $source_id); // Получение данных по заявкам согласно источнику
+getUpdated($date_from, $date_to); // Получение данных по обновленным заявкам
 create($params);            // Добавление заявки
-update($id_client, $params); // Обновление заявки по идентификатору покупателя
+update($id_client, $params); // Обновление заявки по идентификатору клиента
 
 // Касания
 getActions($r_id);          // Получение списка касаний по заявке
-dateActions($date_from, $date_to); // Получение списка касаний за период
+getDateActions($date_from, $date_to); // Получение списка касаний за период
 createActions($params);     // Добавление касания в заявку
 
 // Работа с файлами

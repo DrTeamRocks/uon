@@ -46,19 +46,6 @@ class Misc extends Client
     }
 
     /**
-     * Get a list of checkouts
-     *
-     * @link    https://api.u-on.ru/{key}/cash.{_format}
-     * @param   null|array $parameters - List of parameters
-     * @return  array|false
-     */
-    public function getCash($parameters = null)
-    {
-        $endpoint = '/cash';
-        return $this->doRequest('get', $endpoint, $parameters);
-    }
-
-    /**
      * Get a list of currencies
      *
      * @link    https://api.u-on.ru/{key}/currency.{_format}

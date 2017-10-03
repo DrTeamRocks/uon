@@ -144,16 +144,16 @@ class Requests extends Client
     }
 
     /**
-     * Update request by client id
+     * Update request by request id
      *
      * @link    https://api.u-on.ru/{key}/request/update/{id}.{_format}
-     * @param   int $client_id - Client ID of request's
-     * @param   array $parameters - List of parameters [r_id, tourist_id]
+     * @param   int $id - Unique ID of request's
+     * @param   array $parameters - List of parameters [r_cl_id]
      * @return  array|false
      */
-    public function update($client_id, $parameters)
+    public function update($id, $parameters)
     {
-        $endpoint = '/request/update/' . $client_id;
+        $endpoint = '/request/update/' . $id;
         return $this->doRequest('post', $endpoint, $parameters);
     }
 

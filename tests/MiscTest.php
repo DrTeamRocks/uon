@@ -50,9 +50,6 @@ class MiscTest extends TestCase
 
     public function testRead()
     {
-        $result = $this->_misc->getCash();
-        $this->assertTrue(is_array($result));
-
         $result = $this->_misc->getCurrency();
         $this->assertTrue(is_array($result));
 

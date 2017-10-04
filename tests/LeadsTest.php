@@ -40,7 +40,7 @@ class LeadsTest extends TestCase
         $today = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime('tomorrow'));
 
-        $result = $this->_leads->date($today, $tomorrow);
+        $result = $this->_leads->getDate($today, $tomorrow);
         $this->assertTrue(is_array($result));
     }
 

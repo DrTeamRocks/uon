@@ -54,6 +54,9 @@ class RequestsTest extends TestCase
 
         $result = $this->_requests->getDate($today, $tomorrow);
         $this->assertTrue(is_array($result));
+
+        $result = $this->_requests->search();
+        $this->assertTrue(is_array($result));
     }
 
     public function testCreateActions()

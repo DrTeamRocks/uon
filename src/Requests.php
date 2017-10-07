@@ -59,6 +59,19 @@ class Requests extends Client
     }
 
     /**
+     * Get requests data by filter
+     *
+     * @link    https://api.u-on.ru/{key}/request/search.{_format}
+     * @param   array|null $parameters - List of parameters
+     * @return  array|false
+     */
+    public function search($parameters = null)
+    {
+        $endpoint = '/request/search';
+        return $this->doRequest('post', $endpoint, $parameters);
+    }
+
+    /**
      * Get request by ID
      *
      * @link    https://api.u-on.ru/{key}/request/{id}.{_format}

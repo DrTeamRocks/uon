@@ -59,6 +59,21 @@ class RequestsTest extends TestCase
         $this->assertTrue(is_array($result));
     }
 
+    public function testCreateTravelType()
+    {
+        $result = $this->_requests->createTravelType(['name' => 'test']);
+        $this->assertTrue(is_array($result));
+    }
+
+    public function testReadTravelType()
+    {
+        $result = $this->_requests->getTravelType();
+        $this->assertTrue(is_array($result));
+
+        $result = $this->_requests->getTravelType(['name' => 'test']);
+        $this->assertTrue(is_array($result));
+    }
+
     public function testCreateActions()
     {
         $result = $this->_requests->createActions($this->_requestAction);

@@ -1,6 +1,5 @@
-<?php
+<?php namespace UON;
 
-use UON\Cash;
 use PHPUnit\Framework\TestCase;
 
 class CashTest extends TestCase
@@ -11,8 +10,7 @@ class CashTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         include __DIR__ . "/../extra/config.php";
-
-        $this->_cash = new \UON\Cash();
+        $this->_cash = new Cash();
     }
 
     public function testCreate()
@@ -21,9 +19,12 @@ class CashTest extends TestCase
         $this->assertTrue(is_array($result));
     }
 
-    public function testRead()
+    public function testGet()
     {
         $result = $this->_cash->get();
+        $this->assertTrue(is_array($result));
+
+        $result = $this->_cash->get(['name' => 'test']);
         $this->assertTrue(is_array($result));
     }
 }

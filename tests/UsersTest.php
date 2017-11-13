@@ -36,6 +36,9 @@ class UsersTest extends TestCase
         $result = $this->_users->all();
         $this->assertTrue(is_array($result));
 
+        $result = $this->_users->search();
+        $this->assertTrue(is_array($result));
+
         $id = file_get_contents($this->_file);
         $result = $this->_users->get($id);
         $this->assertTrue(is_array($result));

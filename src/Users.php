@@ -32,13 +32,26 @@ class Users extends Client
     }
 
     /**
+     * Get users by filters
+     *
+     * @link    https://api.u-on.ru/{key}/user/search.{_format}
+     * @param   array $parameters - Some parameters for search [telegram, whatsapp, viber, instagram]
+     * @return  array|false
+     */
+    public function search($parameters = [])
+    {
+        $endpoint = '/user-label';
+        return $this->doRequest('get', $endpoint, $parameters);
+    }
+
+    /**
      * Get list of user's labels
      *
      * @link    https://api.u-on.ru/{key}/user-label.{_format}
      * @param   array $parameters
      * @return  array|false
      */
-    public function getLabel($parameters = array())
+    public function getLabel($parameters = [])
     {
         $endpoint = '/user-label';
         return $this->doRequest('get', $endpoint, $parameters);

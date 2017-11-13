@@ -13,7 +13,7 @@ class Cash extends Client
      * @param   array $parameters - List of parameters ['id', 'name', 'name_en']
      * @return  array|false
      */
-    public function get($parameters = array())
+    public function get($parameters = [])
     {
         $endpoint = '/cash';
         return $this->doRequest('get', $endpoint, $parameters);

@@ -157,6 +157,32 @@ class Requests extends Client
     }
 
     /**
+     * Get all travel types or by some parameters, like id or name
+     *
+     * @link    https://api.u-on.ru/{key}/travel-type.{_format}
+     * @param   array $parameters - List of parameters [id, name]
+     * @return  array|false
+     */
+    public function getTravelType($parameters = [])
+    {
+        $endpoint = '/travel-type';
+        return $this->doRequest('get', $endpoint, $parameters);
+    }
+
+    /**
+     * Create new travel type
+     *
+     * @link    https://api.u-on.ru/{key}/travel-type/create.{_format}
+     * @param   array $parameters - List of parameters [name]
+     * @return  array|false
+     */
+    public function createTravelType($parameters)
+    {
+        $endpoint = '/travel-type/create';
+        return $this->doRequest('post', $endpoint, $parameters);
+    }
+
+    /**
      * Update request by request id
      *
      * @link    https://api.u-on.ru/{key}/request/update/{id}.{_format}

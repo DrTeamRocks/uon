@@ -44,6 +44,18 @@ class CatalogTest extends TestCase
 
     public function testUpdate()
     {
+        $services = $this->_services->getTypes();
+        $service_id = $services['message']->items[0]->id;
+        $service_name = $services['message']->items[0]->name;
 
+        $parameters = [
+            's_id' => $service_id,
+            'description' => 'updated description of ' . $service_name,
+            'price' => '999999'
+        ];
+
+        $id = file_get_contents($this->_file);
+        $result = $this->_catalog->update($id, $parameters);
+        $this->assertTrue(is_array($result));
     }
 }

@@ -29,8 +29,6 @@ class CatalogTest extends TestCase
         ];
 
         $result = $this->_catalog->create($parameters);
-        print_r($result);
-        die();
         file_put_contents($this->_file, $result['message']->id);
         $this->assertTrue(is_array($result));
     }

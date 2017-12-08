@@ -40,8 +40,8 @@ class Users extends Client
      */
     public function search($parameters = [])
     {
-        $endpoint = '/user-label';
-        return $this->doRequest('get', $endpoint, $parameters);
+        $endpoint = '/user/search';
+        return $this->doRequest('post', $endpoint, $parameters);
     }
 
     /**
@@ -94,6 +94,19 @@ class Users extends Client
     public function create($parameters)
     {
         $endpoint = '/user/create';
+        return $this->doRequest('post', $endpoint, $parameters);
+    }
+
+    /**
+     * Add file into tourists files
+     *
+     * @link    https://api.u-on.ru/{key}/user-file/create.{_format}
+     * @param   array $parameters
+     * @return  array|false
+     */
+    public function createFile($parameters)
+    {
+        $endpoint = '/user-file/create';
         return $this->doRequest('post', $endpoint, $parameters);
     }
 

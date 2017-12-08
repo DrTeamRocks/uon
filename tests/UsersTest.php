@@ -1,7 +1,12 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: pasha
+ * Date: 08.12.17
+ * Time: 10:47
+ */
 
-require_once(__DIR__ . '/../src/Client.php');
-require_once(__DIR__ . '/../src/Cities.php');
+namespace UON;
 
 use PHPUnit\Framework\TestCase;
 
@@ -11,7 +16,7 @@ class UsersTest extends TestCase
     private $_users;
     private $_user;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    public function __construct(string $name = null, array $data = [], string $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
         include __DIR__ . "/../extra/config.php";
@@ -31,24 +36,39 @@ class UsersTest extends TestCase
         $this->assertTrue(is_array($result));
     }
 
-    public function testRead()
+    public function testAll()
     {
         $result = $this->_users->all();
         $this->assertTrue(is_array($result));
+    }
 
+    public function testGet()
+    {
+        $user_id = file_get_contents($this->_file);
+        $result = $this->_users->get($user_id);
+        $this->assertTrue(is_array($result));
+    }
+
+    public function testSearch()
+    {
         $result = $this->_users->search();
         $this->assertTrue(is_array($result));
+    }
 
-        $id = file_get_contents($this->_file);
-        $result = $this->_users->get($id);
-        $this->assertTrue(is_array($result));
-
-        $result = $this->_users->getPhone('123456789');
-        $this->assertTrue(is_array($result));
-
+    public function testGetLabel()
+    {
         $result = $this->_users->getLabel();
         $this->assertTrue(is_array($result));
+    }
 
+    public function testGetPhone()
+    {
+        $result = $this->_users->getPhone('123456789');
+        $this->assertTrue(is_array($result));
+    }
+
+    public function testGetUpdated()
+    {
         // Date for next method
         $today = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime('tomorrow'));
@@ -57,10 +77,22 @@ class UsersTest extends TestCase
         $this->assertTrue(is_array($result));
     }
 
+    public function testCreateFile()
+    {
+        $user_id = file_get_contents($this->_file);
+        $file = [
+            'u_id' => $user_id,
+            'filename' => 'имя файл жпг',
+            'name' => 'http://static.skaip.org/img/emoticons/180x180/f6fcff/penguin.gif'
+        ];
+        $result = $this->_users->createFile($file);
+        $this->assertTrue(is_array($result));
+    }
+
     public function testUpdate()
     {
         $id = file_get_contents($this->_file);
-        $update = $this->_users->update($id, $this->_user);
-        $this->assertTrue(is_array($update));
+        $result = $this->_users->update($id, $this->_user);
+        $this->assertTrue(is_array($result));
     }
 }

@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 class CashTest extends TestCase
 {
-    public $_cash;
+    private $_cash;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {

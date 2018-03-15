@@ -53,7 +53,7 @@ class Client
      * @param   array $params Parameters
      * @return  array|false Array with data or error, or False when something went fully wrong
      */
-    public function doRequest($type, $endpoint, $params = array())
+    public function doRequest($type, $endpoint, $params = [])
     {
         // Create the base URL
         $base = ($this->useSSL) ? "https" : "http";

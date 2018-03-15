@@ -19,6 +19,33 @@ class Bcard extends Client
         return $this->doRequest('post', $endpoint, $parameters);
     }
 
+
+    /**
+     * Bonus card create
+     *
+     * @link    https://api.u-on.ru/{key}/bcard/create.{_format}
+     * @param   array $parameters - List of parameters [number, bonuses etc.]
+     * @return  array|false
+     */
+    public function create($parameters)
+    {
+        $endpoint = '/bcard/create';
+        return $this->doRequest('post', $endpoint, $parameters);
+    }
+
+    /**
+     * Bonuses add/delete by bonus card
+     *
+     * @link    https://api.u-on.ru/{key}/bcard-bonus/create.{_format}
+     * @param   array $parameters - List of parameters [bc_number, user_id etc.]
+     * @return  array|false
+     */
+    public function createBonus($parameters)
+    {
+        $endpoint = '/bcard-bonus/create';
+        return $this->doRequest('post', $endpoint, $parameters);
+    }
+
     /**
      * Get bonus transactions by bonus card
      *

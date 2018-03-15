@@ -62,10 +62,10 @@ class Requests extends Client
      * Get requests data by filter
      *
      * @link    https://api.u-on.ru/{key}/request/search.{_format}
-     * @param   array|null $parameters - List of parameters
+     * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function search($parameters = null)
+    public function search($parameters = [])
     {
         $endpoint = '/request/search';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -79,7 +79,7 @@ class Requests extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function get($id, $parameters = null)
+    public function get($id, $parameters = [])
     {
         $endpoint = '/request/' . $id;
         return $this->doRequest('get', $endpoint, $parameters);
@@ -167,6 +167,19 @@ class Requests extends Client
     {
         $endpoint = '/travel-type';
         return $this->doRequest('get', $endpoint, $parameters);
+    }
+
+    /**
+     * Get filled document from request
+     *
+     * @link    https://api.u-on.ru/{key}/request-document.{_format}
+     * @param   array $parameters - List of parameters [template_id, request_id etc.]
+     * @return  array|false
+     */
+    public function getDocument($parameters = [])
+    {
+        $endpoint = '/request-document';
+        return $this->doRequest('post', $endpoint, $parameters);
     }
 
     /**

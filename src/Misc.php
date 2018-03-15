@@ -49,10 +49,10 @@ class Misc extends Client
      * Get a list of currencies
      *
      * @link    https://api.u-on.ru/{key}/currency.{_format}
-     * @param   null|array $parameters - List of parameters
+     * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function getCurrency($parameters = null)
+    public function getCurrency($parameters = [])
     {
         $endpoint = '/currency';
         return $this->doRequest('get', $endpoint, $parameters);
@@ -70,4 +70,28 @@ class Misc extends Client
         return $this->doRequest('get', $endpoint);
     }
 
+    /**
+     * Get the list of offices
+     *
+     * @link    https://api.u-on.ru/{key}/company-office.{_format}
+     * @param   array $parameters - List of parameters
+     * @return  array|false
+     */
+    public function getOffices($parameters = [])
+    {
+        $endpoint = '/company-office';
+        return $this->doRequest('get', $endpoint, $parameters);
+    }
+
+    /**
+     * Get reason deny list
+     *
+     * @link    https://api.u-on.ru/{key}/reason_deny.{_format}
+     * @return  array|false
+     */
+    public function getReasonDeny()
+    {
+        $endpoint = '/company-office';
+        return $this->doRequest('get', $endpoint);
+    }
 }

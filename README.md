@@ -12,28 +12,22 @@ This library is ready for production usage, all source codes provided "as is".
 
 ```php
 <?php
-require_once __DIR__ . "/vendor/autoload.php";
+require_once __DIR__ . "/../vendor/autoload.php";
 
-// Your personal API token
-$token = "[YOUR_API_TOKEN]";
-define("UON_API_TOKEN", $token);
+// Class with configuration options
+$config = new \UON\Config();
+$config
+    ->set('token', 'some_token')
+    ->set('timeout', 10);
 
-$_users = new \UON\Users();
-$_requests = new \UON\Requests();
+// Main object for work with API
+$uon = new \UON\API($config);
 
-// You also can create any class with your tocken as argument
-$_misc = new \UON\Misc($token);
-
-// Get a list of all users
-$users = $_users->all();
-// Get user by unique id
-$userId = $_users->get(1);
-
-// Get request by unique ID
-$requests = $_requests->get(1);
-
-// Get list of managers
-$managers = $_misc->getManagers();
+// Some examples
+$users = $uon->users->all();            // Get a list of all users
+$user = $uon->users->get(1);            // Get user by unique id
+$request = $uon->requests->get(1);      // Get request by unique ID
+$managers = $uon->misc->getManagers();  // Get list of managers
 ```
 
 See other examples of usage [here](extra) separated by class names.

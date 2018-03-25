@@ -1,28 +1,31 @@
 <?php
 require_once __DIR__ . "/../vendor/autoload.php";
-require_once __DIR__ . "/../src/Client.php";
-require_once __DIR__ . "/../src/Requests.php";
-require_once __DIR__ . "/../extra/config.php";
+require_once __DIR__ . "/config.php";
 
-$_requests = new \UON\Requests();
+$config = new \UON\Config();
+$config
+    ->set('token', UON_API_TOKEN)
+    ->set('timeout', 10);
+
+$uon = new \UON\API($config);
 
 // Get request by id
-$requests = $_requests->get('1234');
+$request = $uon->requests->get('1234');
 
 // Get all requests. which were updated in the specified date range
-$requestsUpdated = $_requests->getUpdated('2017-06-01', '2017-06-10');
+$updated = $uon->requests->getUpdated('2018-03-01', '2018-03-30');
 
 // Get all requests from dates range
-$requestsDate = $_requests->getDate('2017-06-01', '2017-06-10');
+$date = $uon->requests->getDate('2018-03-01', '2018-03-30');
 
 // Get all requests from dates range, for some source id
-$requestsDateSource = $_requests->getDate('2017-06-01', '2017-06-10','1');
+$dateSource = $uon->requests->getDate('2017-06-01', '2017-06-10','1');
 
 // Data array of new user (or details for update)
-$request = array(
+$request = [
     'r_u_id' => '13',       // Manager ID
     'u_name' => 'text user' // User's full name
-);
+];
 
 // Create new user
-$requestsCreate = $_requests->create($request);
+$create = $uon->requests->create($request);

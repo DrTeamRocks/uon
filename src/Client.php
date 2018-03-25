@@ -37,7 +37,7 @@ class Client
      */
     public function __construct($token = null)
     {
-        // If token is not empty
+        // TODO: Remove this in future releases
         if (!empty($token)) $this->token = $token;
         else $this->token = UON_API_TOKEN;
 
@@ -71,10 +71,6 @@ class Client
             default:
                 $result = null;
                 break;
-        }
-
-        if ($result->getStatusCode() == 200 || $result->getStatusCode() == 201) {
-            return array('status' => true, 'message' => json_decode($result->getBody()));
         }
 
         return array('status' => false, 'message' => json_decode($result->getBody()));

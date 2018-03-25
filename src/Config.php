@@ -71,10 +71,16 @@ class Config implements Interfaces\Config
     /**
      * Return all preconfigured parameters
      *
+     * @param   bool $ignore_token
      * @return  array
      */
-    public function getParameters()
+    public function getParameters($ignore_token = false)
     {
-        return $this->parameters;
+        $array = $this->parameters;
+
+        // Remove "token" from array
+        if ($ignore_token) unset($array['token']);
+
+        return $array;
     }
 }

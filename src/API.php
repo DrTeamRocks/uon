@@ -55,10 +55,11 @@ class API
         try {
             // Extract token from config array
             $token = $this->config->get('token');
+
             // Check if token is not available
-            if (!isset($token)) {
+            if (!isset($token))
                 throw new APIException("Token is not set");
-            }
+
         } catch (APIException $e) {
             return false;
         }
@@ -68,15 +69,12 @@ class API
             $class = __NAMESPACE__ . '\\' . ucfirst(strtolower($class));
 
             // Try to create object by name
-            // TODO: Remove in v2.0
-            $object = new $class($token);
-            // TODO: Change to this DI style in v2.0
-            //$object = new $class($this->config);
+            $object = new $class($this->config);
 
             // If object is not created
-            if (!is_object($object)) {
+            if (!is_object($object))
                 throw new APIException("Class $class could not to be created");
-            }
+
         } catch (APIException $e) {
             return false;
         }

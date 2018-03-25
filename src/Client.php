@@ -33,16 +33,23 @@ class Client
 
     /**
      * Client constructor.
-     * @param null|string $token - User defined token
+     * @param mixed $token - User defined token
      */
     public function __construct($token = null)
     {
-        // TODO: Remove this in future releases
-        if (!empty($token)) $this->token = $token;
-        else $this->token = UON_API_TOKEN;
+        if (is_object($token)) {
+            $this->token = $token->get('token');
 
-        // Store the client object
-        $this->_client = new \GuzzleHttp\Client();
+            // Store the client object
+            $this->_client = new \GuzzleHttp\Client($token->getParameters(true));
+        } else {
+            // TODO: Remove this in future releases
+            if (!empty($token)) $this->token = $token;
+            else $this->token = UON_API_TOKEN;
+
+            // Store the client object
+            $this->_client = new \GuzzleHttp\Client();
+        }
     }
 
     /**

@@ -71,6 +71,17 @@ class Users extends Client
     }
 
     /**
+     * @link    https://api.u-on.ru/{key}/user/email.{_format}
+     * @param   string $email
+     * @return  array|false
+     */
+    public function getEmail($email)
+    {
+        $endpoint = '/user/email';
+        return $this->doRequest('post', $endpoint, ['email' => $email]);
+    }
+
+    /**
      * Get all users. profiles which were updated in the specified date range
      *
      * @link    https://api.u-on.ru/{key}/user/updated/{date_from}/{date_to}.{_format}

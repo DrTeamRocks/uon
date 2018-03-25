@@ -15,11 +15,14 @@ This library is ready for production usage, all source codes provided "as is".
 require_once __DIR__ . "/vendor/autoload.php";
 
 // Your personal API token
-define("UON_API_TOKEN", "[YOUR_API_TOKEN]");
+$token = "[YOUR_API_TOKEN]";
+define("UON_API_TOKEN", $token);
 
 $_users = new \UON\Users();
 $_requests = new \UON\Requests();
-$_misc = new \UON\Misc();
+
+// You also can create any class with your tocken as argument
+$_misc = new \UON\Misc($token);
 
 // Get a list of all users
 $users = $_users->all();

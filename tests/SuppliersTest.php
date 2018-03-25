@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class SuppliersTest extends TestCase
 {
-    private $_file = __DIR__ . '/../extra/tmp.txt';
+    private $_file;
     private $_suppliers;
     private $_supplier;
     private $_supplierType;
@@ -15,7 +15,7 @@ class SuppliersTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         include __DIR__ . "/../extra/config.php";
-
+        $this->_file = __DIR__ . '/../extra/tmp.txt';
         $this->_suppliers = new \UON\Suppliers();
         $this->_supplier = array(
             'name' => 'supplier name',

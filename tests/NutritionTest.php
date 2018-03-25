@@ -3,7 +3,7 @@ use PHPUnit\Framework\TestCase;
 
 class NutritionTest extends TestCase
 {
-    private $_file = __DIR__ . '/../extra/tmp.txt';
+    private $_file;
     private $_nutritions;
     private $_nutrition;
 
@@ -11,7 +11,7 @@ class NutritionTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         include __DIR__ . "/../extra/config.php";
-
+        $this->_file = __DIR__ . '/../extra/tmp.txt';
         $this->_nutritions = new \UON\Nutrition();
         $this->_nutrition = array(
             'name' => 'Хавчик',

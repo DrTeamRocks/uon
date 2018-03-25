@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class UsersTest extends TestCase
 {
-    private $_file = __DIR__ . '/../extra/tmp.txt';
+    private $_file;
     private $_users;
     private $_user;
 
@@ -20,12 +20,13 @@ class UsersTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         include __DIR__ . "/../extra/config.php";
-
+        $this->_file = __DIR__ . '/../extra/tmp.txt';
         $this->_users = new \UON\Users();
         $this->_user = array(
             'u_name' => 'User',
             'u_sname' => 'Test',
-            'u_phone' => '123456789'
+            'u_phone' => '123456789',
+            'u_email' => 'king@roll.com'
         );
     }
 
@@ -64,6 +65,12 @@ class UsersTest extends TestCase
     public function testGetPhone()
     {
         $result = $this->_users->getPhone('123456789');
+        $this->assertTrue(is_array($result));
+    }
+
+    public function testGetEmail()
+    {
+        $result = $this->_users->getEmail('king@roll.com');
         $this->assertTrue(is_array($result));
     }
 

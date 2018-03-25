@@ -3,7 +3,7 @@ use PHPUnit\Framework\TestCase;
 
 class PaymentsTest extends TestCase
 {
-    private $_file = __DIR__ . '/../extra/tmp.txt';
+    private $_file;
     private $_payments;
     private $_payment;
 
@@ -11,7 +11,7 @@ class PaymentsTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         include __DIR__ . "/../extra/config.php";
-
+        $this->_file = __DIR__ . '/../extra/tmp.txt';
         $this->_payments = new \UON\Payments();
         $this->_payment = array(
             'r_id' => '1',

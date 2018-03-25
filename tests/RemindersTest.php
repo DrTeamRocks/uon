@@ -3,7 +3,7 @@ use PHPUnit\Framework\TestCase;
 
 class RemindersTest extends TestCase
 {
-    private $_file = __DIR__ . '/../extra/tmp.txt';
+    private $_file;
     private $_reminders;
     private $_reminder;
 
@@ -11,7 +11,7 @@ class RemindersTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         include __DIR__ . "/../extra/config.php";
-
+        $this->_file = __DIR__ . '/../extra/tmp.txt';
         $this->_reminders = new \UON\Reminders();
         $this->_reminder = array(
             'r_id' => '1',

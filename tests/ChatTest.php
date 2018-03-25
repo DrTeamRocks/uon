@@ -4,6 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 class ChatTest extends TestCase
 {
+    private $_file;
     private $_chats;
     private $_chat;
 
@@ -11,7 +12,7 @@ class ChatTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         include __DIR__ . "/../extra/config.php";
-
+        $this->_file = __DIR__ . '/../extra/tmp.txt';
         $this->_chats = new \UON\Chat();
         $this->_chat = array(
             'user_id_from' => '1',

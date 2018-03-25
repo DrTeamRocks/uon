@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 class CatalogTest extends TestCase
 {
-    private $_file = __DIR__ . '/../extra/tmp.txt';
+    private $_file;
     private $_catalog;
     private $_services;
 
@@ -12,6 +12,7 @@ class CatalogTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         include __DIR__ . "/../extra/config.php";
+        $this->_file = __DIR__ . '/../extra/tmp.txt';
         $this->_catalog = new Catalog();
         $this->_services = new Services();
     }

@@ -3,7 +3,7 @@ use PHPUnit\Framework\TestCase;
 
 class LeadsTest extends TestCase
 {
-    private $_file = __DIR__ . '/../extra/tmp.txt';
+    private $_file;
     private $_leads;
     private $_lead;
 
@@ -11,7 +11,7 @@ class LeadsTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         include __DIR__ . "/../extra/config.php";
-
+        $this->_file = __DIR__ . '/../extra/tmp.txt';
         $this->_leads = new \UON\Leads();
         $this->_lead = [
             'note' => 'Test lead',

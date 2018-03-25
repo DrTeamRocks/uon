@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 class CitiesTest extends TestCase
 {
-    private $_file = __DIR__ . '/../extra/tmp.txt';
+    private $_file;
     private $_cities;
     private $_city;
 
@@ -12,7 +12,7 @@ class CitiesTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         include __DIR__ . "/../extra/config.php";
-
+        $this->_file = __DIR__ . '/../extra/tmp.txt';
         $this->_cities = new \UON\Cities();
         $this->_city = array(
             'country_id' => '1',

@@ -3,7 +3,7 @@ use PHPUnit\Framework\TestCase;
 
 class ServicesTest extends TestCase
 {
-    private $_file = __DIR__ . '/../extra/tmp.txt';
+    private $_file;
     private $_services;
     private $_service;
 
@@ -11,7 +11,7 @@ class ServicesTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         include __DIR__ . "/../extra/config.php";
-
+        $this->_file = __DIR__ . '/../extra/tmp.txt';
         $this->_services = new \UON\Services();
         $this->_service = array(
             'r_id' => '1',

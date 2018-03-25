@@ -3,7 +3,7 @@ use PHPUnit\Framework\TestCase;
 
 class HotelsTest extends TestCase
 {
-    private $_file = __DIR__ . '/../extra/tmp.txt';
+    private $_file;
     private $_hotels;
     private $_hotel;
 
@@ -11,7 +11,7 @@ class HotelsTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         include __DIR__ . "/../extra/config.php";
-
+        $this->_file = __DIR__ . '/../extra/tmp.txt';
         $this->_hotels = new \UON\Hotels();
         $this->_hotel = [
             'name' => 'Кингконгстоунт',

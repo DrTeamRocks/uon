@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 class RequestsTest extends TestCase
 {
-    private $_file = __DIR__ . '/../extra/tmp.txt';
+    private $_file;
     private $_requests;
     private $_request;
     private $_requestAction;
@@ -13,7 +13,7 @@ class RequestsTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         include __DIR__ . "/../extra/config.php";
-
+        $this->_file = __DIR__ . '/../extra/tmp.txt';
         $this->_requests = new \UON\Requests();
         $this->_request = [
             'note' => 'Test request',

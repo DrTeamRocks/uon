@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 class BcardTest extends TestCase
 {
-    private $_file = __DIR__ . '/../extra/tmp.txt';
+    private $_file;
     private $_bcards;
     private $_bcard;
 
@@ -12,7 +12,7 @@ class BcardTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         include __DIR__ . "/../extra/config.php";
-
+        $this->_file = __DIR__ . '/../extra/tmp.txt';
         $this->_bcards = new \UON\Bcard();
         $this->_bcard = [
             'bc_number' => '0000000001',

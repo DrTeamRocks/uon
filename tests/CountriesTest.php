@@ -3,7 +3,7 @@ use PHPUnit\Framework\TestCase;
 
 class CountriesTest extends TestCase
 {
-    private $_file = __DIR__ . '/../extra/tmp.txt';
+    private $_file;
     private $_countries;
     private $_country;
 
@@ -11,7 +11,7 @@ class CountriesTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         include __DIR__ . "/../extra/config.php";
-
+        $this->_file = __DIR__ . '/../extra/tmp.txt';
         $this->_countries = new \UON\Countries();
         $this->_country = [
             'name' => 'Кингконгстоунт',

@@ -77,7 +77,7 @@ class API
             $token = $this->config->get('token');
 
             // Check if token is not available
-            if (null === $token) {
+            if (false === $token) {
                 throw new APIException('Token is not set');
             }
 
@@ -85,9 +85,10 @@ class API
             // __constructor
         }
 
+        $object = false;
         try {
             // Generate dynamic name of class
-            $class = __NAMESPACE__ . '\\' . ucfirst(strtolower($class));
+            $class = __NAMESPACE__ . '\\Endpoint\\' . ucfirst(strtolower($class));
 
             // Try to create object by name
             $object = new $class($this->config);

@@ -1,10 +1,9 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/config.php';
 
 $config = new \UON\Config();
 $config
-    ->set('token', UON_API_TOKEN)
+    ->set('token', 'YOUR_TOKEN')
     ->set('timeout', 10);
 
 $uon = new \UON\API($config);

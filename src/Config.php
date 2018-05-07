@@ -80,11 +80,13 @@ class Config implements Interfaces\ConfigInterface
      * Get all available parameters on only one
      *
      * @param   string $parameter
-     * @return  string
+     * @return  string|bool
      */
     public function get($parameter)
     {
-        return $this->_parameters[$parameter];
+        return isset($this->_parameters[$parameter])
+            ? $this->_parameters[$parameter]
+            : false;
     }
 
     /**

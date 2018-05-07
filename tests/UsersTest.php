@@ -1,14 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: pasha
- * Date: 08.12.17
- * Time: 10:47
- */
 
-namespace UON;
+namespace UON\Tests;
 
 use PHPUnit\Framework\TestCase;
+use UON\Config;
+use UON\Endpoint\Users;
 
 class UsersTest extends TestCase
 {
@@ -16,12 +12,14 @@ class UsersTest extends TestCase
     private $_users;
     private $_user;
 
-    public function __construct(string $name = null, array $data = [], string $dataName = '')
+    public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        include __DIR__ . "/../extra/config.php";
-        $this->_file = __DIR__ . '/../extra/tmp.txt';
-        $this->_users = new \UON\Users();
+        $config = new Config();
+        $config->set('token', file_get_contents(__DIR__ . '/_token.txt'));
+
+        $this->_file = __DIR__ . '/_tmp.txt';
+        $this->_users = new Users($config);
         $this->_user = array(
             'u_name' => 'User',
             'u_sname' => 'Test',
@@ -34,44 +32,50 @@ class UsersTest extends TestCase
     {
         $result = $this->_users->create($this->_user);
         file_put_contents($this->_file, $result['message']->id);
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
     public function testAll()
     {
         $result = $this->_users->all();
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
     public function testGet()
     {
         $user_id = file_get_contents($this->_file);
         $result = $this->_users->get($user_id);
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
     public function testSearch()
     {
         $result = $this->_users->search();
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
     public function testGetLabel()
     {
         $result = $this->_users->getLabel();
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
     public function testGetPhone()
     {
         $result = $this->_users->getPhone('123456789');
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
     public function testGetEmail()
     {
         $result = $this->_users->getEmail('king@roll.com');
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
+    }
+
+    public function testGetByPage()
+    {
+        $result = $this->_users->getByPage(1);
+        $this->assertInternalType('array', $result);
     }
 
     public function testGetUpdated()
@@ -81,7 +85,7 @@ class UsersTest extends TestCase
         $tomorrow = date('Y-m-d', strtotime('tomorrow'));
 
         $result = $this->_users->getUpdated($today, $tomorrow);
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
     public function testCreateFile()
@@ -93,13 +97,14 @@ class UsersTest extends TestCase
             'name' => 'http://static.skaip.org/img/emoticons/180x180/f6fcff/penguin.gif'
         ];
         $result = $this->_users->createFile($file);
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
     public function testUpdate()
     {
         $id = file_get_contents($this->_file);
         $result = $this->_users->update($id, $this->_user);
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
+
 }

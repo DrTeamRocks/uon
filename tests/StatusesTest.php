@@ -1,28 +1,30 @@
 <?php
+
+namespace UON\Tests;
+
 use PHPUnit\Framework\TestCase;
+use UON\Config;
+use UON\Endpoint\Statuses;
 
 class StatusesTest extends TestCase
 {
     private $_statuses;
-    private $_status;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        include __DIR__ . "/../extra/config.php";
+        $config = new Config();
+        $config->set('token', file_get_contents(__DIR__ . '/_token.txt'));
 
-        $this->_statuses = new \UON\Statuses();
-        $this->_status = array(
-            'rs_name' => 'statuse name'
-        );
+        $this->_statuses = new Statuses($config);
     }
 
     public function testRead()
     {
         $result = $this->_statuses->get();
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
 
         $result = $this->_statuses->getLead();
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 }

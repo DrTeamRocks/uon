@@ -1,19 +1,23 @@
-<?php namespace UON;
+<?php
+
+namespace UON\Tests;
 
 use PHPUnit\Framework\TestCase;
+use UON\Config;
+use UON\Endpoint\Chat;
 
 class ChatTest extends TestCase
 {
-    private $_file;
     private $_chats;
     private $_chat;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        include __DIR__ . "/../extra/config.php";
-        $this->_file = __DIR__ . '/../extra/tmp.txt';
-        $this->_chats = new \UON\Chat();
+        $config = new Config();
+        $config->set('token', file_get_contents(__DIR__ . '/_token.txt'));
+
+        $this->_chats = new Chat($config);
         $this->_chat = array(
             'user_id_from' => '1',
             'user_id_to' => '1',
@@ -24,6 +28,6 @@ class ChatTest extends TestCase
     public function testCreate()
     {
         $result = $this->_chats->create($this->_chat);
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 }

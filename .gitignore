@@ -1,5 +1,4 @@
 /.idea/
 /vendor/
 /composer.lock
-/extra/config.php
-/extra/tmp.txt
+/tests/_tmp.txt

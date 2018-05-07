@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . "/../vendor/autoload.php";
-require_once __DIR__ . "/config.php";
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/config.php';
 
 $config = new \UON\Config();
 $config
@@ -19,7 +19,7 @@ $updated = $uon->requests->getUpdated('2018-03-01', '2018-03-30');
 $date = $uon->requests->getDate('2018-03-01', '2018-03-30');
 
 // Get all requests from dates range, for some source id
-$dateSource = $uon->requests->getDate('2017-06-01', '2017-06-10','1');
+$dateSource = $uon->requests->getDate('2017-06-01', '2017-06-10', '1');
 
 // Data array of new user (or details for update)
 $request = [

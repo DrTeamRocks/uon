@@ -1,5 +1,10 @@
 <?php
+
+namespace UON\Tests;
+
 use PHPUnit\Framework\TestCase;
+use UON\Config;
+use UON\Endpoint\Sources;
 
 class SourcesTest extends TestCase
 {
@@ -9,9 +14,10 @@ class SourcesTest extends TestCase
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        include __DIR__ . "/../extra/config.php";
+        $config = new Config();
+        $config->set('token', file_get_contents(__DIR__ . '/_token.txt'));
 
-        $this->_sources = new \UON\Sources();
+        $this->_sources = new Sources($config);
         $this->_source = array(
             'rs_name' => 'source name'
         );
@@ -20,12 +26,12 @@ class SourcesTest extends TestCase
     public function testCreate()
     {
         $create = $this->_sources->create($this->_source);
-        $this->assertTrue(is_array($create));
+        $this->assertInternalType('array', $create);
     }
 
     public function testRead()
     {
         $result = $this->_sources->all();
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 }

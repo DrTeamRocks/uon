@@ -1,5 +1,10 @@
 <?php
+
+namespace UON\Tests;
+
 use PHPUnit\Framework\TestCase;
+use UON\Config;
+use UON\Endpoint\Misc;
 
 class MiscTest extends TestCase
 {
@@ -11,9 +16,10 @@ class MiscTest extends TestCase
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        include __DIR__ . "/../extra/config.php";
+        $config = new Config();
+        $config->set('token', file_get_contents(__DIR__ . '/_token.txt'));
 
-        $this->_misc = new \UON\Misc();
+        $this->_misc = new Misc($config);
         $this->_avia = array(
             'service_id' => 1
         );
@@ -33,28 +39,28 @@ class MiscTest extends TestCase
     public function testCreateAvia()
     {
         $result = $this->_misc->createAvia($this->_avia);
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
     public function testCreateCall()
     {
         $result = $this->_misc->createCall($this->_call);
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
     public function testCreateMail()
     {
         $result = $this->_misc->createMail($this->_mail);
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
     public function testRead()
     {
         $result = $this->_misc->getCurrency();
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
 
         $result = $this->_misc->getManagers();
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
 }

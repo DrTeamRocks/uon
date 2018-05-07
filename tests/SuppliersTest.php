@@ -1,8 +1,10 @@
 <?php
-require_once(__DIR__ . '/../src/Client.php');
-require_once(__DIR__ . '/../src/Suppliers.php');
+
+namespace UON\Tests;
 
 use PHPUnit\Framework\TestCase;
+use UON\Config;
+use UON\Endpoint\Suppliers;
 
 class SuppliersTest extends TestCase
 {
@@ -14,9 +16,11 @@ class SuppliersTest extends TestCase
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        include __DIR__ . "/../extra/config.php";
-        $this->_file = __DIR__ . '/../extra/tmp.txt';
-        $this->_suppliers = new \UON\Suppliers();
+        $config = new Config();
+        $config->set('token', file_get_contents(__DIR__ . '/_token.txt'));
+
+        $this->_file = __DIR__ . '/_tmp.txt';
+        $this->_suppliers = new Suppliers($config);
         $this->_supplier = array(
             'name' => 'supplier name',
             'type_id' => '1'
@@ -30,37 +34,37 @@ class SuppliersTest extends TestCase
     {
         $result = $this->_suppliers->create($this->_supplier);
         file_put_contents($this->_file, $result['message']->id);
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
     public function testRead()
     {
         $result = $this->_suppliers->all();
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
 
         $id = file_get_contents($this->_file);
         $result = $this->_suppliers->get($id);
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
     public function testUpdate()
     {
         $id = file_get_contents($this->_file);
         $update = $this->_suppliers->update($id, $this->_supplier);
-        $this->assertTrue(is_array($update));
+        $this->assertInternalType('array', $update);
     }
 
     public function testCreateType()
     {
         $result = $this->_suppliers->createType($this->_supplierType);
         file_put_contents($this->_file, $result['message']->id);
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
     public function testReadType()
     {
         $id = file_get_contents($this->_file);
         $result = $this->_suppliers->getTypes(array('id' => $id));
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 }

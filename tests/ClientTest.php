@@ -1,18 +1,27 @@
 <?php
+
+namespace UON\Tests;
+
 use PHPUnit\Framework\TestCase;
+use UON\Config;
+use UON\Client;
 
 class ClientTest extends TestCase
 {
+    public $config;
+
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        include __DIR__ . "/../extra/config.php";
+
+        $this->config = new Config();
+        $this->config->set('token', file_get_contents(__DIR__ . '/_token.txt'));
     }
 
     public function testConstruct()
     {
         try {
-            new \UON\Client();
+            new Client($this->config);
         } catch(\Exception $e) {
             $this->assertContains('Must be initialized ', $e->getMessage());
         }
@@ -20,9 +29,9 @@ class ClientTest extends TestCase
 
     public function testDoRequest()
     {
-        $client = new \UON\Client();
+        $client = new Client($this->config);
         $result = $client->doRequest('get', '/user');
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
 }

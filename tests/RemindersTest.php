@@ -1,5 +1,10 @@
 <?php
+
+namespace UON\Tests;
+
 use PHPUnit\Framework\TestCase;
+use UON\Config;
+use UON\Endpoint\Reminders;
 
 class RemindersTest extends TestCase
 {
@@ -10,9 +15,11 @@ class RemindersTest extends TestCase
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        include __DIR__ . "/../extra/config.php";
-        $this->_file = __DIR__ . '/../extra/tmp.txt';
-        $this->_reminders = new \UON\Reminders();
+        $config = new Config();
+        $config->set('token', file_get_contents(__DIR__ . '/_token.txt'));
+
+        $this->_file = __DIR__ . '/_tmp.txt';
+        $this->_reminders = new Reminders($config);
         $this->_reminder = array(
             'r_id' => '1',
             'type_id' => '1',
@@ -26,14 +33,14 @@ class RemindersTest extends TestCase
     {
         $result = $this->_reminders->create($this->_reminder);
         file_put_contents($this->_file, $result['message']->id);
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
     public function testRead()
     {
         $id = file_get_contents($this->_file);
         $result = $this->_reminders->get($id);
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
 }

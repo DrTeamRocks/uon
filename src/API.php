@@ -72,6 +72,9 @@ class API
      */
     public function __get($class)
     {
+        // By default return is false
+        $object = false;
+
         try {
             // Extract token from config array
             $token = $this->config->get('token');
@@ -81,12 +84,6 @@ class API
                 throw new APIException('Token is not set');
             }
 
-        } catch (APIException $e) {
-            // __constructor
-        }
-
-        $object = false;
-        try {
             // Generate dynamic name of class
             $class = __NAMESPACE__ . '\\Endpoint\\' . ucfirst(strtolower($class));
 

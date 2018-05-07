@@ -1,0 +1,15 @@
+checks:
+    php: true
+
+filter:
+    excluded_paths:
+        - "extra/"
+        - "tests/"
+build:
+    tests:
+        override:
+            -
+                command: 'vendor/bin/phpunit --coverage-clover=some-file'
+                coverage:
+                    file: 'some-file'
+                    format: 'clover'

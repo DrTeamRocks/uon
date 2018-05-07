@@ -1,6 +1,6 @@
 ![U-On Travel Logo](u-on.png)
 
-[![Latest Stable Version](https://poser.pugx.org/drteamrocks/uon/v/stable)](https://packagist.org/packages/drteam/uon)
+[![Latest Stable Version](https://poser.pugx.org/drteam/uon/v/stable)](https://packagist.org/packages/drteam/uon)
 [![Build Status](https://travis-ci.org/DrTeamRocks/uon.svg?branch=master)](https://travis-ci.org/DrTeamRocks/uon)
 [![Total Downloads](https://poser.pugx.org/drteam/uon/downloads)](https://packagist.org/packages/drteam/uon)
 [![License](https://poser.pugx.org/drteam/uon/license)](https://packagist.org/packages/drteam/uon)

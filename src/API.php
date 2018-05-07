@@ -1,6 +1,26 @@
-<?php namespace UON;
+<?php
+
+namespace UON;
 
 use UON\Exceptions\APIException;
+
+use UON\Endpoint\Bcard;
+use UON\Endpoint\Cash;
+use UON\Endpoint\Catalog;
+use UON\Endpoint\Chat;
+use UON\Endpoint\Cities;
+use UON\Endpoint\Countries;
+use UON\Endpoint\Hotels;
+use UON\Endpoint\Leads;
+use UON\Endpoint\Misc;
+use UON\Endpoint\Nutrition;
+use UON\Endpoint\Payments;
+use UON\Endpoint\Reminders;
+use UON\Endpoint\Requests;
+use UON\Endpoint\Sources;
+use UON\Endpoint\Statuses;
+use UON\Endpoint\Suppliers;
+use UON\Endpoint\Users;
 
 /**
  * @property    Bcard $bcard - Bonus cards
@@ -57,11 +77,12 @@ class API
             $token = $this->config->get('token');
 
             // Check if token is not available
-            if (!isset($token))
-                throw new APIException("Token is not set");
+            if (null === $token) {
+                throw new APIException('Token is not set');
+            }
 
         } catch (APIException $e) {
-            return false;
+            // __constructor
         }
 
         try {
@@ -72,11 +93,12 @@ class API
             $object = new $class($this->config);
 
             // If object is not created
-            if (!is_object($object))
-                throw new APIException("Class $class could not to be created");
+            if (!is_object($object)) {
+                throw new APIException("Class $class could not to be loaded");
+            }
 
         } catch (APIException $e) {
-            return false;
+            // __constructor
         }
 
         return $object;

@@ -1,4 +1,8 @@
-<?php namespace UON;
+<?php
+
+namespace UON\Endpoint;
+
+use UON\Client;
 
 /**
  * Class Bcard
@@ -13,7 +17,7 @@ class Bcard extends Client
      * @param   array $parameters - List of parameters [bc_number, user_id]
      * @return  array|false
      */
-    public function activate($parameters)
+    public function activate(array $parameters)
     {
         $endpoint = '/bcard-activate/create';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -27,7 +31,7 @@ class Bcard extends Client
      * @param   array $parameters - List of parameters [number, bonuses etc.]
      * @return  array|false
      */
-    public function create($parameters)
+    public function create(array $parameters)
     {
         $endpoint = '/bcard/create';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -40,7 +44,7 @@ class Bcard extends Client
      * @param   array $parameters - List of parameters [bc_number, user_id etc.]
      * @return  array|false
      */
-    public function createBonus($parameters)
+    public function createBonus(array $parameters)
     {
         $endpoint = '/bcard-bonus/create';
         return $this->doRequest('post', $endpoint, $parameters);

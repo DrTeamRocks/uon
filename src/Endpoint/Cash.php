@@ -1,4 +1,8 @@
-<?php namespace UON;
+<?php
+
+namespace UON\Endpoint;
+
+use UON\Client;
 
 /**
  * Class Cash
@@ -13,7 +17,7 @@ class Cash extends Client
      * @param   array $parameters - List of parameters ['id', 'name', 'name_en']
      * @return  array|false
      */
-    public function get($parameters = [])
+    public function get(array $parameters = [])
     {
         $endpoint = '/cash';
         return $this->doRequest('get', $endpoint, $parameters);
@@ -26,7 +30,7 @@ class Cash extends Client
      * @param   array $parameters - List of parameters ['name']
      * @return  array|false
      */
-    public function create($parameters)
+    public function create(array $parameters)
     {
         $endpoint = '/cash/create';
         return $this->doRequest('post', $endpoint, $parameters);

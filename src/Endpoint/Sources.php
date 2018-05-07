@@ -1,4 +1,8 @@
-<?php namespace UON;
+<?php
+
+namespace UON\Endpoint;
+
+use UON\Client;
 
 /**
  * Class Statuses
@@ -13,7 +17,7 @@ class Sources extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function create($parameters)
+    public function create(array $parameters)
     {
         $endpoint = '/source/create';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -23,12 +27,11 @@ class Sources extends Client
      * Get sources list
      *
      * @link    https://api.u-on.ru/{key}/source.{_format}
-     * @param   array|null $parameters - List of parameters
      * @return  array|false
      */
-    public function all($parameters = null)
+    public function all()
     {
         $endpoint = '/source';
-        return $this->doRequest('get', $endpoint, $parameters);
+        return $this->doRequest('get', $endpoint);
     }
 }

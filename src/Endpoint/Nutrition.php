@@ -1,4 +1,8 @@
-<?php namespace UON;
+<?php
+
+namespace UON\Endpoint;
+
+use UON\Client;
 
 /**
  * Class Nutrition
@@ -13,7 +17,7 @@ class Nutrition extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function create($parameters)
+    public function create(array $parameters)
     {
         $endpoint = '/nutrition/create';
         return $this->doRequest('post', $endpoint, $parameters);

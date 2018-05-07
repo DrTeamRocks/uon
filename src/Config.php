@@ -2,13 +2,13 @@
 
 use UON\Exceptions\ConfigException;
 
-class Config implements Interfaces\Config
+class Config implements Interfaces\ConfigInterface
 {
     /**
      * List of allowed parameters
      * @var array
      */
-    private $allowed = [
+    private $_allowed = [
         'token',
         'timeout',
         'allow_redirects',
@@ -22,28 +22,57 @@ class Config implements Interfaces\Config
      * List of configured parameters
      * @var array
      */
-    private $parameters = [];
+    private $_parameters = [];
+
+    /**
+     * Work mode of return
+     * @var bool
+     */
+    private $_return_object = false;
+
+    /**
+     * Get return type (object by default)
+     *
+     * @return  bool
+     */
+    public function isObject()
+    {
+        return $this->_return_object;
+    }
+
+    /**
+     * Set work mode (object => true, array => false)
+     *
+     * @param   bool $object
+     * @return  Interfaces\ConfigInterface
+     */
+    public function setReturn($object = true)
+    {
+        $this->_return_object = $object;
+        return $this;
+    }
 
     /**
      * Set parameter by name
      *
-     * @param   $parameter
-     * @param   $value
-     * @return  bool|Interfaces\Config
+     * @param   string $parameter
+     * @param   mixed $value
+     * @return  Interfaces\ConfigInterface
      */
     public function set($parameter, $value)
     {
         // Check if parameter is available
         try {
-            if (!in_array($parameter, $this->allowed)) {
-                throw new ConfigException("Parameter \"$parameter\" is not in available list [" . implode(',', $this->getAllowed()) . "]");
+            if (!\in_array($parameter, $this->_allowed, false)) {
+                throw new ConfigException("Parameter \"$parameter\" is not in available list [" . implode(',',
+                        $this->getAllowed()) . ']');
             }
         } catch (ConfigException $e) {
-            return false;
+            // __constructor
         }
 
         // Add parameters into array
-        $this->parameters[$parameter] = $value;
+        $this->_parameters[$parameter] = $value;
         return $this;
     }
 
@@ -55,7 +84,7 @@ class Config implements Interfaces\Config
      */
     public function get($parameter)
     {
-        return $this->parameters[$parameter];
+        return $this->_parameters[$parameter];
     }
 
     /**
@@ -65,7 +94,7 @@ class Config implements Interfaces\Config
      */
     public function getAllowed()
     {
-        return $this->allowed;
+        return $this->_allowed;
     }
 
     /**
@@ -76,10 +105,12 @@ class Config implements Interfaces\Config
      */
     public function getParameters($ignore_token = false)
     {
-        $array = $this->parameters;
+        $array = $this->_parameters;
 
         // Remove "token" from array
-        if ($ignore_token) unset($array['token']);
+        if ($ignore_token) {
+            unset($array['token']);
+        }
 
         return $array;
     }

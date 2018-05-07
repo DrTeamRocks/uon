@@ -1,4 +1,8 @@
-<?php namespace UON;
+<?php
+
+namespace UON\Endpoint;
+
+use UON\Client;
 
 /**
  * Class Chat
@@ -13,7 +17,7 @@ class Chat extends Client
      * @param   array $parameters - List of parameters []
      * @return  array|false
      */
-    public function create($parameters)
+    public function create(array $parameters)
     {
         $endpoint = '/chat-message/create';
         return $this->doRequest('post', $endpoint, $parameters);

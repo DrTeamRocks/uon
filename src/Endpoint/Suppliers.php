@@ -1,4 +1,8 @@
-<?php namespace UON;
+<?php
+
+namespace UON\Endpoint;
+
+use UON\Client;
 
 /**
  * Class Suppliers
@@ -13,7 +17,7 @@ class Suppliers extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function create($parameters)
+    public function create(array $parameters)
     {
         $endpoint = '/supplier/create';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -26,7 +30,7 @@ class Suppliers extends Client
      * @param   $parameters - List of parameters
      * @return  array|false
      */
-    public function createType($parameters)
+    public function createType(array $parameters)
     {
         $endpoint = '/supplier_type/create';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -39,7 +43,7 @@ class Suppliers extends Client
      * @param   array|null $parameters - List of parameters
      * @return  array|false
      */
-    public function all($parameters = null)
+    public function all(array $parameters = [])
     {
         $endpoint = '/supplier';
         return $this->doRequest('get', $endpoint, $parameters);
@@ -50,10 +54,10 @@ class Suppliers extends Client
      *
      * @link    https://api.u-on.ru/{key}/supplier.{_format}
      * @param   int $id - ID of partner
-     * @param   array|null $parameters - List of parameters
+     * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function get($id, $parameters = null)
+    public function get($id, array $parameters = [])
     {
         $endpoint = '/supplier/' . $id;
         return $this->doRequest('get', $endpoint, $parameters);
@@ -66,7 +70,7 @@ class Suppliers extends Client
      * @param   array|null $parameters - List of parameters
      * @return  array|false
      */
-    public function getTypes($parameters = null)
+    public function getTypes(array $parameters = [])
     {
         $endpoint = '/supplier_type';
         return $this->doRequest('get', $endpoint, $parameters);
@@ -80,7 +84,7 @@ class Suppliers extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function update($id, $parameters)
+    public function update($id, array $parameters)
     {
         $endpoint = '/supplier/update/' . $id;
         return $this->doRequest('post', $endpoint, $parameters);

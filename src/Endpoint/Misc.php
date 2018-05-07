@@ -1,4 +1,8 @@
-<?php namespace UON;
+<?php
+
+namespace UON\Endpoint;
+
+use UON\Client;
 
 /**
  * Class Misc
@@ -13,7 +17,7 @@ class Misc extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function createAvia($parameters)
+    public function createAvia(array $parameters)
     {
         $endpoint = '/avia/create';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -26,7 +30,7 @@ class Misc extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function createCall($parameters)
+    public function createCall(array $parameters)
     {
         $endpoint = '/call_history/create';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -39,7 +43,7 @@ class Misc extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function createMail($parameters)
+    public function createMail(array $parameters)
     {
         $endpoint = '/mail/create';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -52,7 +56,7 @@ class Misc extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function getCurrency($parameters = [])
+    public function getCurrency(array $parameters = [])
     {
         $endpoint = '/currency';
         return $this->doRequest('get', $endpoint, $parameters);
@@ -77,7 +81,7 @@ class Misc extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function getOffices($parameters = [])
+    public function getOffices(array $parameters = [])
     {
         $endpoint = '/company-office';
         return $this->doRequest('get', $endpoint, $parameters);

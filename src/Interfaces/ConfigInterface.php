@@ -1,13 +1,13 @@
 <?php namespace UON\Interfaces;
 
-interface Config
+interface ConfigInterface
 {
     /**
      * Set parameter by name
      *
-     * @param   $parameter
-     * @param   $value
-     * @return  bool|Config
+     * @param   string $parameter
+     * @param   mixed $value
+     * @return  ConfigInterface
      */
     public function set($parameter, $value);
 
@@ -29,8 +29,9 @@ interface Config
     /**
      * Return all preconfigured parameters
      *
+     * @param   bool $ignore_token
      * @return  array
      */
-    public function getParameters();
+    public function getParameters($ignore_token = false);
 
 }

@@ -1,4 +1,8 @@
-<?php namespace UON;
+<?php
+
+namespace UON\Endpoint;
+
+use UON\Client;
 
 /**
  * Class Users
@@ -38,7 +42,7 @@ class Users extends Client
      * @param   array $parameters - Some parameters for search [telegram, whatsapp, viber, instagram]
      * @return  array|false
      */
-    public function search($parameters = [])
+    public function search(array $parameters = [])
     {
         $endpoint = '/user/search';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -51,7 +55,7 @@ class Users extends Client
      * @param   array $parameters
      * @return  array|false
      */
-    public function getLabel($parameters = [])
+    public function getLabel(array $parameters = [])
     {
         $endpoint = '/user-label';
         return $this->doRequest('get', $endpoint, $parameters);
@@ -96,13 +100,26 @@ class Users extends Client
     }
 
     /**
+     * The list of the tourists by page number
+     *
+     * @link    https://api.u-on.ru/{key}/users_by_page/{page}.{_format}
+     * @param   int $page number of page
+     * @return  array|false
+     */
+    public function getByPage($page)
+    {
+        $endpoint = '/users_by_page/' . $page;
+        return $this->doRequest('get', $endpoint);
+    }
+
+    /**
      * Create new user in database
      *
      * @link    https://api.u-on.ru/{key}/user/create.{_format}
      * @param   array $parameters
      * @return  array|false
      */
-    public function create($parameters)
+    public function create(array $parameters)
     {
         $endpoint = '/user/create';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -115,7 +132,7 @@ class Users extends Client
      * @param   array $parameters
      * @return  array|false
      */
-    public function createFile($parameters)
+    public function createFile(array $parameters)
     {
         $endpoint = '/user-file/create';
         return $this->doRequest('post', $endpoint, $parameters);

@@ -1,4 +1,8 @@
-<?php namespace UON;
+<?php
+
+namespace UON\Endpoint;
+
+use UON\Client;
 
 /**
  * Class Requests
@@ -13,7 +17,7 @@ class Requests extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function create($parameters)
+    public function create(array $parameters)
     {
         $endpoint = '/request/create';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -26,7 +30,7 @@ class Requests extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function createActions($parameters)
+    public function createActions(array $parameters)
     {
         $endpoint = '/request-action/create';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -39,7 +43,7 @@ class Requests extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function createFile($parameters)
+    public function createFile(array $parameters)
     {
         $endpoint = '/request-file/create';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -52,7 +56,7 @@ class Requests extends Client
      * @param   array $parameters - List of parameters [r_id, tourist_id]
      * @return  array|false
      */
-    public function createTourist($parameters)
+    public function createTourist(array $parameters)
     {
         $endpoint = '/tourists-requests/create';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -65,7 +69,7 @@ class Requests extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function search($parameters = [])
+    public function search(array $parameters = [])
     {
         $endpoint = '/request/search';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -79,7 +83,7 @@ class Requests extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function get($id, $parameters = [])
+    public function get($id, array $parameters = [])
     {
         $endpoint = '/request/' . $id;
         return $this->doRequest('get', $endpoint, $parameters);
@@ -163,7 +167,7 @@ class Requests extends Client
      * @param   array $parameters - List of parameters [id, name]
      * @return  array|false
      */
-    public function getTravelType($parameters = [])
+    public function getTravelType(array $parameters = [])
     {
         $endpoint = '/travel-type';
         return $this->doRequest('get', $endpoint, $parameters);
@@ -176,7 +180,7 @@ class Requests extends Client
      * @param   array $parameters - List of parameters [template_id, request_id etc.]
      * @return  array|false
      */
-    public function getDocument($parameters = [])
+    public function getDocument(array $parameters = [])
     {
         $endpoint = '/request-document';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -189,7 +193,7 @@ class Requests extends Client
      * @param   array $parameters - List of parameters [name]
      * @return  array|false
      */
-    public function createTravelType($parameters)
+    public function createTravelType(array $parameters)
     {
         $endpoint = '/travel-type/create';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -203,7 +207,7 @@ class Requests extends Client
      * @param   array $parameters - List of parameters [r_cl_id]
      * @return  array|false
      */
-    public function update($id, $parameters)
+    public function update($id, array $parameters)
     {
         $endpoint = '/request/update/' . $id;
         return $this->doRequest('post', $endpoint, $parameters);
@@ -229,7 +233,7 @@ class Requests extends Client
      * @param   array $parameters - List of parameters [r_id, tourist_id]
      * @return  array|false
      */
-    public function deleteTourist($parameters)
+    public function deleteTourist(array $parameters)
     {
         $endpoint = '/tourists-requests/delete';
         return $this->doRequest('post', $endpoint, $parameters);

@@ -7,9 +7,9 @@ class Exceptions extends \Exception
         parent::__construct($message, $code, $previous);
 
         $this->errorLog(
-            "Uncaught Error: " . $this->getMessage() . " in " . $this->getFile() . ":" . $this->getLine()
+            'Uncaught Error: ' . $this->getMessage() . ' in ' . $this->getFile() . ':' . $this->getLine()
             . "Stack trace:\n" . $this->getTraceAsString()
-            . "\tthrown in " . $this->getFile() . " on line " . $this->getLine()
+            . "\tthrown in " . $this->getFile() . ' on line ' . $this->getLine()
         );
     }
 

@@ -1,4 +1,8 @@
-<?php namespace UON;
+<?php
+
+namespace UON\Endpoint;
+
+use UON\Client;
 
 /**
  * Class Reminders
@@ -13,7 +17,7 @@ class Reminders extends Client
      * @param   array $parameters - List of parameters
      * @return  array
      */
-    public function create($parameters)
+    public function create(array $parameters)
     {
         $endpoint = '/reminder/create';
         return $this->doRequest('post', $endpoint, $parameters);

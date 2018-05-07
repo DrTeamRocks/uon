@@ -1,4 +1,8 @@
-<?php namespace UON;
+<?php
+
+namespace UON\Endpoint;
+
+use UON\Client;
 
 /**
  * Class Statuses
@@ -13,7 +17,7 @@ class Statuses extends Client
      * @param   array|null $parameters - List of parameters
      * @return  array|false
      */
-    public function get($parameters = null)
+    public function get(array $parameters = [])
     {
         $endpoint = '/status';
         return $this->doRequest('get', $endpoint, $parameters);
@@ -23,10 +27,10 @@ class Statuses extends Client
      * Get a list of statuses for leads
      *
      * @link    https://api.u-on.ru/{key}/status_lead.{_format}
-     * @param   array|null $parameters - List of parameters
+     * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function getLead($parameters = null)
+    public function getLead(array $parameters = [])
     {
         $endpoint = '/status_lead';
         return $this->doRequest('get', $endpoint, $parameters);

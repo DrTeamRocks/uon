@@ -1,4 +1,8 @@
-<?php namespace UON;
+<?php
+
+namespace UON\Endpoint;
+
+use UON\Client;
 
 /**
  * Class Hotels
@@ -13,7 +17,7 @@ class Hotels extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function create($parameters)
+    public function create(array $parameters)
     {
         $endpoint = '/hotel/create';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -53,7 +57,7 @@ class Hotels extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function update($id, $parameters)
+    public function update($id, array $parameters)
     {
         $endpoint = '/hotel/update/' . $id;
         return $this->doRequest('post', $endpoint, $parameters);

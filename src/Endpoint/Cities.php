@@ -1,4 +1,8 @@
-<?php namespace UON;
+<?php
+
+namespace UON\Endpoint;
+
+use UON\Client;
 
 /**
  * Class Cities
@@ -13,7 +17,7 @@ class Cities extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function create($parameters)
+    public function create(array $parameters)
     {
         $endpoint = '/city/create';
         return $this->doRequest('post', $endpoint, $parameters);
@@ -40,7 +44,7 @@ class Cities extends Client
      * @param   array $parameters - List of parameters
      * @return  array|false
      */
-    public function update($id, $parameters)
+    public function update($id, array $parameters)
     {
         $endpoint = '/city/update/' . $id;
         return $this->doRequest('post', $endpoint, $parameters);

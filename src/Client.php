@@ -1,55 +1,52 @@
 <?php namespace UON;
+
+use UON\Interfaces\ConfigInterface;
+
 /**
  * @author Paul Rock <paul@drteam.rocks>
  * @link http://drteam.rocks
  * @license MIT
  */
-
 class Client
 {
     /**
      * Initial state of some variables
      */
-    public $_client;
-    public $_config;
+    protected $_client;
+    protected $_config;
 
     /**
      * Default server parameters
      */
-    public $host = 'api.u-on.ru';
-    public $port = '443';
-    public $path = '/';
-    public $useSSL = true;
+    protected $host = 'api.u-on.ru';
+    protected $port = '443';
+    protected $path = '/';
+    protected $useSSL = true;
 
     /**
      * User initial values
      */
-    public $token;
+    protected $token;
 
     /**
      * Default format of output
      */
-    public $format = 'json';
+    protected $format = 'json';
 
     /**
      * Client constructor.
-     * @param mixed $token - User defined token
+     * @param ConfigInterface $config User defined configuration
      */
-    public function __construct($token = null)
+    public function __construct(ConfigInterface $config)
     {
-        if (is_object($token)) {
-            $this->token = $token->get('token');
+        // Extract toke from config
+        $this->token = $config->get('token');
 
-            // Store the client object
-            $this->_client = new \GuzzleHttp\Client($token->getParameters(true));
-        } else {
-            // TODO: Remove this in future releases
-            if (!empty($token)) $this->token = $token;
-            else $this->token = UON_API_TOKEN;
+        // Save config into local variable
+        $this->_config = $config;
 
-            // Store the client object
-            $this->_client = new \GuzzleHttp\Client();
-        }
+        // Store the client object
+        $this->_client = new \GuzzleHttp\Client($config->getParameters(true));
     }
 
     /**
@@ -59,28 +56,26 @@ class Client
      * @param   string $endpoint Api request endpoint
      * @param   array $params Parameters
      * @return  array|false Array with data or error, or False when something went fully wrong
+     * @throws
      */
-    public function doRequest($type, $endpoint, $params = [])
+    public function doRequest($type, $endpoint, array $params = [])
     {
         // Create the base URL
-        $base = ($this->useSSL) ? "https" : "http";
+        $base = $this->useSSL ? 'https' : 'http';
 
         // Generate the URL for request
-        $url = $base . "://" . $this->host . ":" . $this->port . $this->path . $this->token . $endpoint . '.' . $this->format;
+        $url = $base . '://' . $this->host . ':' . $this->port . $this->path . $this->token . $endpoint . '.' . $this->format;
 
-        switch ($type) {
-            case 'get':
-            case 'post':
-            case 'delete':
-            case 'put':
-                $result = $this->_client->request($type, $url, array('form_params' => $params));
-                break;
-            default:
-                $result = null;
-                break;
-        }
+        //
+        $result = \in_array($type, ['get', 'post', 'put', 'delete'])
+            ? $this->_client->request($type, $url, array('form_params' => $params))
+            : null;
 
-        return array('status' => false, 'message' => json_decode($result->getBody()));
+        return [
+            'code' => $result->getStatusCode(),
+            'reason' => $result->getReasonPhrase(),
+            'message' => json_decode($result->getBody())
+        ];
 
     }
 

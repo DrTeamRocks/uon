@@ -31,7 +31,7 @@ class LeadsTest extends TestCase
     {
         $result = $this->_leads->create($this->_lead);
 
-        if (!empty($result['message'])) {
+        if (isset($result['message']->id)) {
             file_put_contents($this->_file, $result['message']->id);
             $this->assertInternalType('array', $result);
         }

@@ -128,7 +128,9 @@ class Requests extends Client
     public function getDate($date_from, $date_to, $source_id = null)
     {
         $endpoint = '/request/' . $date_from . '/' . $date_to;
-        if (!empty($source_id)) $endpoint .= '/' . $source_id;
+        if (null !== $source_id) {
+            $endpoint .= '/' . $source_id;
+        }
         return $this->doRequest('get', $endpoint);
     }
 
@@ -183,7 +185,7 @@ class Requests extends Client
     public function getDocument(array $parameters = [])
     {
         $endpoint = '/request-document';
-        return $this->doRequest('post', $endpoint, $parameters);
+        return $this->doRequest('post', $endpoint, $parameters, true);
     }
 
     /**

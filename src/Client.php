@@ -1,13 +1,17 @@
-<?php namespace UON;
+<?php
+
+namespace UON;
 
 use UON\Interfaces\ConfigInterface;
+use UON\Interfaces\ClientInterface;
 
 /**
- * @author Paul Rock <paul@drteam.rocks>
- * @link http://drteam.rocks
+ * @author  Paul Rock <paul@drteam.rocks>
+ * @link    http://drteam.rocks
  * @license MIT
+ * @package UON
  */
-class Client
+class Client implements ClientInterface
 {
     /**
      * Initial state of some variables
@@ -55,10 +59,11 @@ class Client
      * @param   string $type Request method
      * @param   string $endpoint Api request endpoint
      * @param   array $params Parameters
+     * @param   bool $raw Return data in raw format
      * @return  array|false Array with data or error, or False when something went fully wrong
      * @throws
      */
-    public function doRequest($type, $endpoint, array $params = [])
+    public function doRequest($type, $endpoint, array $params = [], $raw = false)
     {
         // Create the base URL
         $base = $this->useSSL ? 'https' : 'http';
@@ -67,14 +72,14 @@ class Client
         $url = $base . '://' . $this->host . ':' . $this->port . $this->path . $this->token . $endpoint . '.' . $this->format;
 
         //
-        $result = \in_array($type, ['get', 'post', 'put', 'delete'])
-            ? $this->_client->request($type, $url, array('form_params' => $params))
+        $result = \in_array($type, self::ALLOWED_METHODS, false)
+            ? $this->_client->request($type, $url, ['form_params' => $params])
             : null;
 
         return [
             'code' => $result->getStatusCode(),
             'reason' => $result->getReasonPhrase(),
-            'message' => json_decode($result->getBody())
+            'message' => $raw ? (string) $result->getBody() : json_decode($result->getBody())
         ];
 
     }

@@ -22,7 +22,7 @@
     "minimum-stability": "stable",
     "name": "drteam/uon",
     "require": {
-        "php": ">=5.5",
+        "php": ">=5.6",
         "ext-curl": "*",
         "guzzlehttp/guzzle": "^6.0"
     },

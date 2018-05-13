@@ -44,29 +44,16 @@ All available methods of all classes with descriptions you can find [here](READM
 
 ## How to get API token
 
-You need login into your account, then go to the  **Settings > API and WebHooks** page and copy token code from API block.
-
-## Note about Unit Tests
-
-Token should be placed into the file **extra/config.php**, an example of this file
-you can find in the same directory, only with another name [config.example.php](extra/config.example.php),
-so you can just copy with rename and place your token inside.
-
-After all this steps you can run `./vendor/bin/phpunit` from source root.
-But, please don't run tests on your production account (API token), you can loose some critical data! 
-
-Good luck!
+You need login into your account, then go to the
+**Settings > API and WebHooks** page and copy token code from API block.
 
 ## How to help to project
 
-If you have a desire, you can help with testing and bugs hunting or make some donation.
-
-## Some documents
-
-* [List of API methods](README.API.md) urls of methods with classes
-* [Basic examples](README.BASIC.md) of usage written on PHP-Curl library
+If you have a desire, you can help with testing and bugs hunting or
+make some donation.
 
 ## Useful links
 
 * [U-On Travel](https://u-on.ru) - Official website
 * [U-On Travel API](https://api.u-on.ru/doc) - API documentation
+* [Basic examples by U-On team](README.BASIC.md) of usage written on PHP-Curl library

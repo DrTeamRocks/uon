@@ -8,9 +8,9 @@ use UON\Endpoint\Payments;
 
 class PaymentsTest extends TestCase
 {
-    private $_file;
     private $_payments;
     private $_payment;
+    public static $paymentId;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -18,7 +18,6 @@ class PaymentsTest extends TestCase
         $config = new Config();
         $config->set('token', file_get_contents(__DIR__ . '/_token.txt'));
 
-        $this->_file = __DIR__ . '/_tmp.txt';
         $this->_payments = new Payments($config);
         $this->_payment = array(
             'r_id' => '1',
@@ -30,14 +29,13 @@ class PaymentsTest extends TestCase
     public function testCreate()
     {
         $result = $this->_payments->create($this->_payment);
-        file_put_contents($this->_file, $result['message']->id);
+        self::$paymentId = $result['message']->id;
         $this->assertInternalType('array', $result);
     }
 
     public function testRead()
     {
-        $id = file_get_contents($this->_file);
-        $result = $this->_payments->get($id);
+        $result = $this->_payments->get(self::$paymentId);
         $this->assertInternalType('array', $result);
 
         // Date for next method
@@ -50,15 +48,13 @@ class PaymentsTest extends TestCase
 
     public function testUpdate()
     {
-        $id = file_get_contents($this->_file);
-        $result = $this->_payments->update($id, $this->_payment);
+        $result = $this->_payments->update(self::$paymentId, $this->_payment);
         $this->assertInternalType('array', $result);
     }
 
     public function testDelete()
     {
-        $id = file_get_contents($this->_file);
-        $result = $this->_payments->delete($id);
+        $result = $this->_payments->delete(self::$paymentId);
         $this->assertInternalType('array', $result);
     }
 }

@@ -8,9 +8,9 @@ use UON\Endpoint\Users;
 
 class UsersTest extends TestCase
 {
-    private $_file;
     private $_users;
     private $_user;
+    public static $userId;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -18,7 +18,6 @@ class UsersTest extends TestCase
         $config = new Config();
         $config->set('token', file_get_contents(__DIR__ . '/_token.txt'));
 
-        $this->_file = __DIR__ . '/_tmp.txt';
         $this->_users = new Users($config);
         $this->_user = array(
             'u_name' => 'User',
@@ -31,7 +30,7 @@ class UsersTest extends TestCase
     public function testCreate()
     {
         $result = $this->_users->create($this->_user);
-        file_put_contents($this->_file, $result['message']->id);
+        self::$userId = $result['message']->id;
         $this->assertInternalType('array', $result);
     }
 
@@ -43,8 +42,7 @@ class UsersTest extends TestCase
 
     public function testGet()
     {
-        $user_id = file_get_contents($this->_file);
-        $result = $this->_users->get($user_id);
+        $result = $this->_users->get(self::$userId);
         $this->assertInternalType('array', $result);
     }
 
@@ -90,11 +88,11 @@ class UsersTest extends TestCase
 
     public function testCreateFile()
     {
-        $user_id = file_get_contents($this->_file);
         $file = [
-            'u_id' => $user_id,
-            'filename' => 'имя файл жпг',
-            'name' => 'http://static.skaip.org/img/emoticons/180x180/f6fcff/penguin.gif'
+            'u_id' => self::$userId,
+            'filename' => 'http://static.skaip.org/img/emoticons/180x180/f6fcff/penguin.gif',
+            'name' => 'имя файл жпг',
+            'file_note' => 'extremal'
         ];
         $result = $this->_users->createFile($file);
         $this->assertInternalType('array', $result);
@@ -102,8 +100,7 @@ class UsersTest extends TestCase
 
     public function testUpdate()
     {
-        $id = file_get_contents($this->_file);
-        $result = $this->_users->update($id, $this->_user);
+        $result = $this->_users->update(self::$userId, $this->_user);
         $this->assertInternalType('array', $result);
     }
 

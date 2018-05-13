@@ -8,9 +8,9 @@ use UON\Endpoint\Hotels;
 
 class HotelsTest extends TestCase
 {
-    private $_file;
     private $_hotels;
     private $_hotel;
+    public static $hotelId;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -18,7 +18,6 @@ class HotelsTest extends TestCase
         $config = new Config();
         $config->set('token', file_get_contents(__DIR__ . '/_token.txt'));
 
-        $this->_file = __DIR__ . '/_tmp.txt';
         $this->_hotels = new Hotels($config);
         $this->_hotel = [
             'name' => 'Кингконгстоунт',
@@ -37,7 +36,7 @@ class HotelsTest extends TestCase
             $result['message']->id = 2;
         }
 
-        file_put_contents($this->_file, $result['message']->id);
+        self::$hotelId = $result['message']->id;
     }
 
     public function testRead()
@@ -45,22 +44,19 @@ class HotelsTest extends TestCase
         $result = $this->_hotels->all('1');
         $this->assertInternalType('array', $result);
 
-        $id = file_get_contents($this->_file);
-        $result = $this->_hotels->get($id);
+        $result = $this->_hotels->get(self::$hotelId);
         $this->assertInternalType('array', $result);
     }
 
     public function testUpdate()
     {
-        $id = file_get_contents($this->_file);
-        $update = $this->_hotels->update($id, $this->_hotel);
+        $update = $this->_hotels->update(self::$hotelId, $this->_hotel);
         $this->assertInternalType('array', $update);
     }
 
     public function testDelete()
     {
-        $id = file_get_contents($this->_file);
-        $delete = $this->_hotels->delete($id);
+        $delete = $this->_hotels->delete(self::$hotelId);
         $this->assertInternalType('array', $delete);
     }
 }

@@ -13,13 +13,15 @@ class RequestsTest extends TestCase
     private $_request;
     private $_requestAction;
 
+    public static $requestId;
+    public static $requestActionId;
+
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
         $config = new Config();
         $config->set('token', file_get_contents(__DIR__ . '/_token.txt'));
 
-        $this->_file = __DIR__ . '/_tmp.txt';
         $this->_requests = new Requests($config);
         $this->_request = [
             'note' => 'Test request',
@@ -44,13 +46,12 @@ class RequestsTest extends TestCase
             $result['message']->id = 2;
         }
 
-        file_put_contents($this->_file, $result['message']->id);
+        self::$requestId = $result['message']->id;
     }
 
     public function testRead()
     {
-        $id = file_get_contents($this->_file);
-        $result = $this->_requests->get($id);
+        $result = $this->_requests->get(self::$requestId);
         $this->assertInternalType('array', $result);
 
         // Date for next method
@@ -85,14 +86,13 @@ class RequestsTest extends TestCase
     public function testCreateActions()
     {
         $result = $this->_requests->createActions($this->_requestAction);
-        file_put_contents($this->_file, $result['message']->id);
+        self::$requestActionId = $result['message']->id;
         $this->assertInternalType('array', $result);
     }
 
     public function testReadActions()
     {
-        $id = file_get_contents($this->_file);
-        $result = $this->_requests->getActions($id);
+        $result = $this->_requests->getActions(self::$requestActionId);
         $this->assertInternalType('array', $result);
 
         // Date for next method

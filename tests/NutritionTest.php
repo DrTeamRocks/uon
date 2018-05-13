@@ -8,9 +8,10 @@ use UON\Endpoint\Nutrition;
 
 class NutritionTest extends TestCase
 {
-    private $_file;
     private $_nutritions;
     private $_nutrition;
+
+    public static $nutritionId;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -18,7 +19,6 @@ class NutritionTest extends TestCase
         $config = new Config();
         $config->set('token', file_get_contents(__DIR__ . '/_token.txt'));
 
-        $this->_file = __DIR__ . '/_tmp.txt';
         $this->_nutritions = new Nutrition($config);
         $this->_nutrition = array(
             'name' => 'Хавчик',
@@ -29,7 +29,7 @@ class NutritionTest extends TestCase
     public function testCreate()
     {
         $result = $this->_nutritions->create($this->_nutrition);
-        file_put_contents($this->_file, $result['message']->id);
+        self::$nutritionId = $result['message']->id;
         $this->assertInternalType('array', $result);
     }
 
@@ -41,8 +41,7 @@ class NutritionTest extends TestCase
 
     public function testUpdate()
     {
-        $id = file_get_contents($this->_file);
-        $result = $this->_nutritions->update($id);
+        $result = $this->_nutritions->update(self::$nutritionId);
         $this->assertInternalType('array', $result);
     }
 

@@ -8,9 +8,9 @@ use UON\Endpoint\Reminders;
 
 class RemindersTest extends TestCase
 {
-    private $_file;
     private $_reminders;
     private $_reminder;
+    public static $reminderId;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -18,7 +18,6 @@ class RemindersTest extends TestCase
         $config = new Config();
         $config->set('token', file_get_contents(__DIR__ . '/_token.txt'));
 
-        $this->_file = __DIR__ . '/_tmp.txt';
         $this->_reminders = new Reminders($config);
         $this->_reminder = array(
             'r_id' => '1',
@@ -32,14 +31,13 @@ class RemindersTest extends TestCase
     public function testCreate()
     {
         $result = $this->_reminders->create($this->_reminder);
-        file_put_contents($this->_file, $result['message']->id);
+        self::$reminderId = $result['message']->id;
         $this->assertInternalType('array', $result);
     }
 
     public function testRead()
     {
-        $id = file_get_contents($this->_file);
-        $result = $this->_reminders->get($id);
+        $result = $this->_reminders->get(self::$reminderId);
         $this->assertInternalType('array', $result);
     }
 

@@ -9,9 +9,10 @@ use UON\Endpoint\Services;
 
 class CatalogTest extends TestCase
 {
-    private $_file;
     private $_catalog;
     private $_services;
+
+    public static $catalogId;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -19,7 +20,6 @@ class CatalogTest extends TestCase
         $config = new Config();
         $config->set('token', file_get_contents(__DIR__ . '/_token.txt'));
 
-        $this->_file = __DIR__ . '/_tmp.txt';
         $this->_catalog = new Catalog($config);
         $this->_services = new Services($config);
     }
@@ -37,7 +37,7 @@ class CatalogTest extends TestCase
         ];
 
         $result = $this->_catalog->create($parameters);
-        file_put_contents($this->_file, $result['message']->id);
+        self::$catalogId = $result['message']->id;
         $this->assertInternalType('array', $result);
     }
 
@@ -62,8 +62,7 @@ class CatalogTest extends TestCase
             'price' => '999999'
         ];
 
-        $id = file_get_contents($this->_file);
-        $result = $this->_catalog->update($id, $parameters);
+        $result = $this->_catalog->update(self::$catalogId, $parameters);
         $this->assertInternalType('array', $result);
     }
 }

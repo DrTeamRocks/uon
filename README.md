@@ -42,6 +42,29 @@ See other examples of usage [here](extra) separated by class names.
 
 All available methods of all classes with descriptions you can find [here](README.API.md).
 
+### Available parameters of configuration
+
+* token - Token for work with system
+* timeout - Timeout which client must wait answer from server
+* allow_redirects - Allow redirectoin from one url to other
+* http_errors - Enable http errors
+* decode_content - If you need decode content by server
+* verify - Content verification
+* cookies - Use cookies
+
+Additional parameters for error 429
+
+* tries - Count of tries if server answer 429 error code (default: 10)
+* seconds - Time which need wait between tries (default: 1)
+
+```php
+$config = new \UON\Config();
+$config
+    ->set('token', 'some_token')
+    ->set('tries', 11)
+    ->set('seconds', 2);
+```
+
 ## How to get API token
 
 You need login into your account, then go to the

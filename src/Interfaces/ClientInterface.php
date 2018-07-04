@@ -12,7 +12,16 @@ interface ClientInterface
 {
     /**
      * Array of allowed methods
-     * @var array
      */
     const ALLOWED_METHODS = ['get', 'post', 'put', 'delete'];
+
+    /**
+     * Count of allowed tries
+     */
+    const TRIES = 10;
+
+    /**
+     * Waiting time
+     */
+    const SECONDS = 1;
 }

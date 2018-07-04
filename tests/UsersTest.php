@@ -73,7 +73,7 @@ class UsersTest extends TestCase
     public function testGetByPage()
     {
         $result = $this->_users->getByPage(1);
-        $this->assertInternalType('array', $result);
+        $this->assertInternalType('bool', $result);
     }
 
     public function testGetUpdated()

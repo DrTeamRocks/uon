@@ -1,5 +1,6 @@
 <?php namespace UON;
 
+use function foo\func;
 use UON\Exceptions\ConfigException;
 
 class Config implements Interfaces\ConfigInterface
@@ -15,6 +16,7 @@ class Config implements Interfaces\ConfigInterface
         'http_errors',
         'decode_content',
         'verify',
+        'tries',
         'cookies'
     ];
 
@@ -22,7 +24,11 @@ class Config implements Interfaces\ConfigInterface
      * List of configured parameters
      * @var array
      */
-    private $_parameters = [];
+    private $_parameters = [
+        // Errors must be disabled by default, because we need to get error codes
+        // @link http://docs.guzzlephp.org/en/stable/request-options.html#http-errors
+        'http_errors' => false
+    ];
 
     /**
      * Work mode of return
@@ -102,18 +108,21 @@ class Config implements Interfaces\ConfigInterface
     /**
      * Return all preconfigured parameters
      *
-     * @param   bool $ignore_token
+     * @param   bool $ignore Ignore parameters which is not important for client
+     * @param   array $ignore_items Which items should be excluded from array
      * @return  array
      */
-    public function getParameters($ignore_token = false)
+    public function getParameters($ignore = false, array $ignore_items = ['token', 'tries', 'seconds'])
     {
-        $array = $this->_parameters;
-
-        // Remove "token" from array
-        if ($ignore_token) {
-            unset($array['token']);
+        $parameters = $this->_parameters;
+        // Remove ignored items from array
+        if ($ignore) {
+            foreach ($parameters as $key => $value) {
+                if (in_array($key, $ignore_items, false)) {
+                    unset($parameters[$key]);
+                }
+            }
         }
-
-        return $array;
+        return $parameters;
     }
 }

@@ -29,13 +29,27 @@ class Client implements ClientInterface
 
     /**
      * User initial values
+     * @var string
      */
     protected $token;
 
     /**
      * Default format of output
+     * @var string
      */
     protected $format = 'json';
+
+    /**
+     * Count of tries
+     * @var int
+     */
+    private $tries = self::TRIES;
+
+    /**
+     * Waiting time per each try
+     * @var int
+     */
+    private $seconds = self::SECONDS;
 
     /**
      * Client constructor.
@@ -46,6 +60,16 @@ class Client implements ClientInterface
         // Extract toke from config
         $this->token = $config->get('token');
 
+        // Count of tries
+        if ($config->get('tries') !== false) {
+            $this->tries = $config->get('tries');
+        }
+
+        // Waiting time
+        if ($config->get('seconds') !== false) {
+            $this->tries = $config->get('seconds');
+        }
+
         // Save config into local variable
         $this->_config = $config;
 
@@ -54,14 +78,48 @@ class Client implements ClientInterface
     }
 
     /**
+     * Request executor with timeout and repeat tries
+     *
+     * @param   string $type Request method
+     * @param   string $url endpoint url
+     * @param   array $params List of parameters
+     * @return  bool|\Psr\Http\Message\ResponseInterface
+     * @throws  \GuzzleHttp\Exception\GuzzleException
+     */
+    public function repeatRequest($type, $url, $params)
+    {
+        for ($i = 1; $i < $this->tries; $i++) {
+
+            // Execute the request to server
+            $result = \in_array($type, self::ALLOWED_METHODS, false)
+                ? $this->_client->request($type, $url, ['form_params' => $params])
+                : null;
+
+            // Check the code status
+            $code = $result->getStatusCode();
+
+            // If code is not 405 (but 200 foe example) then exit from loop
+            if ($code === 200) {
+                return $result;
+            }
+
+            // Waiting in seconds
+            sleep($this->seconds);
+        }
+
+        // Return false if loop is done but no answer from server
+        return false;
+    }
+
+    /**
      * Make the request and analyze the result
      *
      * @param   string $type Request method
      * @param   string $endpoint Api request endpoint
-     * @param   array $params Parameters
+     * @param   array $params List of parameters
      * @param   bool $raw Return data in raw format
      * @return  array|false Array with data or error, or False when something went fully wrong
-     * @throws
+     * @throws  \GuzzleHttp\Exception\GuzzleException
      */
     public function doRequest($type, $endpoint, array $params = [], $raw = false)
     {
@@ -71,17 +129,15 @@ class Client implements ClientInterface
         // Generate the URL for request
         $url = $base . '://' . $this->host . ':' . $this->port . $this->path . $this->token . $endpoint . '.' . $this->format;
 
-        //
-        $result = \in_array($type, self::ALLOWED_METHODS, false)
-            ? $this->_client->request($type, $url, ['form_params' => $params])
-            : null;
+        // Execute the request to server
+        $result = $this->repeatRequest($type, $url, $params);
 
-        return [
-            'code' => $result->getStatusCode(),
-            'reason' => $result->getReasonPhrase(),
-            'message' => $raw ? (string) $result->getBody() : json_decode($result->getBody())
-        ];
-
+        return
+            ($result === false) ? false : [
+                'code' => $result->getStatusCode(),
+                'reason' => $result->getReasonPhrase(),
+                'message' => $raw ? (string) $result->getBody() : json_decode($result->getBody())
+            ];
     }
 
 }

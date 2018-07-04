@@ -29,9 +29,9 @@ interface ConfigInterface
     /**
      * Return all preconfigured parameters
      *
-     * @param   bool $ignore_token
+     * @param   bool $ignore
      * @return  array
      */
-    public function getParameters($ignore_token = false);
+    public function getParameters($ignore = false);
 
 }

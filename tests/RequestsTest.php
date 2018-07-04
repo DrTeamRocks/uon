@@ -38,7 +38,7 @@ class RequestsTest extends TestCase
     public function testCreate()
     {
         $result = $this->_requests->create($this->_request);
-        $this->assertInternalType('bool', $result);
+        $this->assertInternalType('array', $result);
 
         // TODO: Remove this after bug will be fixed
         // Small bug, each second requests to system have a 0 into result

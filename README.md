@@ -16,6 +16,8 @@ A simple client that allows to work with RESTful API of U-On Travel company.
 
 This library is ready for production usage, all source codes provided "as is".
 
+About [migration to 1.8](https://github.com/DrTeamRocks/uon/wiki/Миграция-с-1.7-(и-ниже)-на-1.8-(и-выше)).
+
 ## Example of usage
 
 ```php

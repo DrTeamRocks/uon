@@ -6,21 +6,6 @@ use UON\Exceptions\ConfigException;
 class Config implements Interfaces\ConfigInterface
 {
     /**
-     * List of allowed parameters
-     * @var array
-     */
-    private $_allowed = [
-        'token',
-        'timeout',
-        'allow_redirects',
-        'http_errors',
-        'decode_content',
-        'verify',
-        'tries',
-        'cookies'
-    ];
-
-    /**
      * List of configured parameters
      * @var array
      */
@@ -102,7 +87,7 @@ class Config implements Interfaces\ConfigInterface
      */
     public function getAllowed()
     {
-        return $this->_allowed;
+        return self::ALLOWED;
     }
 
     /**

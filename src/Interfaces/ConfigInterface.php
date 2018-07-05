@@ -3,6 +3,22 @@
 interface ConfigInterface
 {
     /**
+     * List of allowed parameters
+     */
+    const ALLOWED = [
+        'token',
+        'timeout',
+        'allow_redirects',
+        'http_errors',
+        'decode_content',
+        'verify',
+        'cookies',
+        // For the error 429
+        'tries',
+        'seconds'
+    ];
+
+    /**
      * Set parameter by name
      *
      * @param   string $parameter

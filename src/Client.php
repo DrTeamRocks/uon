@@ -2,6 +2,8 @@
 
 namespace UON;
 
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\RequestException;
 use UON\Interfaces\ConfigInterface;
 use UON\Interfaces\ClientInterface;
 
@@ -119,7 +121,6 @@ class Client implements ClientInterface
      * @param   array $params List of parameters
      * @param   bool $raw Return data in raw format
      * @return  array|false Array with data or error, or False when something went fully wrong
-     * @throws  \GuzzleHttp\Exception\GuzzleException
      */
     public function doRequest($type, $endpoint, array $params = [], $raw = false)
     {
@@ -129,15 +130,28 @@ class Client implements ClientInterface
         // Generate the URL for request
         $url = $base . '://' . $this->host . ':' . $this->port . $this->path . $this->token . $endpoint . '.' . $this->format;
 
-        // Execute the request to server
-        $result = $this->repeatRequest($type, $url, $params);
+        try {
+            // Execute the request to server
+            $result = $this->repeatRequest($type, $url, $params);
 
-        return
-            ($result === false) ? false : [
-                'code' => $result->getStatusCode(),
-                'reason' => $result->getReasonPhrase(),
-                'message' => $raw ? (string) $result->getBody() : json_decode($result->getBody())
-            ];
+            // Return result
+            return
+                ($result === false) ? false : [
+                    'code' => $result->getStatusCode(),
+                    'reason' => $result->getReasonPhrase(),
+                    'message' => $raw ? (string) $result->getBody() : json_decode($result->getBody())
+                ];
+
+        } catch (RequestException $e) {
+            echo $e->getMessage() . "\n";
+            echo $e->getRequest()->getMethod() . "\n";
+            echo $e->getTrace();
+        } catch (GuzzleException $e) {
+            echo $e->getMessage() . "\n";
+            echo $e->getTrace();
+        }
+
+        return false;
     }
 
 }

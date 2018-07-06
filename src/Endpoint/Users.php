@@ -14,11 +14,12 @@ class Users extends Client
      * Get all users from database
      *
      * @link    api.u-on.ru/{key}/user.{_format}
+     * @param   int $page - Number of page, 1 by default
      * @return  array|false
      */
-    public function all()
+    public function all($page = 1)
     {
-        $endpoint = '/user';
+        $endpoint = '/users/' . $page;
         return $this->doRequest('get', $endpoint);
     }
 
@@ -89,13 +90,14 @@ class Users extends Client
      * Get all users. profiles which were updated in the specified date range
      *
      * @link    https://api.u-on.ru/{key}/user/updated/{date_from}/{date_to}.{_format}
-     * @param   string $date_from
-     * @param   string $date_to
+     * @param   string $date_from - Start of dates range
+     * @param   string $date_to - End of dates range
+     * @param   int $page - Number of page, 1 by default
      * @return  array|false
      */
-    public function getUpdated($date_from, $date_to)
+    public function getUpdated($date_from, $date_to, $page = 1)
     {
-        $endpoint = '/user/updated/' . $date_from . '/' . $date_to;
+        $endpoint = '/user/updated/' . $date_from . '/' . $date_to . '/' . $page;
         return $this->doRequest('get', $endpoint);
     }
 

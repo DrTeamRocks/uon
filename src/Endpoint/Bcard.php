@@ -5,7 +5,7 @@ namespace UON\Endpoint;
 use UON\Client;
 
 /**
- * Class Bcard
+ * Collection of methods for work with bonus cards
  * @package UON
  */
 class Bcard extends Client
@@ -22,7 +22,6 @@ class Bcard extends Client
         $endpoint = '/bcard-activate/create';
         return $this->doRequest('post', $endpoint, $parameters);
     }
-
 
     /**
      * Bonus card create

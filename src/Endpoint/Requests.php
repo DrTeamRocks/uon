@@ -107,11 +107,12 @@ class Requests extends Client
      *
      * @link    https://api.u-on.ru/{key}/request-by-client/create.{_format}
      * @param   int $id - List of parameters
+     * @param   int $page - Number of page, 1 by default
      * @return  array|false
      */
-    public function getByClient($id)
+    public function getByClient($id, $page = 1)
     {
-        $endpoint = '/request-by-client/' . $id;
+        $endpoint = '/request-by-client/' . $id . '/' . $page;
         return $this->doRequest('get', $endpoint);
     }
 
@@ -120,17 +121,19 @@ class Requests extends Client
      *
      * @link    https://api.u-on.ru/{key}/request/{date_from}/{date_to}.{_format}
      * @link    https://api.u-on.ru/{key}/request/{date_from}/{date_to}/{source_id}.{_format}
-     * @param   string $date_from
-     * @param   string $date_to
+     * @param   string $date_from - Start of dates range
+     * @param   string $date_to - End of dates range
+     * @param   int $page - Number of page, 1 by default
      * @param   int|null $source_id - Source ID, eg ID of SMS or JivoSite
      * @return  array|false
      */
-    public function getDate($date_from, $date_to, $source_id = null)
+    public function getDate($date_from, $date_to, $page = 1, $source_id = null)
     {
-        $endpoint = '/request/' . $date_from . '/' . $date_to;
+        $endpoint = '/requests/' . $date_from . '/' . $date_to;
         if (null !== $source_id) {
             $endpoint .= '/' . $source_id;
         }
+        $endpoint .= '/' . $page;
         return $this->doRequest('get', $endpoint);
     }
 
@@ -138,13 +141,14 @@ class Requests extends Client
      * Get touch of the requests in dates range
      *
      * @link    https://api.u-on.ru/{key}/request/{date_from}/{date_to}.{_format}
-     * @param   string $date_from
-     * @param   string $date_to
+     * @param   string $date_from - Start of dates range
+     * @param   string $date_to - End of dates range
+     * @param   int $page - Number of page, 1 by default
      * @return  array|false
      */
-    public function getDateActions($date_from, $date_to)
+    public function getDateActions($date_from, $date_to, $page = 1)
     {
-        $endpoint = '/request-action/' . $date_from . '/' . $date_to;
+        $endpoint = '/request-action/' . $date_from . '/' . $date_to . '/' . $page;
         return $this->doRequest('get', $endpoint);
     }
 
@@ -152,13 +156,14 @@ class Requests extends Client
      * Get updates requests by dates range
      *
      * @link    https://api.u-on.ru/{key}/request/updated/{date_from}/{date_to}.{_format}
-     * @param   string $date_from
-     * @param   string $date_to
+     * @param   string $date_from - Start of dates range
+     * @param   string $date_to - End of dates range
+     * @param   int $page - Number of page, 1 by default
      * @return  array|false
      */
-    public function getUpdated($date_from, $date_to)
+    public function getUpdated($date_from, $date_to, $page = 1)
     {
-        $endpoint = '/request/updated/' . $date_from . '/' . $date_to;
+        $endpoint = '/requests/updated/' . $date_from . '/' . $date_to . '/' . $page;
         return $this->doRequest('get', $endpoint);
     }
 

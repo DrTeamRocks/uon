@@ -27,7 +27,7 @@ class Suppliers extends Client
      * Create new type for partners
      *
      * @link    https://api.u-on.ru/{key}/supplier_type/create.{_format}
-     * @param   $parameters - List of parameters
+     * @param   array $parameters - List of parameters
      * @return  array|false
      */
     public function createType(array $parameters)
@@ -40,12 +40,13 @@ class Suppliers extends Client
      * Get a list of partners
      *
      * @link    https://api.u-on.ru/{key}/supplier/{id}.{_format}
-     * @param   array|null $parameters - List of parameters
+     * @param   array $parameters - List of parameters
+     * @param   int $page - Number of page, 1 by default
      * @return  array|false
      */
-    public function all(array $parameters = [])
+    public function all(array $parameters = [], $page = 1)
     {
-        $endpoint = '/supplier';
+        $endpoint = '/suppliers/' . $page;
         return $this->doRequest('get', $endpoint, $parameters);
     }
 
@@ -67,7 +68,7 @@ class Suppliers extends Client
      * Get a list of partners types
      *
      * @link    https://api.u-on.ru/{key}/supplier_type.{_format}
-     * @param   array|null $parameters - List of parameters
+     * @param   array $parameters - List of parameters
      * @return  array|false
      */
     public function getTypes(array $parameters = [])

@@ -27,11 +27,12 @@ class Payments extends Client
      * Get full list of payments in dates range
      *
      * @link    https://api.u-on.ru/{key}/payment/list/{date_from}/{date_to}.{_format}
-     * @param   string $date_from
-     * @param   string $date_to
+     * @param   string $date_from - Start of dates range
+     * @param   string $date_to - End of dates range
+     * @param   int $page - Number of page, 1 by default
      * @return  array|false
      */
-    public function all($date_from, $date_to)
+    public function all($date_from, $date_to, $page = 1)
     {
         $endpoint = '/payment/list/' . $date_from . '/' . $date_to;
         return $this->doRequest('get', $endpoint);

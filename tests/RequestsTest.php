@@ -8,7 +8,6 @@ use UON\Endpoint\Requests;
 
 class RequestsTest extends TestCase
 {
-    private $_file;
     private $_requests;
     private $_request;
     private $_requestAction;
@@ -62,6 +61,10 @@ class RequestsTest extends TestCase
         $this->assertInternalType('array', $result);
 
         $result = $this->_requests->getDate($today, $tomorrow);
+        $this->assertInternalType('array', $result);
+
+        // For the second page
+        $result = $this->_requests->getDate($today, $tomorrow, 2);
         $this->assertInternalType('array', $result);
 
         $result = $this->_requests->search();

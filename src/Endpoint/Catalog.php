@@ -5,7 +5,7 @@ namespace UON\Endpoint;
 use UON\Client;
 
 /**
- * Class Catalog
+ * Class for management services of "I'am operator"
  * @package UON
  */
 class Catalog extends Client
@@ -14,7 +14,7 @@ class Catalog extends Client
      * Get services of "I'am operator" by page number (first page by default)
      *
      * @link    https://api.u-on.ru/{key}/bcard-bonus-by-card/{id}.{_format}
-     * @param   int $page - Unique card ID
+     * @param   int $page - Number of page, 1 by default
      * @return  array|false
      */
     public function get($page = 1)

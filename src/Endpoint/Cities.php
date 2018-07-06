@@ -27,12 +27,13 @@ class Cities extends Client
      * Get all cities by country id
      *
      * @link    https://api.u-on.ru/{key}/cities/{country_id}.{_format}
-     * @param   int $id - Unique ID of country
+     * @param   int $id_country - Unique ID of country
+     * @param   int $page - Number of page, 1 by default
      * @return  array|false
      */
-    public function all($id)
+    public function all($id_country, $page = 1)
     {
-        $endpoint = '/cities/' . $id;
+        $endpoint = '/cities/' . $id_country . '/' . $page;
         return $this->doRequest('get', $endpoint);
     }
 

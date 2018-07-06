@@ -27,10 +27,10 @@ class Hotels extends Client
      * Get a list of hotels (divided by pages, 100 hotels per page)
      *
      * @link    https://api.u-on.ru/{key}/hotels/{page}.{_format}
-     * @param   int $page - Number of page with hotels
+     * @param   int $page - Number of page, 1 by default
      * @return  array|false
      */
-    public function all($page)
+    public function all($page = 1)
     {
         $endpoint = '/hotels/' . $page;
         return $this->doRequest('get', $endpoint);

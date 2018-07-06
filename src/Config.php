@@ -47,12 +47,12 @@ class Config implements Interfaces\ConfigInterface
      * Set parameter by name
      *
      * @param   string $parameter
-     * @param   mixed $value
+     * @param   string|bool|int $value
      * @return  Interfaces\ConfigInterface
      */
     public function set($parameter, $value)
     {
-        // Check if parameter is available
+        // Checking if parameter is in "available" list
         try {
             if (!\in_array($parameter, $this->getAllowed(), false)) {
                 throw new ConfigException("Parameter \"$parameter\" is not in available list [" . implode(',',
@@ -71,7 +71,7 @@ class Config implements Interfaces\ConfigInterface
      * Get all available parameters on only one
      *
      * @param   string $parameter
-     * @return  string|bool
+     * @return  string|bool|int
      */
     public function get($parameter)
     {

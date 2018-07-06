@@ -144,8 +144,7 @@ class Client implements ClientInterface
 
         } catch (RequestException $e) {
             echo $e->getMessage() . "\n";
-            echo $e->getRequest()->getMethod() . "\n";
-            echo $e->getTrace();
+            echo $e->getRequest()->getMethod();
         } catch (GuzzleException $e) {
             echo $e->getMessage() . "\n";
             echo $e->getTrace();

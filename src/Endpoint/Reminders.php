@@ -15,7 +15,7 @@ class Reminders extends Client
      *
      * @link    https://api.u-on.ru/{key}/reminder/create.{_format}
      * @param   array $parameters - List of parameters
-     * @return  array
+     * @return  array|false
      */
     public function create(array $parameters)
     {

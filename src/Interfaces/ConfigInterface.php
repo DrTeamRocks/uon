@@ -22,7 +22,7 @@ interface ConfigInterface
      * Set parameter by name
      *
      * @param   string $parameter
-     * @param   mixed $value
+     * @param   string|bool|int $value
      * @return  ConfigInterface
      */
     public function set($parameter, $value);
@@ -31,7 +31,7 @@ interface ConfigInterface
      * Get available parameter by name
      *
      * @param   string $parameter
-     * @return  string
+     * @return  string|bool|int
      */
     public function get($parameter);
 

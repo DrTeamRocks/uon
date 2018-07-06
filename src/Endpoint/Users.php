@@ -102,19 +102,6 @@ class Users extends Client
     }
 
     /**
-     * The list of the tourists by page number
-     *
-     * @link    https://api.u-on.ru/{key}/users_by_page/{page}.{_format}
-     * @param   int $page number of page
-     * @return  array|false
-     */
-    public function getByPage($page)
-    {
-        $endpoint = '/users_by_page/' . $page;
-        return $this->doRequest('get', $endpoint);
-    }
-
-    /**
      * Create new user in database
      *
      * @link    https://api.u-on.ru/{key}/user/create.{_format}

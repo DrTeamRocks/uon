@@ -54,7 +54,7 @@ class Config implements Interfaces\ConfigInterface
     {
         // Check if parameter is available
         try {
-            if (!\in_array($parameter, $this->_allowed, false)) {
+            if (!\in_array($parameter, $this->getAllowed(), false)) {
                 throw new ConfigException("Parameter \"$parameter\" is not in available list [" . implode(',',
                         $this->getAllowed()) . ']');
             }

@@ -34,7 +34,7 @@ class Payments extends Client
      */
     public function all($date_from, $date_to, $page = 1)
     {
-        $endpoint = '/payment/list/' . $date_from . '/' . $date_to;
+        $endpoint = '/payment/list/' . $date_from . '/' . $date_to . '/' . $page;
         return $this->doRequest('get', $endpoint);
     }
 

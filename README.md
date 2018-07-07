@@ -18,8 +18,9 @@ This library is ready for production usage, all source codes provided "as is".
 
 About [migration to 1.8](https://github.com/DrTeamRocks/uon/wiki/Миграция-с-1.7-(и-ниже)-на-1.8-(и-выше)).
 
-## Example of usage
+## How to use
 
+### Basic example
 ```php
 <?php
 require_once __DIR__ . "/../vendor/autoload.php";
@@ -54,7 +55,7 @@ All available methods of all classes with descriptions you can find [here](READM
 * verify - Content verification
 * cookies - Use cookies
 
-Additional parameters for error 429
+Additional parameters for "Error 429: Too many requests"
 
 * tries - Count of tries if server answer 429 error code (default: 10)
 * seconds - Time which need wait between tries (default: 1)
@@ -65,6 +66,45 @@ $config
     ->set('token', 'some_token')
     ->set('tries', 11)
     ->set('seconds', 2);
+```
+
+### About the page
+
+Some GET methods have a `$page` parameter (with default state `1`),
+and you can get only `100` items for one time it `$page` parameter is exist.
+
+List of endpoints which have a `$page` parameter.
+
+* /catalog-service/
+* /cities/
+* /hotels/
+* /leads/$date_from/$date_to/
+* /leads/$date_from/$date_to/$id_sources/
+* /lead-by-client/$id_lead/
+* /payment/list/
+* /request-action/
+* /requests/updated/
+* /suppliers/
+* /users/
+* /user/updated/
+
+These (I mean `$page`) parameter was added by API developers to reduce
+the load on the server. So, do not worry if you see only 100 items in
+result messages you just need write loop to get all items from API,
+like this:
+
+```
+$i=1;
+while (true) { // yeah, I know it's bad, better to use recursion
+    $response = $uon->requests->get($i);
+    $results[] = $response;
+    // Exit from loop if less than 100 items in answer from server
+    if (count($response->message) < 100) {
+        break;
+    }
+    $i++;
+}
+print_r($results);
 ```
 
 ## How to get API token

@@ -142,9 +142,6 @@ class Client implements ClientInterface
                     'message' => $raw ? (string) $result->getBody() : json_decode($result->getBody())
                 ];
 
-        } catch (RequestException $e) {
-            echo $e->getMessage() . "\n";
-            echo $e->getRequest()->getMethod();
         } catch (GuzzleException $e) {
             echo $e->getMessage() . "\n";
             echo $e->getTrace();

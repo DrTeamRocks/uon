@@ -101,7 +101,7 @@ class Client implements ClientInterface
             $code = $result->getStatusCode();
 
             // If code is not 405 (but 200 foe example) then exit from loop
-            if ($code === 200) {
+            if ($code === 200 || $code === 500) {
                 return $result;
             }
 

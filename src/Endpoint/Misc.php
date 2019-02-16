@@ -96,7 +96,7 @@ class Misc extends Client
      */
     public function getReasonDeny()
     {
-        $endpoint = '/company-office';
+        $endpoint = '/reason_deny';
         return $this->doRequest('get', $endpoint);
     }
 }

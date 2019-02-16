@@ -93,7 +93,7 @@ the load on the server. So, do not worry if you see only 100 items in
 result messages you just need write loop to get all items from API,
 like this:
 
-```
+```php
 $i=1;
 while (true) { // yeah, I know it's bad, better to use recursion
     $response = $uon->requests->get($i);
@@ -115,7 +115,7 @@ You need login into your account, then go to the
 ## How to help to project
 
 If you have a desire, you can help with testing and bugs hunting or
-make some donation.
+make some [donation](https://www.donationalerts.ru/r/evilfreelancer).
 
 ## Useful links
 

@@ -21,9 +21,24 @@ class Config implements ConfigInterface
     /**
      * Work mode of return
      *
+     * @deprecated
      * @var bool
      */
     private $_return_object = false;
+
+    /**
+     * Config constructor.
+     *
+     * @param   array $parameters List of parameters which can be set on object creation stage
+     * @throws  \UON\Exceptions\ConfigException
+     * @since   1.9
+     */
+    public function __construct(array $parameters = [])
+    {
+        foreach ($parameters as $key => $value) {
+            $this->set($key, $value);
+        }
+    }
 
     /**
      * Get return type (object by default)
@@ -52,36 +67,32 @@ class Config implements ConfigInterface
     /**
      * Set parameter by name
      *
-     * @param   string          $parameter
+     * @param   string          $name
      * @param   string|bool|int $value
      * @return  \UON\Interfaces\ConfigInterface
+     * @throws  \UON\Exceptions\ConfigException
      */
-    public function set($parameter, $value)
+    public function set($name, $value)
     {
-        // Checking if parameter is in "available" list
-        try {
-            if (!\in_array($parameter, $this->getAllowed(), false)) {
-                throw new ConfigException("Parameter \"$parameter\" is not in available list [" . implode(',', $this->getAllowed()) . ']');
-            }
-        } catch (ConfigException $e) {
-            // __constructor
+        if (!\in_array($name, $this->getAllowed(), false)) {
+            throw new ConfigException("Parameter \"$name\" is not in available list [" . implode(',', $this->getAllowed()) . ']');
         }
 
         // Add parameters into array
-        $this->_parameters[$parameter] = $value;
+        $this->_parameters[$name] = $value;
         return $this;
     }
 
     /**
      * Get all available parameters on only one
      *
-     * @param   string $parameter
+     * @param   string $name
      * @return  string|bool|int
      */
-    public function get($parameter)
+    public function get($name)
     {
-        return isset($this->_parameters[$parameter])
-            ? $this->_parameters[$parameter]
+        return isset($this->_parameters[$name])
+            ? $this->_parameters[$name]
             : false;
     }
 
@@ -107,9 +118,9 @@ class Config implements ConfigInterface
         $parameters = $this->_parameters;
         // Remove ignored items from array
         if ($ignore) {
-            foreach ($parameters as $key => $value) {
-                if (in_array($key, $ignore_items, false)) {
-                    unset($parameters[$key]);
+            foreach ($parameters as $name => $value) {
+                if (in_array($name, $ignore_items, false)) {
+                    unset($parameters[$name]);
                 }
             }
         }

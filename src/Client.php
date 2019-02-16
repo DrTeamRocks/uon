@@ -59,9 +59,9 @@ class Client implements ClientInterface
     /**
      * Client constructor.
      *
-     * @param ConfigInterface $config User defined configuration
+     * @param Config $config User defined configuration
      */
-    public function __construct(ConfigInterface $config)
+    public function __construct(Config $config)
     {
         // Extract toke from config
         $this->token = $config->get('token');
@@ -124,7 +124,7 @@ class Client implements ClientInterface
      * @param   string $endpoint Api request endpoint
      * @param   array  $params   List of parameters
      * @param   bool   $raw      Return data in raw format
-     * @return  array|false Array with data or error, or False when something went fully wrong
+     * @return  mixed|false Array with data or error, or False when something went fully wrong
      */
     public function doRequest($type, $endpoint, array $params = [], $raw = false)
     {

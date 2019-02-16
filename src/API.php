@@ -56,13 +56,27 @@ class API
     private $config;
 
     /**
-     * API constructor, need to provide Config class for normal work
+     * API constructor, you can create this object just by providing "token" as string
      *
-     * @param   Config $config
+     * @param   string|array|Config $config
+     * @throws  \UON\Exceptions\ConfigException
      */
-    public function __construct(Config $config)
+    public function __construct($config)
     {
-        $this->config = $config;
+        // If string then it's a token
+        if (\is_string($config)) {
+            $config = new Config(['token' => $config]);
+        }
+
+        // If array then need create object
+        if (\is_array($config)) {
+            $config = new Config($config);
+        }
+
+        // If Config object then
+        if ($config instanceof Config) {
+            $this->config = $config;
+        }
     }
 
     /**

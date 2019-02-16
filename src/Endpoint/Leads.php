@@ -63,7 +63,7 @@ class Leads extends Client
      */
     public function getDate($date_from, $date_to, $page = 1, $source_id = null)
     {
-        $endpoint = '/lead/' . $date_from . '/' . $date_to;
+        $endpoint = '/leads/' . $date_from . '/' . $date_to;
         if (null !== $source_id) {
             $endpoint .= '/' . $source_id;
         }

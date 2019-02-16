@@ -19,7 +19,7 @@ class SuppliersTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/_token.txt'));
+        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
 
         $this->_suppliers = new Suppliers($config);
         $this->_supplier = array(

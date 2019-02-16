@@ -1,6 +1,6 @@
 <?php
 
-namespace UON\Tests;
+namespace UON\Tests\Endpoint;
 
 use PHPUnit\Framework\TestCase;
 use UON\Config;
@@ -19,7 +19,7 @@ class RequestsTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/_token.txt'));
+        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
 
         $this->_requests = new Requests($config);
         $this->_request = [

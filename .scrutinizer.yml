@@ -1,15 +1,16 @@
 checks:
-    php: true
+  php: true
 
 filter:
-    excluded_paths:
-        - "extra/"
-        - "tests/"
-build:
-    tests:
-        override:
-            -
-                command: 'vendor/bin/phpunit --coverage-clover=some-file'
-                coverage:
-                    file: 'some-file'
-                    format: 'clover'
+  excluded_paths:
+  - "extra/"
+  - "tests/"
+
+coding_style:
+  php:
+    spaces:
+      around_operators:
+        concatenation: true
+
+tools:
+  external_code_coverage: true

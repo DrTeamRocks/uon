@@ -6,7 +6,8 @@ use UON\Client;
 
 /**
  * Class Statuses
- * @package UON
+ *
+ * @package UON\Endpoint
  */
 class Sources extends Client
 {
@@ -14,7 +15,7 @@ class Sources extends Client
      * Create new source
      *
      * @link    https://api.u-on.ru/{key}/source/create.{_format}
-     * @param   array $parameters - List of parameters
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function create(array $parameters)

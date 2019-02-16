@@ -6,7 +6,8 @@ use UON\Client;
 
 /**
  * Class Payments
- * @package UON
+ *
+ * @package UON\Endpoint
  */
 class Payments extends Client
 {
@@ -14,7 +15,7 @@ class Payments extends Client
      * Create new payment
      *
      * @link    https://api.u-on.ru/{key}/payment/create.{_format}
-     * @param   array $parameters - List of parameters
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function create(array $parameters)
@@ -27,9 +28,9 @@ class Payments extends Client
      * Get full list of payments in dates range
      *
      * @link    https://api.u-on.ru/{key}/payment/list/{date_from}/{date_to}.{_format}
-     * @param   string $date_from - Start of dates range
-     * @param   string $date_to - End of dates range
-     * @param   int $page - Number of page, 1 by default
+     * @param   string $date_from Start of dates range
+     * @param   string $date_to   End of dates range
+     * @param   int    $page      Number of page, 1 by default
      * @return  array|false
      */
     public function all($date_from, $date_to, $page = 1)
@@ -42,7 +43,7 @@ class Payments extends Client
      * Get a single payment
      *
      * @link    https://api.u-on.ru/{key}/payment/{id}.{_format}
-     * @param   int $id - Unique payment ID
+     * @param   int $id Unique payment ID
      * @return  array|false
      */
     public function get($id)
@@ -55,8 +56,8 @@ class Payments extends Client
      * Update selected payment by id
      *
      * @link    https://api.u-on.ru/{key}/payment/update/{id}.{_format}
-     * @param   int $id - Unique payment ID
-     * @param   array $parameters - List of parameters
+     * @param   int   $id         Unique payment ID
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function update($id, array $parameters)
@@ -69,7 +70,7 @@ class Payments extends Client
      * Delete selected payment from database
      *
      * @link    https://api.u-on.ru/{key}/payment/delete/{id}.{_format}
-     * @param   int $id - Unique payment ID
+     * @param   int $id Unique payment ID
      * @return  array|false
      */
     public function delete($id)

@@ -6,7 +6,8 @@ use UON\Client;
 
 /**
  * Class Countries
- * @package UON
+ *
+ * @package UON\Endpoint
  */
 class Countries extends Client
 {
@@ -14,7 +15,7 @@ class Countries extends Client
      * Create new country
      *
      * @link    https://api.u-on.ru/{key}/country/create.{_format}
-     * @param   array $parameters - List of parameters
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function create(array $parameters)
@@ -39,8 +40,8 @@ class Countries extends Client
      * Update country by ID
      *
      * @link    https://api.u-on.ru/{key}/country/update/{id}.{_format}
-     * @param   int $id - Unique country ID
-     * @param   array $parameters - List of parameters
+     * @param   int   $id         Unique country ID
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function update($id, array $parameters)

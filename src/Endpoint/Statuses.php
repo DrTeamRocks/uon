@@ -6,7 +6,8 @@ use UON\Client;
 
 /**
  * Class Statuses
- * @package UON
+ *
+ * @package UON\Endpoint
  */
 class Statuses extends Client
 {
@@ -14,7 +15,7 @@ class Statuses extends Client
      * Get statuses list
      *
      * @link    https://api.u-on.ru/{key}/status.{_format}
-     * @param   array|null $parameters - List of parameters
+     * @param   array|null $parameters List of parameters
      * @return  array|false
      */
     public function get(array $parameters = [])
@@ -27,7 +28,7 @@ class Statuses extends Client
      * Get a list of statuses for leads
      *
      * @link    https://api.u-on.ru/{key}/status_lead.{_format}
-     * @param   array $parameters - List of parameters
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function getLead(array $parameters = [])

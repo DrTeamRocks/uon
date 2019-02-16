@@ -6,7 +6,8 @@ use UON\Client;
 
 /**
  * Class Users
- * @package UON
+ *
+ * @package UON\Endpoint
  */
 class Users extends Client
 {
@@ -14,7 +15,7 @@ class Users extends Client
      * Get all users from database
      *
      * @link    api.u-on.ru/{key}/user.{_format}
-     * @param   int $page - Number of page, 1 by default
+     * @param   int $page Number of page, 1 by default
      * @return  array|false
      */
     public function all($page = 1)
@@ -40,7 +41,7 @@ class Users extends Client
      * Get users by filters
      *
      * @link    https://api.u-on.ru/{key}/user/search.{_format}
-     * @param   array $parameters - Some parameters for search [telegram, whatsapp, viber, instagram]
+     * @param   array $parameters Some parameters for search [telegram, whatsapp, viber, instagram]
      * @return  array|false
      */
     public function search(array $parameters = [])
@@ -53,7 +54,7 @@ class Users extends Client
      * Get list of user's labels
      *
      * @link    https://api.u-on.ru/{key}/user-label.{_format}
-     * @param   array $parameters
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function getLabel(array $parameters = [])
@@ -66,7 +67,7 @@ class Users extends Client
      * Get single user by phone number
      *
      * @link    https://api.u-on.ru/{key}/user/phone/{phone}.{_format}
-     * @param   string $phone
+     * @param   string $phone Number of client phone
      * @return  array|false
      */
     public function getPhone($phone)
@@ -77,7 +78,7 @@ class Users extends Client
 
     /**
      * @link    https://api.u-on.ru/{key}/user/email.{_format}
-     * @param   string $email
+     * @param   string $email Email of client
      * @return  array|false
      */
     public function getEmail($email)
@@ -90,9 +91,9 @@ class Users extends Client
      * Get all users. profiles which were updated in the specified date range
      *
      * @link    https://api.u-on.ru/{key}/user/updated/{date_from}/{date_to}.{_format}
-     * @param   string $date_from - Start of dates range
-     * @param   string $date_to - End of dates range
-     * @param   int $page - Number of page, 1 by default
+     * @param   string $date_from Start of dates range
+     * @param   string $date_to   End of dates range
+     * @param   int    $page      Number of page, 1 by default
      * @return  array|false
      */
     public function getUpdated($date_from, $date_to, $page = 1)
@@ -128,11 +129,11 @@ class Users extends Client
     }
 
     /**
-     * Update existing user by their ID
+     * Update existing user by ID
      *
      * @link    https://api.u-on.ru/{key}/user/update/{id}.{_format}
-     * @param   int $id
-     * @param   array $parameters
+     * @param   int   $id         ID of client
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function update($id, $parameters)

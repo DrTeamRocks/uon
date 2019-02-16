@@ -6,7 +6,8 @@ use UON\Client;
 
 /**
  * Class Cities
- * @package UON
+ *
+ * @package UON\Endpoint
  */
 class Cities extends Client
 {
@@ -14,7 +15,7 @@ class Cities extends Client
      * Create new city in country
      *
      * @link    https://api.u-on.ru/{key}/city/create.{_format}
-     * @param   array $parameters - List of parameters
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function create(array $parameters)
@@ -27,8 +28,8 @@ class Cities extends Client
      * Get all cities by country id
      *
      * @link    https://api.u-on.ru/{key}/cities/{country_id}.{_format}
-     * @param   int $id_country - Unique ID of country
-     * @param   int $page - Number of page, 1 by default
+     * @param   int $id_country Unique ID of country
+     * @param   int $page       Number of page, 1 by default
      * @return  array|false
      */
     public function all($id_country, $page = 1)
@@ -41,8 +42,8 @@ class Cities extends Client
      * Update some city by ID
      *
      * @link    https://api.u-on.ru/{key}/city/update/{id}.{_format}
-     * @param   int $id - Unique city ID
-     * @param   array $parameters - List of parameters
+     * @param   int   $id         Unique city ID
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function update($id, array $parameters)

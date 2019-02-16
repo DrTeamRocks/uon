@@ -6,7 +6,8 @@ use UON\Client;
 
 /**
  * Class Misc
- * @package UON
+ *
+ * @package UON\Endpoint
  */
 class Misc extends Client
 {

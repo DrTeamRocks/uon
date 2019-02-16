@@ -3,7 +3,6 @@
 namespace UON;
 
 use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Exception\RequestException;
 use UON\Interfaces\ConfigInterface;
 use UON\Interfaces\ClientInterface;
 
@@ -24,37 +23,42 @@ class Client implements ClientInterface
     /**
      * Default server parameters
      */
-    protected $host = 'api.u-on.ru';
-    protected $port = '443';
-    protected $path = '/';
+    protected $host   = 'api.u-on.ru';
+    protected $port   = '443';
+    protected $path   = '/';
     protected $useSSL = true;
 
     /**
      * User initial values
+     *
      * @var string
      */
     protected $token;
 
     /**
      * Default format of output
+     *
      * @var string
      */
     protected $format = 'json';
 
     /**
      * Count of tries
+     *
      * @var int
      */
     private $tries = self::TRIES;
 
     /**
      * Waiting time per each try
+     *
      * @var int
      */
     private $seconds = self::SECONDS;
 
     /**
      * Client constructor.
+     *
      * @param ConfigInterface $config User defined configuration
      */
     public function __construct(ConfigInterface $config)
@@ -82,9 +86,9 @@ class Client implements ClientInterface
     /**
      * Request executor with timeout and repeat tries
      *
-     * @param   string $type Request method
-     * @param   string $url endpoint url
-     * @param   array $params List of parameters
+     * @param   string $type   Request method
+     * @param   string $url    endpoint url
+     * @param   array  $params List of parameters
      * @return  bool|\Psr\Http\Message\ResponseInterface
      * @throws  \GuzzleHttp\Exception\GuzzleException
      */
@@ -116,10 +120,10 @@ class Client implements ClientInterface
     /**
      * Make the request and analyze the result
      *
-     * @param   string $type Request method
+     * @param   string $type     Request method
      * @param   string $endpoint Api request endpoint
-     * @param   array $params List of parameters
-     * @param   bool $raw Return data in raw format
+     * @param   array  $params   List of parameters
+     * @param   bool   $raw      Return data in raw format
      * @return  array|false Array with data or error, or False when something went fully wrong
      */
     public function doRequest($type, $endpoint, array $params = [], $raw = false)
@@ -136,9 +140,11 @@ class Client implements ClientInterface
 
             // Return result
             return
-                ($result === false) ? false : [
-                    'code' => $result->getStatusCode(),
-                    'reason' => $result->getReasonPhrase(),
+                ($result === false)
+                    ? false
+                    : [
+                    'code'    => $result->getStatusCode(),
+                    'reason'  => $result->getReasonPhrase(),
                     'message' => $raw ? (string) $result->getBody() : json_decode($result->getBody())
                 ];
 

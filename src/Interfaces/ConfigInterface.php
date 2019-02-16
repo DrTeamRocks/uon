@@ -1,4 +1,8 @@
-<?php namespace UON\Interfaces;
+<?php
+
+namespace UON\Interfaces;
+
+use UON\Config;
 
 interface ConfigInterface
 {
@@ -21,9 +25,9 @@ interface ConfigInterface
     /**
      * Set parameter by name
      *
-     * @param   string $parameter
+     * @param   string          $parameter
      * @param   string|bool|int $value
-     * @return  ConfigInterface
+     * @return  Config
      */
     public function set($parameter, $value);
 

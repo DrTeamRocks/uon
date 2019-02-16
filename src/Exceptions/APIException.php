@@ -1,4 +1,6 @@
-<?php namespace UON\Exceptions;
+<?php
+
+namespace UON\Exceptions;
 
 class APIException extends Exceptions
 {

@@ -6,7 +6,8 @@ use UON\Client;
 
 /**
  * Class Hotels
- * @package UON
+ *
+ * @package UON\Endpoint
  */
 class Hotels extends Client
 {
@@ -14,7 +15,7 @@ class Hotels extends Client
      * Create new hotel
      *
      * @link    https://api.u-on.ru/{key}/hotel/create.{_format}
-     * @param   array $parameters - List of parameters
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function create(array $parameters)
@@ -27,7 +28,7 @@ class Hotels extends Client
      * Get a list of hotels (divided by pages, 100 hotels per page)
      *
      * @link    https://api.u-on.ru/{key}/hotels/{page}.{_format}
-     * @param   int $page - Number of page, 1 by default
+     * @param   int $page Number of page, 1 by default
      * @return  array|false
      */
     public function all($page = 1)
@@ -40,7 +41,7 @@ class Hotels extends Client
      * Get information about hotel
      *
      * @link    https://api.u-on.ru/{key}/hotel/{id}.{_format}
-     * @param   int $id - Unique hotel ID
+     * @param   int $id Unique hotel ID
      * @return  array|false
      */
     public function get($id)
@@ -53,8 +54,8 @@ class Hotels extends Client
      * Update information about hotel
      *
      * @link    https://api.u-on.ru/{key}/hotel/update/{id}.{_format}
-     * @param   int $id - Unique hotel ID
-     * @param   array $parameters - List of parameters
+     * @param   int   $id         Unique hotel ID
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function update($id, array $parameters)
@@ -67,7 +68,7 @@ class Hotels extends Client
      * Delete selected hotel from database
      *
      * @link    https://api.u-on.ru/{key}/hotel/delete/{id}.{_format}
-     * @param   int $id - Unique hotel ID
+     * @param   int $id Unique hotel ID
      * @return  array|false
      */
     public function delete($id)

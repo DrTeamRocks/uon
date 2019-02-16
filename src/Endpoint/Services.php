@@ -6,7 +6,8 @@ use UON\Client;
 
 /**
  * Class Services
- * @package UON
+ *
+ * @package UON\Endpoint
  */
 class Services extends Client
 {
@@ -14,7 +15,7 @@ class Services extends Client
      * Add service to voucher
      *
      * @link    https://api.u-on.ru/{key}/request-action/create.{_format}
-     * @param   array $parameters - List of parameters
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function create(array $parameters)
@@ -39,8 +40,8 @@ class Services extends Client
      * Update service by ID
      *
      * @link    https://api.u-on.ru/{key}/service/update/{id}.{_format}
-     * @param   int $id - Unique ID of service
-     * @param   array $parameters - List of parameters
+     * @param   int   $id         Unique ID of service
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function update($id, array $parameters)

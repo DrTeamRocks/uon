@@ -23,23 +23,23 @@ use UON\Endpoint\Suppliers;
 use UON\Endpoint\Users;
 
 /**
- * @property    Bcard $bcard - Bonus cards
- * @property    Cash $cash - Money operations
- * @property    Catalog $catalog - Catalog of products
- * @property    Chat $chat - For work with chat messages
- * @property    Cities $cities - Cities of countries
- * @property    Countries $countries - Work with countries
- * @property    Hotels $hotels - Hotels methods
- * @property    Leads $leads - Details about clients
- * @property    Misc $misc - Optional single methods
- * @property    Nutrition $nutrition - Some methods about eat
- * @property    Payments $payments - Payment methods
- * @property    Reminders $reminders - Work with reminders
- * @property    Requests $requests - New requests from people
- * @property    Sources $sources - All available sources
- * @property    Statuses $statuses - Request statuses
- * @property    Suppliers $suppliers - External companies
- * @property    Users $users - For work with users
+ * @property    Bcard     $bcard     Bonus cards
+ * @property    Cash      $cash      Money operations
+ * @property    Catalog   $catalog   Catalog of products
+ * @property    Chat      $chat      For work with chat messages
+ * @property    Cities    $cities    Cities of countries
+ * @property    Countries $countries Work with countries
+ * @property    Hotels    $hotels    Hotels methods
+ * @property    Leads     $leads     Details about clients
+ * @property    Misc      $misc      Optional single methods
+ * @property    Nutrition $nutrition Some methods about eat
+ * @property    Payments  $payments  Payment methods
+ * @property    Reminders $reminders Work with reminders
+ * @property    Requests  $requests  New requests from people
+ * @property    Sources   $sources   All available sources
+ * @property    Statuses  $statuses  Request statuses
+ * @property    Suppliers $suppliers External companies
+ * @property    Users     $users     For work with users
  *
  * Single entry point for all classes
  *
@@ -50,6 +50,7 @@ class API
 {
     /**
      * All parameters of this class
+     *
      * @var Config
      */
     private $config;
@@ -67,7 +68,7 @@ class API
     /**
      * Magic method required for call of another classes
      *
-     * @param   $class
+     * @param   string $class
      * @return  bool|object
      */
     public function __get($class)

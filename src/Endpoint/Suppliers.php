@@ -6,7 +6,8 @@ use UON\Client;
 
 /**
  * Class Suppliers
- * @package UON
+ *
+ * @package UON\Endpoint
  */
 class Suppliers extends Client
 {
@@ -14,7 +15,7 @@ class Suppliers extends Client
      * Add new partner
      *
      * @link    https://api.u-on.ru/{key}/supplier/create.{_format}
-     * @param   array $parameters - List of parameters
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function create(array $parameters)
@@ -27,7 +28,7 @@ class Suppliers extends Client
      * Create new type for partners
      *
      * @link    https://api.u-on.ru/{key}/supplier_type/create.{_format}
-     * @param   array $parameters - List of parameters
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function createType(array $parameters)
@@ -40,8 +41,8 @@ class Suppliers extends Client
      * Get a list of partners
      *
      * @link    https://api.u-on.ru/{key}/supplier/{id}.{_format}
-     * @param   array $parameters - List of parameters
-     * @param   int $page - Number of page, 1 by default
+     * @param   array $parameters List of parameters
+     * @param   int   $page       Number of page, 1 by default
      * @return  array|false
      */
     public function all(array $parameters = [], $page = 1)
@@ -54,8 +55,8 @@ class Suppliers extends Client
      * Get partner by ID
      *
      * @link    https://api.u-on.ru/{key}/supplier.{_format}
-     * @param   int $id - ID of partner
-     * @param   array $parameters - List of parameters
+     * @param   int   $id         ID of partner
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function get($id, array $parameters = [])
@@ -68,7 +69,7 @@ class Suppliers extends Client
      * Get a list of partners types
      *
      * @link    https://api.u-on.ru/{key}/supplier_type.{_format}
-     * @param   array $parameters - List of parameters
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function getTypes(array $parameters = [])
@@ -81,8 +82,8 @@ class Suppliers extends Client
      * Update partner by ID
      *
      * @link    https://api.u-on.ru/{key}/supplier/update/{id}.{_format}
-     * @param   int $id - Unique ID of service
-     * @param   array $parameters - List of parameters
+     * @param   int   $id         Unique ID of service
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function update($id, array $parameters)

@@ -6,7 +6,8 @@ use UON\Client;
 
 /**
  * Class Nutrition
- * @package UON
+ *
+ * @package UON\Endpoint
  */
 class Nutrition extends Client
 {
@@ -14,7 +15,7 @@ class Nutrition extends Client
      * Create new nutrition
      *
      * @link    https://api.u-on.ru/{key}/city/create.{_format}
-     * @param   array $parameters - List of parameters
+     * @param   array $parameters List of parameters
      * @return  array|false
      */
     public function create(array $parameters)
@@ -39,7 +40,7 @@ class Nutrition extends Client
      * Update type of nutrition by ID
      *
      * @link    https://api.u-on.ru/{key}/nutrition/update/{id}.{_format}
-     * @param   int $id - Unique nutrition ID
+     * @param   int $id Unique nutrition ID
      * @return  array|false
      */
     public function update($id)

@@ -1,12 +1,15 @@
-<?php namespace UON;
+<?php
 
-use function foo\func;
+namespace UON;
+
 use UON\Exceptions\ConfigException;
+use UON\Interfaces\ConfigInterface;
 
-class Config implements Interfaces\ConfigInterface
+class Config implements ConfigInterface
 {
     /**
      * List of configured parameters
+     *
      * @var array
      */
     private $_parameters = [
@@ -17,6 +20,7 @@ class Config implements Interfaces\ConfigInterface
 
     /**
      * Work mode of return
+     *
      * @var bool
      */
     private $_return_object = false;
@@ -25,6 +29,7 @@ class Config implements Interfaces\ConfigInterface
      * Get return type (object by default)
      *
      * @return  bool
+     * @deprecated
      */
     public function isObject()
     {
@@ -35,7 +40,8 @@ class Config implements Interfaces\ConfigInterface
      * Set work mode (object => true, array => false)
      *
      * @param   bool $object
-     * @return  Interfaces\ConfigInterface
+     * @return  \UON\Interfaces\ConfigInterface
+     * @deprecated
      */
     public function setReturn($object = true)
     {
@@ -46,17 +52,16 @@ class Config implements Interfaces\ConfigInterface
     /**
      * Set parameter by name
      *
-     * @param   string $parameter
+     * @param   string          $parameter
      * @param   string|bool|int $value
-     * @return  Interfaces\ConfigInterface
+     * @return  \UON\Interfaces\ConfigInterface
      */
     public function set($parameter, $value)
     {
         // Checking if parameter is in "available" list
         try {
             if (!\in_array($parameter, $this->getAllowed(), false)) {
-                throw new ConfigException("Parameter \"$parameter\" is not in available list [" . implode(',',
-                        $this->getAllowed()) . ']');
+                throw new ConfigException("Parameter \"$parameter\" is not in available list [" . implode(',', $this->getAllowed()) . ']');
             }
         } catch (ConfigException $e) {
             // __constructor
@@ -93,7 +98,7 @@ class Config implements Interfaces\ConfigInterface
     /**
      * Return all preconfigured parameters
      *
-     * @param   bool $ignore Ignore parameters which is not important for client
+     * @param   bool  $ignore       Ignore parameters which is not important for client
      * @param   array $ignore_items Which items should be excluded from array
      * @return  array
      */

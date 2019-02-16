@@ -6,7 +6,8 @@
 [![License](https://poser.pugx.org/drteam/uon/license)](https://packagist.org/packages/drteam/uon)
 [![PHP 7 ready](https://php7ready.timesplinter.ch/DrTeamRocks/uon/master/badge.svg)](https://travis-ci.org/DrTeamRocks/uon)
 [![Code Climate](https://codeclimate.com/github/DrTeamRocks/uon/badges/gpa.svg)](https://codeclimate.com/github/DrTeamRocks/uon)
-[![Scrutinizer CQ](https://scrutinizer-ci.com/g/drteamrocks/uon/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/drteamrocks/uon/)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/DrTeamRocks/uon/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/DrTeamRocks/uon/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/DrTeamRocks/uon/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/DrTeamRocks/uon/?branch=master)
 
 # U-On Travel RESTful API Client (unofficial)
 

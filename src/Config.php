@@ -19,14 +19,6 @@ class Config implements ConfigInterface
     ];
 
     /**
-     * Work mode of return
-     *
-     * @deprecated
-     * @var bool
-     */
-    private $_return_object = false;
-
-    /**
      * Config constructor.
      *
      * @param   array $parameters List of parameters which can be set on object creation stage
@@ -38,30 +30,6 @@ class Config implements ConfigInterface
         foreach ($parameters as $key => $value) {
             $this->set($key, $value);
         }
-    }
-
-    /**
-     * Get return type (object by default)
-     *
-     * @return  bool
-     * @deprecated
-     */
-    public function isObject()
-    {
-        return $this->_return_object;
-    }
-
-    /**
-     * Set work mode (object => true, array => false)
-     *
-     * @param   bool $object
-     * @return  \UON\Interfaces\ConfigInterface
-     * @deprecated
-     */
-    public function setReturn($object = true)
-    {
-        $this->_return_object = $object;
-        return $this;
     }
 
     /**

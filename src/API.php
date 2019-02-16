@@ -73,10 +73,7 @@ class API
             $config = new Config($config);
         }
 
-        // If Config object then
-        if ($config instanceof Config) {
-            $this->config = $config;
-        }
+        $this->config = $config;
     }
 
     /**

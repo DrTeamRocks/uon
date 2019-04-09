@@ -63,8 +63,12 @@ class RequestsTest extends TestCase
         $result = $this->_requests->getDate($today, $tomorrow);
         $this->assertInternalType('array', $result);
 
-        // For the second page
+        // For second page
         $result = $this->_requests->getDate($today, $tomorrow, 2);
+        $this->assertInternalType('array', $result);
+
+        // For other source id
+        $result = $this->_requests->getDate($today, $tomorrow, 1, 1);
         $this->assertInternalType('array', $result);
 
         $result = $this->_requests->search();

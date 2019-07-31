@@ -231,7 +231,7 @@ class Requests extends Client
     public function deleteFile($id)
     {
         $endpoint = '/request-file/delete/' . $id;
-        return $this->doRequest('get', $endpoint);
+        return $this->doRequest('post', $endpoint);
     }
 
     /**

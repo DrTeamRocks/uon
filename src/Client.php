@@ -73,7 +73,7 @@ class Client implements ClientInterface
 
         // Waiting time
         if ($config->get('seconds') !== false) {
-            $this->tries = $config->get('seconds');
+            $this->seconds = $config->get('seconds');
         }
 
         // Save config into local variable

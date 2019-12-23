@@ -57,6 +57,13 @@ class Client implements ClientInterface
     private $seconds = self::SECONDS;
 
     /**
+     * Timeout of every try
+     *
+     * @var float
+     */
+    private $maxRequestTimeout = self::MAX_REQUEST_TIMEOUT;
+
+    /**
      * Client constructor.
      *
      * @param Config $config User defined configuration
@@ -73,7 +80,12 @@ class Client implements ClientInterface
 
         // Waiting time
         if ($config->get('seconds') !== false) {
-            $this->tries = $config->get('seconds');
+            $this->seconds = $config->get('seconds');
+        }
+
+        // Max request timeout per try
+        if ($config->get('maxRequestTimeout') !== false) {
+            $this->maxRequestTimeout = $config->get('maxRequestTimeout');
         }
 
         // Save config into local variable
@@ -98,7 +110,7 @@ class Client implements ClientInterface
 
             // Execute the request to server
             $result = \in_array($type, self::ALLOWED_METHODS, false)
-                ? $this->_client->request($type, $url, ['form_params' => $params])
+                ? $this->_client->request($type, $url, ['timeout' => $this->maxRequestTimeout, 'form_params' => $params])
                 : null;
 
             // Check the code status

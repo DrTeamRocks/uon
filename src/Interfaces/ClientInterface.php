@@ -24,4 +24,9 @@ interface ClientInterface
      * Waiting time
      */
     const SECONDS = 1;
+
+    /**
+     * Max request timeout per try
+     */
+    const MAX_REQUEST_TIMEOUT = 10.0;
 }

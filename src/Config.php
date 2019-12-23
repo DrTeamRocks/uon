@@ -81,7 +81,7 @@ class Config implements ConfigInterface
      * @param   array $ignore_items Which items should be excluded from array
      * @return  array
      */
-    public function getParameters($ignore = false, array $ignore_items = ['token', 'tries', 'seconds'])
+    public function getParameters($ignore = false, array $ignore_items = ['token', 'tries', 'seconds', 'maxRequestTimeout'])
     {
         $parameters = $this->_parameters;
         // Remove ignored items from array

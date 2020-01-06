@@ -19,7 +19,6 @@
         "rest-api"
     ],
     "license": "MIT",
-    "minimum-stability": "stable",
     "name": "drteam/uon",
     "require": {
         "php": "^7.1",

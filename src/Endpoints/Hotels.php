@@ -3,6 +3,7 @@
 namespace UON\Endpoints;
 
 use UON\Client;
+use UON\Interfaces\QueryInterface;
 
 /**
  * Class Hotels
@@ -14,67 +15,94 @@ class Hotels extends Client
     /**
      * Create new hotel
      *
-     * @link    https://api.u-on.ru/{key}/hotel/create.{_format}
-     * @param   array $parameters List of parameters
-     * @return  array|false
+     * @link https://api.u-on.ru/{key}/hotel/create.{_format}
+     *
+     * @param array $parameters List of parameters
+     *
+     * @return \UON\Interfaces\QueryInterface
      */
-    public function create(array $parameters)
+    public function create(array $parameters): QueryInterface
     {
-        $endpoint = '/hotel/create';
-        return $this->doRequest('post', $endpoint, $parameters);
+        // Set HTTP params
+        $this->type     = 'post';
+        $this->endpoint = 'hotel/create';
+        $this->params   = $parameters;
+
+        return $this;
     }
 
     /**
      * Get a list of hotels (divided by pages, 100 hotels per page)
      *
-     * @link    https://api.u-on.ru/{key}/hotels/{page}.{_format}
-     * @param   int $page Number of page, 1 by default
-     * @return  array|false
+     * @link https://api.u-on.ru/{key}/hotels/{page}.{_format}
+     *
+     * @param int $page Number of page, 1 by default
+     *
+     * @return \UON\Interfaces\QueryInterface
      */
-    public function all($page = 1)
+    public function all($page = 1): QueryInterface
     {
-        $endpoint = '/hotels/' . $page;
-        return $this->doRequest('get', $endpoint);
+        // Set HTTP params
+        $this->type     = 'get';
+        $this->endpoint = 'hotels/' . $page;
+
+        return $this;
     }
 
     /**
      * Get information about hotel
      *
-     * @link    https://api.u-on.ru/{key}/hotel/{id}.{_format}
-     * @param   int $id Unique hotel ID
-     * @return  array|false
+     * @link https://api.u-on.ru/{key}/hotel/{id}.{_format}
+     *
+     * @param int $id Unique hotel ID
+     *
+     * @return \UON\Interfaces\QueryInterface
      */
-    public function get($id)
+    public function get($id): QueryInterface
     {
-        $endpoint = '/hotel/' . $id;
-        return $this->doRequest('get', $endpoint);
+        // Set HTTP params
+        $this->type     = 'get';
+        $this->endpoint = 'hotel/' . $id;
+
+        return $this;
     }
 
     /**
      * Update information about hotel
      *
-     * @link    https://api.u-on.ru/{key}/hotel/update/{id}.{_format}
-     * @param   int   $id         Unique hotel ID
-     * @param   array $parameters List of parameters
-     * @return  array|false
+     * @link https://api.u-on.ru/{key}/hotel/update/{id}.{_format}
+     *
+     * @param int   $id         Unique hotel ID
+     * @param array $parameters List of parameters
+     *
+     * @return \UON\Interfaces\QueryInterface
      */
-    public function update($id, array $parameters)
+    public function update($id, array $parameters): QueryInterface
     {
-        $endpoint = '/hotel/update/' . $id;
-        return $this->doRequest('post', $endpoint, $parameters);
+        // Set HTTP params
+        $this->type     = 'post';
+        $this->endpoint = 'hotel/update/' . $id;
+        $this->params   = $parameters;
+
+        return $this;
     }
 
     /**
      * Delete selected hotel from database
      *
-     * @link    https://api.u-on.ru/{key}/hotel/delete/{id}.{_format}
-     * @param   int $id Unique hotel ID
-     * @return  array|false
+     * @link https://api.u-on.ru/{key}/hotel/delete/{id}.{_format}
+     *
+     * @param int $id Unique hotel ID
+     *
+     * @return \UON\Interfaces\QueryInterface
      */
-    public function delete($id)
+    public function delete($id): QueryInterface
     {
-        $endpoint = '/hotel/delete/' . $id;
-        return $this->doRequest('post', $endpoint);
+        // Set HTTP params
+        $this->type     = 'post';
+        $this->endpoint = 'hotel/delete/' . $id;
+
+        return $this;
     }
 
 }

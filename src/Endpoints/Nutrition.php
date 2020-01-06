@@ -3,6 +3,7 @@
 namespace UON\Endpoints;
 
 use UON\Client;
+use UON\Interfaces\QueryInterface;
 
 /**
  * Class Nutrition
@@ -14,39 +15,56 @@ class Nutrition extends Client
     /**
      * Create new nutrition
      *
-     * @link    https://api.u-on.ru/{key}/city/create.{_format}
-     * @param   array $parameters List of parameters
-     * @return  array|false
+     * @link https://api.u-on.ru/{key}/city/create.{_format}
+     *
+     * @param array $parameters List of parameters
+     *
+     * @return \UON\Interfaces\QueryInterface
      */
-    public function create(array $parameters)
+    public function create(array $parameters): QueryInterface
     {
-        $endpoint = '/nutrition/create';
-        return $this->doRequest('post', $endpoint, $parameters);
+        // Set HTTP params
+        $this->type     = 'post';
+        $this->endpoint = 'nutrition/create';
+        $this->params   = $parameters;
+
+        return $this;
     }
 
     /**
      * Get all types of nutrition
      *
-     * @link    https://api.u-on.ru/{key}/nutrition.{_format}
-     * @return  array|false
+     * @link https://api.u-on.ru/{key}/nutrition.{_format}
+     *
+     * @return \UON\Interfaces\QueryInterface
      */
-    public function all()
+    public function all(): QueryInterface
     {
-        $endpoint = '/nutrition';
-        return $this->doRequest('get', $endpoint);
+        // Set HTTP params
+        $this->type     = 'get';
+        $this->endpoint = 'nutrition';
+
+        return $this;
     }
 
     /**
      * Update type of nutrition by ID
      *
-     * @link    https://api.u-on.ru/{key}/nutrition/update/{id}.{_format}
-     * @param   int $id Unique nutrition ID
-     * @return  array|false
+     * @link https://api.u-on.ru/{key}/nutrition/update/{id}.{_format}
+     *
+     * @param int   $id         Unique nutrition ID
+     * @param array $parameters List of parameters
+     *
+     * @return \UON\Interfaces\QueryInterface
      */
-    public function update($id)
+    public function update($id, array $parameters): QueryInterface
     {
-        $endpoint = '/nutrition/update/' . $id;
-        return $this->doRequest('post', $endpoint);
+        // Set HTTP params
+        $this->type     = 'post';
+        $this->endpoint = 'nutrition/update/' . $id;
+        $this->params   = $parameters;
+
+        return $this;
     }
 
 }

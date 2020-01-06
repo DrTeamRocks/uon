@@ -1,17 +1,17 @@
 <?php
 
-namespace UON\Tests\Endpoint;
+namespace UON\Tests\Endpoints;
 
 use PHPUnit\Framework\TestCase;
 use UON\Config;
-use UON\Endpoint\Countries;
+use UON\Endpoints\Cities;
 
-class CountriesTest extends TestCase
+class CitiesTest extends TestCase
 {
-    private $_countries;
-    private $_country;
+    private $_cities;
+    private $_city;
 
-    public static $countryId;
+    public static $citiesId;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -19,30 +19,31 @@ class CountriesTest extends TestCase
         $config = new Config();
         $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
 
-        $this->_countries = new Countries($config);
-        $this->_country = [
+        $this->_cities = new Cities($config);
+        $this->_city = array(
+            'country_id' => '1',
             'name' => 'Кингконгстоунт',
             'name_en' => 'Kinkongstoun'
-        ];
+        );
     }
 
     public function testCreate()
     {
-        $result = $this->_countries->create($this->_country);
-        self::$countryId = $result['message']->id;
+        $result = $this->_cities->create($this->_city);
+        self::$citiesId = $result['message']->id;
         $this->assertInternalType('array', $result);
     }
 
     public function testRead()
     {
-        $result = $this->_countries->all();
+        $result = $this->_cities->all($this->_city['country_id']);
         $this->assertInternalType('array', $result);
     }
 
     public function testUpdate()
     {
-        $result = $this->_countries->update(self::$countryId, $this->_country);
-        $this->assertInternalType('array', $result);
+        $update = $this->_cities->update(self::$citiesId, $this->_city);
+        $this->assertInternalType('array', $update);
     }
 
 }

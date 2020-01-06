@@ -1,10 +1,10 @@
 <?php
 
-namespace UON\Tests\Endpoint;
+namespace UON\Tests\Endpoints;
 
 use PHPUnit\Framework\TestCase;
 use UON\Config;
-use UON\Endpoint\Requests;
+use UON\Endpoints\Requests;
 
 class RequestsTest extends TestCase
 {

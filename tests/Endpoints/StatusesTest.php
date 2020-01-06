@@ -1,14 +1,14 @@
 <?php
 
-namespace UON\Tests\Endpoint;
+namespace UON\Tests;
 
 use PHPUnit\Framework\TestCase;
 use UON\Config;
-use UON\Endpoint\Cash;
+use UON\Endpoints\Statuses;
 
-class CashTest extends TestCase
+class StatusesTest extends TestCase
 {
-    private $_cash;
+    private $_statuses;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -16,21 +16,15 @@ class CashTest extends TestCase
         $config = new Config();
         $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
 
-        $this->_cash = new Cash($config);
+        $this->_statuses = new Statuses($config);
     }
 
-    public function testCreate()
+    public function testRead()
     {
-        $result = $this->_cash->create(['name' => 'test']);
-        $this->assertInternalType('array', $result);
-    }
-
-    public function testGet()
-    {
-        $result = $this->_cash->get();
+        $result = $this->_statuses->get();
         $this->assertInternalType('array', $result);
 
-        $result = $this->_cash->get(['name' => 'test']);
+        $result = $this->_statuses->getLead();
         $this->assertInternalType('array', $result);
     }
 }

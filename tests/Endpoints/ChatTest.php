@@ -1,10 +1,10 @@
 <?php
 
-namespace UON\Tests\Endpoint;
+namespace UON\Tests\Endpoints;
 
 use PHPUnit\Framework\TestCase;
 use UON\Config;
-use UON\Endpoint\Chat;
+use UON\Endpoints\Chat;
 
 class ChatTest extends TestCase
 {

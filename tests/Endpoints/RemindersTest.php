@@ -1,10 +1,10 @@
 <?php
 
-namespace UON\Tests\Endpoint;
+namespace UON\Tests\Endpoints;
 
 use PHPUnit\Framework\TestCase;
 use UON\Config;
-use UON\Endpoint\Reminders;
+use UON\Endpoints\Reminders;
 
 class RemindersTest extends TestCase
 {

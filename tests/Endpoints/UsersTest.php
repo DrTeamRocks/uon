@@ -4,7 +4,7 @@ namespace UON\Tests;
 
 use PHPUnit\Framework\TestCase;
 use UON\Config;
-use UON\Endpoint\Users;
+use UON\Endpoints\Users;
 
 class UsersTest extends TestCase
 {

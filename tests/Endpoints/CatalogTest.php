@@ -1,11 +1,11 @@
 <?php
 
-namespace UON\Tests\Endpoint;
+namespace UON\Tests\Endpoints;
 
 use PHPUnit\Framework\TestCase;
 use UON\Config;
-use UON\Endpoint\Catalog;
-use UON\Endpoint\Services;
+use UON\Endpoints\Catalog;
+use UON\Endpoints\Services;
 
 class CatalogTest extends TestCase
 {

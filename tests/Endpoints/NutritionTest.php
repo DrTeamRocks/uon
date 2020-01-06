@@ -1,16 +1,17 @@
 <?php
 
-namespace UON\Tests\Endpoint;
+namespace UON\Tests\Endpoints;
 
 use PHPUnit\Framework\TestCase;
 use UON\Config;
-use UON\Endpoint\Services;
+use UON\Endpoints\Nutrition;
 
-class ServicesTest extends TestCase
+class NutritionTest extends TestCase
 {
-    private $_services;
-    private $_service;
-    public static $serviceId;
+    private $_nutritions;
+    private $_nutrition;
+
+    public static $nutritionId;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -18,29 +19,30 @@ class ServicesTest extends TestCase
         $config = new Config();
         $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
 
-        $this->_services = new Services($config);
-        $this->_service = array(
-            'r_id' => '1',
-            'type_id' => '1'
+        $this->_nutritions = new Nutrition($config);
+        $this->_nutrition = array(
+            'name' => 'Хавчик',
+            'name_en' => 'Yammi'
         );
     }
 
     public function testCreate()
     {
-        $result = $this->_services->create($this->_service);
-        self::$serviceId = $result['message']->id;
+        $result = $this->_nutritions->create($this->_nutrition);
+        self::$nutritionId = $result['message']->id;
         $this->assertInternalType('array', $result);
     }
 
     public function testRead()
     {
-        $result = $this->_services->getTypes();
+        $result = $this->_nutritions->all();
         $this->assertInternalType('array', $result);
     }
 
     public function testUpdate()
     {
-        $result = $this->_services->update(self::$serviceId, $this->_service);
+        $result = $this->_nutritions->update(self::$nutritionId);
         $this->assertInternalType('array', $result);
     }
+
 }

@@ -4,7 +4,7 @@ namespace UON\Tests;
 
 use PHPUnit\Framework\TestCase;
 use UON\Config;
-use UON\Endpoint\Suppliers;
+use UON\Endpoints\Suppliers;
 
 class SuppliersTest extends TestCase
 {

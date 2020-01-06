@@ -1,6 +1,6 @@
 <?php
 
-namespace UON\Endpoint;
+namespace UON\Endpoints;
 
 use UON\Client;
 

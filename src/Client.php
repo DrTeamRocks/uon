@@ -2,8 +2,6 @@
 
 namespace UON;
 
-use GuzzleHttp\Exception\GuzzleException;
-use UON\Interfaces\ConfigInterface;
 use UON\Interfaces\ClientInterface;
 
 /**
@@ -11,161 +9,182 @@ use UON\Interfaces\ClientInterface;
  * @link    http://drteam.rocks
  * @license MIT
  * @package UON
+ * @property \UON\Endpoints\Bcard     $bcard      Bonus cards
+ * @property \UON\Endpoints\Cash      $cash       Money operations
+ * @property \UON\Endpoints\Catalog   $catalog    Catalog of products
+ * @property \UON\Endpoints\Chat      $chat       For work with chat messages
+ * @property \UON\Endpoints\Cities    $cities     Cities of countries
+ * @property \UON\Endpoints\Countries $countries  Work with countries
+ * @property \UON\Endpoints\Hotels    $hotels     Hotels methods
+ * @property \UON\Endpoints\Leads     $leads      Details about clients
+ * @property \UON\Endpoints\Misc      $misc       Optional single methods
+ * @property \UON\Endpoints\Nutrition $nutrition  Some methods about eat
+ * @property \UON\Endpoints\Payments  $payments   Payment methods
+ * @property \UON\Endpoints\Reminders $reminders  Work with reminders
+ * @property \UON\Endpoints\Requests  $requests   New requests from people
+ * @property \UON\Endpoints\Sources   $sources    All available sources
+ * @property \UON\Endpoints\Services  $services   All available sources
+ * @property \UON\Endpoints\Statuses  $statuses   Request statuses
+ * @property \UON\Endpoints\Suppliers $suppliers  External companies
+ * @property \UON\Endpoints\Users     $users      For work with users
  */
 class Client implements ClientInterface
 {
-    /**
-     * Initial state of some variables
-     */
-    protected $_client;
-    protected $_config;
+    use HttpTrait;
 
     /**
-     * Default server parameters
+     * @var string
      */
-    protected $host   = 'api.u-on.ru';
-    protected $port   = '443';
-    protected $path   = '/';
-    protected $useSSL = true;
+    protected $namespace = __NAMESPACE__ . '\\Endpoints';
 
     /**
-     * User initial values
+     * Type of query
      *
      * @var string
      */
-    protected $token;
+    protected $type;
 
     /**
-     * Default format of output
+     * Endpoint of query
      *
      * @var string
      */
-    protected $format = 'json';
+    protected $endpoint;
 
     /**
-     * Count of tries
+     * Parameters of query
      *
-     * @var int
+     * @var mixed
      */
-    private $tries = self::TRIES;
+    protected $params;
 
     /**
-     * Waiting time per each try
-     *
-     * @var int
+     * @var array
      */
-    private $seconds = self::SECONDS;
+    protected static $variables = [];
 
     /**
-     * Timeout of every try
+     * API constructor.
      *
-     * @var float
-     */
-    private $maxRequestTimeout = self::MAX_REQUEST_TIMEOUT;
-
-    /**
-     * Client constructor.
+     * @param array|\UON\Config $config
+     * @param bool              $init
      *
-     * @param Config $config User defined configuration
+     * @throws \ErrorException
      */
-    public function __construct(Config $config)
+    public function __construct($config, bool $init = true)
     {
-        // Extract toke from config
-        $this->token = $config->get('token');
-
-        // Count of tries
-        if ($config->get('tries') !== false) {
-            $this->tries = $config->get('tries');
-        }
-
-        // Waiting time
-        if ($config->get('seconds') !== false) {
-            $this->seconds = $config->get('seconds');
-        }
-
-        // Max request timeout per try
-        if ($config->get('maxRequestTimeout') !== false) {
-            $this->maxRequestTimeout = $config->get('maxRequestTimeout');
+        if (!$config instanceof Config) {
+            $config = new Config($config);
         }
 
         // Save config into local variable
-        $this->_config = $config;
+        $this->config = $config;
 
-        // Store the client object
-        $this->_client = new \GuzzleHttp\Client($config->getParameters(true));
+        // Init if need
+        if ($init) {
+            $this->client = $this->initClient($config->guzzle());
+        }
     }
 
     /**
-     * Request executor with timeout and repeat tries
+     * Get current client instance
      *
-     * @param   string $type   Request method
-     * @param   string $url    endpoint url
-     * @param   array  $params List of parameters
-     * @return  bool|\Psr\Http\Message\ResponseInterface
-     * @throws  \GuzzleHttp\Exception\GuzzleException
+     * @return null|\GuzzleHttp\Client
      */
-    public function repeatRequest($type, $url, $params)
+    public function getClient(): ?\GuzzleHttp\Client
     {
-        for ($i = 1; $i < $this->tries; $i++) {
-
-            // Execute the request to server
-            $result = \in_array($type, self::ALLOWED_METHODS, false)
-                ? $this->_client->request($type, $url, ['timeout' => $this->maxRequestTimeout, 'form_params' => $params])
-                : null;
-
-            // Check the code status
-            $code = $result->getStatusCode();
-
-            // If code is not 405 (but 200 foe example) then exit from loop
-            if ($code === 200 || $code === 500) {
-                return $result;
-            }
-
-            // Waiting in seconds
-            sleep($this->seconds);
-        }
-
-        // Return false if loop is done but no answer from server
-        return false;
+        return $this->client;
     }
 
     /**
-     * Make the request and analyze the result
+     * Store the client object
      *
-     * @param   string $type     Request method
-     * @param   string $endpoint Api request endpoint
-     * @param   array  $params   List of parameters
-     * @param   bool   $raw      Return data in raw format
-     * @return  mixed|false Array with data or error, or False when something went fully wrong
+     * @param array $configs
+     *
+     * @return \GuzzleHttp\Client
      */
-    public function doRequest($type, $endpoint, array $params = [], $raw = false)
+    public function initClient(array $configs = []): \GuzzleHttp\Client
     {
-        // Create the base URL
-        $base = $this->useSSL ? 'https' : 'http';
+        return new \GuzzleHttp\Client($configs);
+    }
 
-        // Generate the URL for request
-        $url = $base . '://' . $this->host . ':' . $this->port . $this->path . $this->token . $endpoint . '.' . $this->format;
+    /**
+     * Convert underscore_strings to camelCase (medial capitals).
+     *
+     * @param string $str
+     *
+     * @return string
+     */
+    private function snakeToPascal(string $str): string
+    {
+        // Remove underscores, capitalize words, squash, lowercase first.
+        return str_replace(' ', '', ucwords(str_replace('_', ' ', $str)));
+    }
 
-        try {
-            // Execute the request to server
-            $result = $this->repeatRequest($type, $url, $params);
-
-            // Return result
-            return
-                ($result === false)
-                    ? false
-                    : [
-                    'code'    => $result->getStatusCode(),
-                    'reason'  => $result->getReasonPhrase(),
-                    'message' => $raw ? (string) $result->getBody() : json_decode($result->getBody())
-                ];
-
-        } catch (GuzzleException $e) {
-            echo $e->getMessage() . "\n";
-            echo $e->getTrace();
+    /**
+     * Magic method required for call of another classes
+     *
+     * @param string $name
+     *
+     * @return bool|object
+     * @throws \ErrorException
+     */
+    public function __get(string $name)
+    {
+        if (isset(self::$variables[$name])) {
+            return self::$variables[$name];
         }
 
-        return false;
+        // Set class name as namespace
+        $class = $this->namespace . '\\' . $this->snakeToPascal($name);
+
+        // Try to create object by name
+        return new $class($this->config);
+    }
+
+    /**
+     * Magic method required for call of another classes
+     *
+     * @param string $name
+     * @param array  $arguments
+     *
+     * @return bool|object
+     * @throws \ErrorException
+     */
+    public function __call(string $name, array $arguments)
+    {
+        // Set class name as namespace
+        $class = $this->namespace . '\\' . $this->snakeToPascal($name) . 's';
+
+        // Try to create object by name
+        $object = new $class($this->config);
+
+        return call_user_func_array($object, $arguments);
+    }
+
+    /**
+     * Check if class is exist in folder
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function __isset(string $name): bool
+    {
+        return isset(self::$variables[$name]);
+    }
+
+    /**
+     * Ordinary dummy setter, it should be ignored (added to PSR reasons)
+     *
+     * @param string $name
+     * @param mixed  $value
+     *
+     * @throws \ErrorException
+     */
+    public function __set(string $name, $value)
+    {
+        self::$variables[$name] = $value;
     }
 
 }

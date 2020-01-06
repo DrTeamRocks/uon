@@ -2,7 +2,7 @@
 
 namespace UON;
 
-use UON\Interfaces\ClientInterface;
+use UON\Interfaces\QueryInterface;
 
 /**
  * @author  Paul Rock <paul@drteam.rocks>
@@ -28,7 +28,7 @@ use UON\Interfaces\ClientInterface;
  * @property \UON\Endpoints\Suppliers $suppliers  External companies
  * @property \UON\Endpoints\Users     $users      For work with users
  */
-class Client implements ClientInterface
+class Client implements QueryInterface
 {
     use HttpTrait;
 

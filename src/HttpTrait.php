@@ -42,7 +42,7 @@ trait HttpTrait
     {
         $type = strtoupper($type);
 
-        for ($i = 1; $i < $this->config->get('tries'); $i++) {
+        for ($i = 1; $i <= $this->config->get('tries'); $i++) {
 
             $endpoint = $this->config->get('base_uri') . '/' . $this->config->get('token') . '/' . $url . '.' . $this->config->get('format');
 

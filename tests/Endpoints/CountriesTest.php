@@ -8,41 +8,49 @@ use UON\Endpoints\Countries;
 
 class CountriesTest extends TestCase
 {
-    private $_countries;
-    private $_country;
+    /**
+     * @var \UON\Endpoints\Countries
+     */
+    private $object;
 
+    /**
+     * @var array
+     */
+    private $country = [
+        'name'    => 'Кингконгстоунт',
+        'name_en' => 'Kinkongstoun'
+    ];
+
+    /**
+     * @var int
+     */
     public static $countryId;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
+        $config->set('token', getenv('API_TOKEN'));
 
-        $this->_countries = new Countries($config);
-        $this->_country = [
-            'name' => 'Кингконгстоунт',
-            'name_en' => 'Kinkongstoun'
-        ];
+        $this->object = new Countries($config);
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
-        $result = $this->_countries->create($this->_country);
-        self::$countryId = $result['message']->id;
-        $this->assertInternalType('array', $result);
+        $result          = $this->object->create($this->country)->exec();
+        self::$countryId = $result->id;
+        $this->assertIsObject($result);
     }
 
-    public function testRead()
+    public function testRead(): void
     {
-        $result = $this->_countries->all();
-        $this->assertInternalType('array', $result);
+        $result = $this->object->all()->exec();
+        $this->assertIsObject($result);
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
-        $result = $this->_countries->update(self::$countryId, $this->_country);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->update(self::$countryId, $this->country)->exec();
+        $this->assertIsObject($result);
     }
 
 }

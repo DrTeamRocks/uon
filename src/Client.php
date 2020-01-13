@@ -54,9 +54,9 @@ class Client implements QueryInterface
     /**
      * Parameters of query
      *
-     * @var mixed
+     * @var array
      */
-    protected $params;
+    protected $params = [];
 
     /**
      * @var array

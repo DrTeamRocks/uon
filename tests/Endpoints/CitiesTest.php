@@ -8,42 +8,50 @@ use UON\Endpoints\Cities;
 
 class CitiesTest extends TestCase
 {
-    private $_cities;
-    private $_city;
+    /**
+     * @var \UON\Endpoints\Cities
+     */
+    private $object;
 
+    /**
+     * @var array
+     */
+    private $city = [
+        'country_id' => 1,
+        'name'       => 'Кингконгстоунт',
+        'name_en'    => 'Kinkongstoun'
+    ];
+
+    /**
+     * @var int
+     */
     public static $citiesId;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
+        $config->set('token', getenv('API_TOKEN'));
 
-        $this->_cities = new Cities($config);
-        $this->_city = array(
-            'country_id' => '1',
-            'name' => 'Кингконгстоунт',
-            'name_en' => 'Kinkongstoun'
-        );
+        $this->object = new Cities($config);
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
-        $result = $this->_cities->create($this->_city);
-        self::$citiesId = $result['message']->id;
-        $this->assertInternalType('array', $result);
+        $result         = $this->object->create($this->city)->exec();
+        self::$citiesId = $result->id;
+        $this->assertIsObject($result);
     }
 
-    public function testRead()
+    public function testAll(): void
     {
-        $result = $this->_cities->all($this->_city['country_id']);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->all($this->city['country_id'])->exec();
+        $this->assertIsObject($result);
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
-        $update = $this->_cities->update(self::$citiesId, $this->_city);
-        $this->assertInternalType('array', $update);
+        $result = $this->object->update(self::$citiesId, $this->city)->exec();
+        $this->assertIsObject($result);
     }
 
 }

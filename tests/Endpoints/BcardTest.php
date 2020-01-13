@@ -8,35 +8,44 @@ use UON\Endpoints\Bcard;
 
 class BcardTest extends TestCase
 {
-    private $_bcards;
-    private $_bcard;
+    /**
+     * @var \UON\Endpoints\Bcard
+     */
+    private $object;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    /**
+     * @var array
+     */
+    private $bcard;
+
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
+        $config->set('token', getenv('API_TOKEN'));
 
-        $this->_bcards = new Bcard($config);
-        $this->_bcard = [
+        $this->object = new Bcard($config);
+        $this->bcard  = [
             'bc_number' => '0000000001',
-            'user_id' => '2'
+            'user_id'   => '2'
         ];
     }
 
-    public function testRead()
+    public function testGetByCard(): void
     {
-        $result = $this->_bcards->getByCard($this->_bcard['bc_number']);
-        $this->assertInternalType('array', $result);
-
-        $result = $this->_bcards->getByUser($this->_bcard['user_id']);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getByCard($this->bcard['bc_number'])->exec();
+        $this->assertIsObject($result);
     }
 
-    public function testUpdates()
+    public function testGetByUser(): void
     {
-        $result = $this->_bcards->activate($this->_bcard);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getByUser($this->bcard['user_id'])->exec();
+        $this->assertIsObject($result);
+    }
+
+    public function testUpdates(): void
+    {
+        $result = $this->object->activate($this->bcard)->exec();
+        $this->assertIsObject($result);
     }
 
 }

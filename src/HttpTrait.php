@@ -116,7 +116,7 @@ trait HttpTrait
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \ErrorException
      */
-    private function doRequest($type, $endpoint, $params = null, bool $raw = false)
+    private function doRequest(string $type, string $endpoint, array $params = [], bool $raw = false)
     {
         // Null by default
         $response = null;

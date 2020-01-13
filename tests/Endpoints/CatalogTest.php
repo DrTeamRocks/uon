@@ -9,60 +9,73 @@ use UON\Endpoints\Services;
 
 class CatalogTest extends TestCase
 {
-    private $_catalog;
-    private $_services;
 
+    /**
+     * @var \UON\Endpoints\Catalog
+     */
+    private $object;
+
+    /**
+     * @var \UON\Endpoints\Services
+     */
+    private $services;
+
+    /**
+     * @var int
+     */
     public static $catalogId;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
+        $config->set('token', getenv('API_TOKEN'));
 
-        $this->_catalog = new Catalog($config);
-        $this->_services = new Services($config);
+        $this->object   = new Catalog($config);
+        $this->services = new Services($config);
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
-        $services = $this->_services->getTypes();
-        $service_id = $services['message']->items[0]->id;
-        $service_name = $services['message']->items[0]->name;
+        $services     = $this->services->getTypes()->exec();
+        $service_id   = $services->items[0]->id;
+        $service_name = $services->items[0]->name;
 
         $parameters = [
-            's_id' => $service_id,
+            's_id'        => $service_id,
             'description' => 'dummy description of ' . $service_name,
-            'price' => '999999'
+            'price'       => 999999
         ];
 
-        $result = $this->_catalog->create($parameters);
-        self::$catalogId = $result['message']->id;
-        $this->assertInternalType('array', $result);
+        $result          = $this->object->create($parameters)->exec();
+        self::$catalogId = $result->id;
+        $this->assertIsObject($result);
     }
 
-    public function testGet()
+    public function testGetAll(): void
     {
-        $result = $this->_catalog->get();
-        $this->assertInternalType('array', $result);
-
-        $result = $this->_catalog->get(1);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->get()->exec();
+        $this->assertIsObject($result);
     }
 
-    public function testUpdate()
+    public function testGetSingle(): void
     {
-        $services = $this->_services->getTypes();
-        $service_id = $services['message']->items[0]->id;
-        $service_name = $services['message']->items[0]->name;
+        $result = $this->object->get(1)->exec();
+        $this->assertIsObject($result);
+    }
+
+    public function testUpdate(): void
+    {
+        $services     = $this->services->getTypes()->exec();
+        $service_id   = $services->items[0]->id;
+        $service_name = $services->items[0]->name;
 
         $parameters = [
-            's_id' => $service_id,
+            's_id'        => $service_id,
             'description' => 'updated description of ' . $service_name,
-            'price' => '999999'
+            'price'       => 999999
         ];
 
-        $result = $this->_catalog->update(self::$catalogId, $parameters);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->update(self::$catalogId, $parameters);
+        $this->assertIsObject($result);
     }
 }

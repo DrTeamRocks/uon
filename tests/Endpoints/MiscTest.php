@@ -20,20 +20,20 @@ class MiscTest extends TestCase
         $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
 
         $this->_misc = new Misc($config);
-        $this->_avia = array(
+        $this->_avia = [
             'service_id' => 1
-        );
-        $this->_call = array(
+        ];
+        $this->_call = [
             'phone' => '123456789',
             'start' => date('Y-m-d H:i:s')
-        );
-        $this->_mail = array(
-            'email_to' => 'test@mail.com',
+        ];
+        $this->_mail = [
+            'email_to'   => 'test@mail.com',
             'email_from' => 'test@mail.com',
-            'subject' => 'Test subject',
-            'text' => 'Some text',
-            'datetime' => date('Y-m-d H:i:s')
-        );
+            'subject'    => 'Test subject',
+            'text'       => 'Some text',
+            'datetime'   => date('Y-m-d H:i:s')
+        ];
     }
 
     public function testCreateAvia()

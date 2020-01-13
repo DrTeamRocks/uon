@@ -21,7 +21,7 @@ class Catalog extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function get($page = 1): QueryInterface
+    public function get(int $page = 1): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
@@ -59,7 +59,7 @@ class Catalog extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function update($id, array $parameters): QueryInterface
+    public function update(int $id, array $parameters): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'post';

@@ -8,29 +8,34 @@ use UON\Endpoints\Cash;
 
 class CashTest extends TestCase
 {
-    private $_cash;
+    /**
+     * @var \UON\Endpoints\Cash
+     */
+    private $object;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
+        $config->set('token', getenv('API_TOKEN'));
 
-        $this->_cash = new Cash($config);
+        $this->object = new Cash($config);
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
-        $result = $this->_cash->create(['name' => 'test']);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->create(['name' => 'test']);
+        $this->assertIsObject($result);
     }
 
-    public function testGet()
+    public function testGetAll(): void
     {
-        $result = $this->_cash->get();
-        $this->assertInternalType('array', $result);
+        $result = $this->object->get();
+        $this->assertIsObject($result);
+    }
 
-        $result = $this->_cash->get(['name' => 'test']);
-        $this->assertInternalType('array', $result);
+    public function testGetFiltered(): void
+    {
+        $result = $this->object->get(['name' => 'test']);
+        $this->assertIsObject($result);
     }
 }

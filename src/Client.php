@@ -106,7 +106,7 @@ class Client implements ClientInterface
      */
     public function repeatRequest($type, $url, $params)
     {
-        for ($i = 1; $i < $this->tries; $i++) {
+        for ($i = 0; $i < $this->tries; $i++) {
 
             // Execute the request to server
             $result = \in_array($type, self::ALLOWED_METHODS, false)

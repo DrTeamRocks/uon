@@ -8,61 +8,76 @@ use UON\Endpoints\Suppliers;
 
 class SuppliersTest extends TestCase
 {
-    private $_suppliers;
-    private $_supplier;
-    private $_supplierType;
+    /**
+     * @var \UON\Endpoints\Suppliers
+     */
+    private $object;
 
+    /**
+     * @var array
+     */
+    private $supplier = [
+        'name'    => 'supplier name',
+        'type_id' => 1
+    ];
+
+    /**
+     * @var array
+     */
+    private $type = [
+        'name' => 'supplier type name',
+    ];
+
+    /**
+     * @var int
+     */
     public static $supplierId;
-    public static $supplierTypeId;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    /**
+     * @var int
+     */
+    public static $typeId;
+
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
+        $config->set('token', getenv('API_TOKEN'));
 
-        $this->_suppliers = new Suppliers($config);
-        $this->_supplier = array(
-            'name' => 'supplier name',
-            'type_id' => '1'
-        );
-        $this->_supplierType = array(
-            'name' => 'supplier type name',
-        );
+        $this->object = new Suppliers($config);
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
-        $result = $this->_suppliers->create($this->_supplier);
-        self::$supplierId = $result['message']->id;
-        $this->assertInternalType('array', $result);
+        $result           = $this->object->create($this->supplier);
+        self::$supplierId = $result->id;
+        $this->assertIsObject($result);
     }
 
-    public function testRead()
+    public function testRead(): void
     {
-        $result = $this->_suppliers->all();
-        $this->assertInternalType('array', $result);
+        $result = $this->object->all();
+        $this->assertIsObject($result);
 
-        $result = $this->_suppliers->get(self::$supplierId);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->get(self::$supplierId);
+        $this->assertIsObject($result);
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
-        $update = $this->_suppliers->update(self::$supplierId, $this->_supplier);
-        $this->assertInternalType('array', $update);
+        $result = $this->object->update(self::$supplierId, $this->supplier);
+        $this->assertIsObject($result);
     }
 
-    public function testCreateType()
+    public function testCreateType(): void
     {
-        $result = $this->_suppliers->createType($this->_supplierType);
-        self::$supplierTypeId = $result['message']->id;
-        $this->assertInternalType('array', $result);
+        $result       = $this->object->createType($this->type);
+        self::$typeId = $result->id;
+        $this->assertIsObject($result);
     }
 
-    public function testReadType()
+    public function testReadType(): void
     {
-        $result = $this->_suppliers->getTypes(['id' => self::$supplierTypeId]);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getTypes(['id' => self::$typeId]);
+        $this->assertIsObject($result);
     }
 }

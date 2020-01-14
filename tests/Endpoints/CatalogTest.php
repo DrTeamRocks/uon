@@ -36,7 +36,7 @@ class CatalogTest extends TestCase
 
     public function testCreate(): void
     {
-        $services     = $this->services->getTypes()->exec();
+        $services     = $this->services->getTypes();
         $service_id   = $services->items[0]->id;
         $service_name = $services->items[0]->name;
 
@@ -46,26 +46,26 @@ class CatalogTest extends TestCase
             'price'       => 999999
         ];
 
-        $result          = $this->object->create($parameters)->exec();
+        $result          = $this->object->create($parameters);
         self::$catalogId = $result->id;
         $this->assertIsObject($result);
     }
 
     public function testGetAll(): void
     {
-        $result = $this->object->get()->exec();
+        $result = $this->object->get();
         $this->assertIsObject($result);
     }
 
     public function testGetSingle(): void
     {
-        $result = $this->object->get(1)->exec();
+        $result = $this->object->get(1);
         $this->assertIsObject($result);
     }
 
     public function testUpdate(): void
     {
-        $services     = $this->services->getTypes()->exec();
+        $services     = $this->services->getTypes();
         $service_id   = $services->items[0]->id;
         $service_name = $services->items[0]->name;
 

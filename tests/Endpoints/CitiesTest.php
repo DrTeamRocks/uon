@@ -37,20 +37,20 @@ class CitiesTest extends TestCase
 
     public function testCreate(): void
     {
-        $result         = $this->object->create($this->city)->exec();
+        $result         = $this->object->create($this->city);
         self::$citiesId = $result->id;
         $this->assertIsObject($result);
     }
 
     public function testAll(): void
     {
-        $result = $this->object->all($this->city['country_id'])->exec();
+        $result = $this->object->all($this->city['country_id']);
         $this->assertIsObject($result);
     }
 
     public function testUpdate(): void
     {
-        $result = $this->object->update(self::$citiesId, $this->city)->exec();
+        $result = $this->object->update(self::$citiesId, $this->city);
         $this->assertIsObject($result);
     }
 

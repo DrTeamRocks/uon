@@ -8,94 +8,100 @@ use UON\Endpoints\Users;
 
 class UsersTest extends TestCase
 {
-    private $_users;
-    private $_user;
+    private $object;
+
+    /**
+     * @var array
+     */
+    private $user = [
+        'u_name'  => 'User',
+        'u_sname' => 'Test',
+        'u_phone' => '123456789',
+        'u_email' => 'king@roll.com'
+    ];
+
+    /**
+     * @var int
+     */
     public static $userId;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
+        $config->set('token', getenv('API_TOKEN'));
 
-        $this->_users = new Users($config);
-        $this->_user = array(
-            'u_name' => 'User',
-            'u_sname' => 'Test',
-            'u_phone' => '123456789',
-            'u_email' => 'king@roll.com'
-        );
+        $this->object = new Users($config);
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
-        $result = $this->_users->create($this->_user);
-        self::$userId = $result['message']->id;
-        $this->assertInternalType('array', $result);
+        $result       = $this->object->create($this->user);
+        self::$userId = $result->id;
+        $this->assertIsObject($result);
     }
 
-    public function testAll()
+    public function testAll(): void
     {
-        $result = $this->_users->all();
-        $this->assertInternalType('array', $result);
+        $result = $this->object->all();
+        $this->assertIsObject($result);
     }
 
-    public function testGet()
+    public function testGet(): void
     {
-        $result = $this->_users->get(self::$userId);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->get(self::$userId);
+        $this->assertIsObject($result);
     }
 
-    public function testSearch()
+    public function testSearch(): void
     {
-        $result = $this->_users->search();
-        $this->assertInternalType('array', $result);
+        $result = $this->object->search();
+        $this->assertIsObject($result);
     }
 
-    public function testGetLabel()
+    public function testGetLabel(): void
     {
-        $result = $this->_users->getLabel();
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getLabel();
+        $this->assertIsObject($result);
     }
 
-    public function testGetPhone()
+    public function testGetPhone(): void
     {
-        $result = $this->_users->getPhone('123456789');
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getPhone('123456789');
+        $this->assertIsObject($result);
     }
 
-    public function testGetEmail()
+    public function testGetEmail(): void
     {
-        $result = $this->_users->getEmail('king@roll.com');
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getEmail('king@roll.com');
+        $this->assertIsObject($result);
     }
 
-    public function testGetUpdated()
+    public function testGetUpdated(): void
     {
         // Date for next method
-        $today = date('Y-m-d');
+        $today    = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime('tomorrow'));
 
-        $result = $this->_users->getUpdated($today, $tomorrow);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getUpdated($today, $tomorrow);
+        $this->assertIsObject($result);
     }
 
-    public function testCreateFile()
+    public function testCreateFile(): void
     {
-        $file = [
-            'u_id' => self::$userId,
-            'filename' => 'http://static.skaip.org/img/emoticons/180x180/f6fcff/penguin.gif',
-            'name' => 'имя файл жпг',
+        $file   = [
+            'u_id'      => self::$userId,
+            'filename'  => 'http://static.skaip.org/img/emoticons/180x180/f6fcff/penguin.gif',
+            'name'      => 'имя файл жпг',
             'file_note' => 'extremal'
         ];
-        $result = $this->_users->createFile($file);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->createFile($file);
+        $this->assertIsObject($result);
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
-        $result = $this->_users->update(self::$userId, $this->_user);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->update(self::$userId, $this->user);
+        $this->assertIsObject($result);
     }
 
 }

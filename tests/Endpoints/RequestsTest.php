@@ -8,106 +8,123 @@ use UON\Endpoints\Requests;
 
 class RequestsTest extends TestCase
 {
-    private $_requests;
-    private $_request;
-    private $_requestAction;
+    /**
+     * @var \UON\Endpoints\Requests
+     */
+    private $object;
 
+    /**
+     * @var array
+     */
+    private $request = [
+        'note'  => 'Test request',
+        'price' => 100000,
+    ];
+
+    /**
+     * @var array
+     */
+    private $action = [
+        'r_id'    => 1,
+        'type_id' => 1,
+        'text'    => 'Some text',
+    ];
+
+    /**
+     * @var int
+     */
     public static $requestId;
-    public static $requestActionId;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    /**
+     * @var int
+     */
+    public static $actionId;
+
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
+        $config->set('token', getenv('API_TOKEN'));
 
-        $this->_requests = new Requests($config);
-        $this->_request = [
-            'note' => 'Test request',
-            'price' => '100000',
-        ];
-        $this->_requestAction = [
-            'r_id' => 1,
-            'text' => 'Some text',
-            'datetime' => date('Y-m-d H:i:s'),
-            'type_id' => 1
-        ];
+        $this->object = new Requests($config);
+
+        // Fix datetime
+        $this->action['datetime'] = date('Y-m-d H:i:s');
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
-        $result = $this->_requests->create($this->_request);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->create($this->request);
+        $this->assertIsObject($result);
 
         // TODO: Remove this after bug will be fixed
         // Small bug, each second requests to system have a 0 into result
-        if ($result['message']->id === 0) {
-            $result['message']->id = 2;
+        if ($result->id === 0) {
+            $result->id = 2;
         }
 
-        self::$requestId = $result['message']->id;
+        self::$requestId = $result->id;
     }
 
-    public function testRead()
+    public function testRead(): void
     {
-        $result = $this->_requests->get(self::$requestId);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->get(self::$requestId);
+        $this->assertIsObject($result);
 
         // Date for next method
-        $today = date('Y-m-d');
+        $today    = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime('tomorrow'));
 
-        $result = $this->_requests->getUpdated($today, $tomorrow);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getUpdated($today, $tomorrow);
+        $this->assertIsObject($result);
 
-        $result = $this->_requests->getDate($today, $tomorrow);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getDate($today, $tomorrow);
+        $this->assertIsObject($result);
 
         // For second page
-        $result = $this->_requests->getDate($today, $tomorrow, 2);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getDate($today, $tomorrow, 2);
+        $this->assertIsObject($result);
 
         // For other source id
-        $result = $this->_requests->getDate($today, $tomorrow, 1, 1);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getDate($today, $tomorrow, 1, 1);
+        $this->assertIsObject($result);
 
-        $result = $this->_requests->search();
-        $this->assertInternalType('array', $result);
+        $result = $this->object->search();
+        $this->assertIsObject($result);
     }
 
-    public function testCreateTravelType()
+    public function testCreateTravelType(): void
     {
-        $result = $this->_requests->createTravelType(['name' => 'test']);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->createTravelType(['name' => 'test']);
+        $this->assertIsObject($result);
     }
 
-    public function testReadTravelType()
+    public function testReadTravelType(): void
     {
-        $result = $this->_requests->getTravelType();
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getTravelType();
+        $this->assertIsObject($result);
 
-        $result = $this->_requests->getTravelType(['name' => 'test']);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getTravelType(['name' => 'test']);
+        $this->assertIsObject($result);
     }
 
-    public function testCreateActions()
+    public function testCreateActions(): void
     {
-        $result = $this->_requests->createActions($this->_requestAction);
-        self::$requestActionId = $result['message']->id;
-        $this->assertInternalType('array', $result);
+        $result         = $this->object->createActions($this->action);
+        self::$actionId = $result->id;
+        $this->assertIsObject($result);
     }
 
-    public function testReadActions()
+    public function testReadActions(): void
     {
-        $result = $this->_requests->getActions(self::$requestActionId);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getActions(self::$actionId);
+        $this->assertIsObject($result);
 
         // Date for next method
-        $today = date('Y-m-d');
+        $today    = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime('tomorrow'));
 
-        $result = $this->_requests->getDateActions($today, $tomorrow);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getDateActions($today, $tomorrow);
+        $this->assertIsObject($result);
     }
 
 }

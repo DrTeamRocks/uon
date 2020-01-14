@@ -26,25 +26,25 @@ class BcardTest extends TestCase
         $this->object = new Bcard($config);
         $this->bcard  = [
             'bc_number' => '0000000001',
-            'user_id'   => '2'
+            'user_id'   => 2
         ];
     }
 
     public function testGetByCard(): void
     {
-        $result = $this->object->getByCard($this->bcard['bc_number'])->exec();
+        $result = $this->object->getByCard($this->bcard['bc_number']);
         $this->assertIsObject($result);
     }
 
     public function testGetByUser(): void
     {
-        $result = $this->object->getByUser($this->bcard['user_id'])->exec();
+        $result = $this->object->getByUser($this->bcard['user_id']);
         $this->assertIsObject($result);
     }
 
     public function testUpdates(): void
     {
-        $result = $this->object->activate($this->bcard)->exec();
+        $result = $this->object->activate($this->bcard);
         $this->assertIsObject($result);
     }
 

@@ -36,20 +36,20 @@ class CountriesTest extends TestCase
 
     public function testCreate(): void
     {
-        $result          = $this->object->create($this->country)->exec();
+        $result          = $this->object->create($this->country);
         self::$countryId = $result->id;
         $this->assertIsObject($result);
     }
 
     public function testRead(): void
     {
-        $result = $this->object->all()->exec();
+        $result = $this->object->all();
         $this->assertIsObject($result);
     }
 
     public function testUpdate(): void
     {
-        $result = $this->object->update(self::$countryId, $this->country)->exec();
+        $result = $this->object->update(self::$countryId, $this->country);
         $this->assertIsObject($result);
     }
 

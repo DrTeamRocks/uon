@@ -12,7 +12,7 @@ class ClientTest extends TestCase
      */
     private $token;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->token = getenv('API_TOKEN');
     }

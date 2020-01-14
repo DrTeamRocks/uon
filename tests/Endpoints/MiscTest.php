@@ -8,59 +8,72 @@ use UON\Endpoints\Misc;
 
 class MiscTest extends TestCase
 {
-    private $_misc;
-    private $_avia;
-    private $_call;
-    private $_mail;
+    /**
+     * @var \UON\Endpoints\Misc
+     */
+    private $object;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    /**
+     * @var array
+     */
+    private $avia = [
+        'service_id' => 1
+    ];
+
+    /**
+     * @var array
+     */
+    private $call = [
+        'phone' => '123456789',
+    ];
+
+    /**
+     * @var array
+     */
+    private $mail = [
+        'email_to'   => 'test@mail.com',
+        'email_from' => 'test@mail.com',
+        'subject'    => 'Test subject',
+        'text'       => 'Some text',
+    ];
+
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
+        $config->set('token', getenv('API_TOKEN'));
 
-        $this->_misc = new Misc($config);
-        $this->_avia = [
-            'service_id' => 1
-        ];
-        $this->_call = [
-            'phone' => '123456789',
-            'start' => date('Y-m-d H:i:s')
-        ];
-        $this->_mail = [
-            'email_to'   => 'test@mail.com',
-            'email_from' => 'test@mail.com',
-            'subject'    => 'Test subject',
-            'text'       => 'Some text',
-            'datetime'   => date('Y-m-d H:i:s')
-        ];
+        $this->object = new Misc($config);
+
+        // Fix datetime
+        $this->call['start']    = date('Y-m-d H:i:s');
+        $this->mail['datetime'] = date('Y-m-d H:i:s');
     }
 
-    public function testCreateAvia()
+    public function testCreateAvia(): void
     {
-        $result = $this->_misc->createAvia($this->_avia);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->createAvia($this->avia);
+        $this->assertIsObject($result);
     }
 
-    public function testCreateCall()
+    public function testCreateCall(): void
     {
-        $result = $this->_misc->createCall($this->_call);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->createCall($this->call);
+        $this->assertIsObject($result);
     }
 
-    public function testCreateMail()
+    public function testCreateMail(): void
     {
-        $result = $this->_misc->createMail($this->_mail);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->createMail($this->mail);
+        $this->assertIsObject($result);
     }
 
-    public function testRead()
+    public function testRead(): void
     {
-        $result = $this->_misc->getCurrency();
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getCurrency();
+        $this->assertIsObject($result);
 
-        $result = $this->_misc->getManagers();
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getManagers();
+        $this->assertIsObject($result);
     }
 
 }

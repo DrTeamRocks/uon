@@ -8,30 +8,35 @@ use UON\Endpoints\Sources;
 
 class SourcesTest extends TestCase
 {
-    private $_sources;
-    private $_source;
+    /**
+     * @var \UON\Endpoints\Sources
+     */
+    private $object;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    /**
+     * @var array
+     */
+    private $source = [
+        'rs_name' => 'source name'
+    ];
+
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
+        $config->set('token', getenv('API_TOKEN'));
 
-        $this->_sources = new Sources($config);
-        $this->_source = array(
-            'rs_name' => 'source name'
-        );
+        $this->object = new Sources($config);
     }
 
     public function testCreate()
     {
-        $create = $this->_sources->create($this->_source);
-        $this->assertInternalType('array', $create);
+        $result = $this->object->create($this->source);
+        $this->assertIsObject($result);
     }
 
     public function testRead()
     {
-        $result = $this->_sources->all();
-        $this->assertInternalType('array', $result);
+        $result = $this->object->all();
+        $this->assertIsObject($result);
     }
 }

@@ -8,53 +8,62 @@ use UON\Endpoints\Payments;
 
 class PaymentsTest extends TestCase
 {
-    private $_payments;
-    private $_payment;
+    /**
+     * @var \UON\Endpoints\Payments
+     */
+    private $object;
+
+    /**
+     * @var array
+     */
+    private $payment = [
+        'r_id'    => 1,
+        'type_id' => 1,
+        'cio_id'  => 1
+    ];
+
+    /**
+     * @var int
+     */
     public static $paymentId;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
+        $config->set('token', getenv('API_TOKEN'));
 
-        $this->_payments = new Payments($config);
-        $this->_payment = array(
-            'r_id' => '1',
-            'type_id' => '1',
-            'cio_id' => '1'
-        );
+        $this->object = new Payments($config);
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
-        $result = $this->_payments->create($this->_payment);
-        self::$paymentId = $result['message']->id;
-        $this->assertInternalType('array', $result);
+        $result          = $this->object->create($this->payment);
+        self::$paymentId = $result->id;
+        $this->assertIsObject($result);
     }
 
-    public function testRead()
+    public function testRead(): void
     {
-        $result = $this->_payments->get(self::$paymentId);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->get(self::$paymentId);
+        $this->assertIsObject($result);
 
         // Date for next method
-        $today = date('Y-m-d');
+        $today    = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime('tomorrow'));
 
-        $result = $this->_payments->all($today, $tomorrow);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->all($today, $tomorrow);
+        $this->assertIsObject($result);
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
-        $result = $this->_payments->update(self::$paymentId, $this->_payment);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->update(self::$paymentId, $this->payment);
+        $this->assertIsObject($result);
     }
 
-    public function testDelete()
+    public function testDelete(): void
     {
-        $result = $this->_payments->delete(self::$paymentId);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->delete(self::$paymentId);
+        $this->assertIsObject($result);
     }
 }

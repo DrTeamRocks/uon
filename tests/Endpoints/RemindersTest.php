@@ -8,37 +8,47 @@ use UON\Endpoints\Reminders;
 
 class RemindersTest extends TestCase
 {
-    private $_reminders;
-    private $_reminder;
+    /**
+     * @var \UON\Endpoints\Reminders
+     */
+    private $object;
+
+    /**
+     * @var array
+     */
+    private $reminder = [
+        'r_id'    => 1,
+        'type_id' => 1,
+        'text'    => 'some cool text of reminder'
+    ];
+
+    /**
+     * @var int
+     */
     public static $reminderId;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
+        $config->set('token', getenv('API_TOKEN'));
 
-        $this->_reminders = new Reminders($config);
-        $this->_reminder = array(
-            'r_id' => '1',
-            'type_id' => '1',
-            'datetime' => date('Y-m-d H:i:s'),
-            'text' => 'some cool text of reminder'
-        );
+        $this->object = new Reminders($config);
+
+        // Fix datetime
+        $this->reminder['datetime'] = date('Y-m-d H:i:s');
     }
 
-
-    public function testCreate()
+    public function testCreate(): void
     {
-        $result = $this->_reminders->create($this->_reminder);
-        self::$reminderId = $result['message']->id;
-        $this->assertInternalType('array', $result);
+        $result           = $this->object->create($this->reminder);
+        self::$reminderId = $result->id;
+        $this->assertIsObject($result);
     }
 
-    public function testRead()
+    public function testRead(): void
     {
-        $result = $this->_reminders->get(self::$reminderId);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->get(self::$reminderId);
+        $this->assertIsObject($result);
     }
 
 }

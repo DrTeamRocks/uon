@@ -8,50 +8,59 @@ use UON\Endpoints\Leads;
 
 class LeadsTest extends TestCase
 {
-    private $_leads;
-    private $_lead;
+    /**
+     * @var \UON\Endpoints\Leads
+     */
+    private $object;
+
+    /**
+     * @var array
+     */
+    private $_lead = [
+        'note'    => 'Test lead',
+        'u_email' => 'test@example.com',
+        'u_phone' => '123456789'
+    ];
+
+    /**
+     * @var int
+     */
     public static $leadId;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
+        $config->set('token', getenv('API_TOKEN'));
 
-        $this->_leads = new Leads($config);
-        $this->_lead = [
-            'note' => 'Test lead',
-            'u_email' => 'test@example.com',
-            'u_phone' => '123456789'
-        ];
+        $this->object = new Leads($config);
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
-        $result = $this->_leads->create($this->_lead);
+        $result = $this->object->create($this->_lead);
 
-        if (isset($result['message']->id)) {
-            self::$leadId = $result['message']->id;
-            $this->assertInternalType('array', $result);
+        if (isset($result->id)) {
+            self::$leadId = $result->id;
+            $this->assertIsObject($result);
         }
     }
 
-    public function testRead()
+    public function testRead(): void
     {
         if (null !== self::$leadId) {
-            $result = $this->_leads->get(self::$leadId);
-            $this->assertInternalType('array', $result);
+            $result = $this->object->get(self::$leadId);
+            $this->assertIsObject($result);
         }
     }
 
-    public function testReadByDate()
+    public function testReadByDate(): void
     {
         // Date for next method
-        $today = date('Y-m-d');
+        $today    = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime('tomorrow'));
 
-        $result = $this->_leads->getDate($today, $tomorrow);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getDate($today, $tomorrow);
+        $this->assertIsObject($result);
     }
 
 }

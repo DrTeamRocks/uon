@@ -8,55 +8,64 @@ use UON\Endpoints\Hotels;
 
 class HotelsTest extends TestCase
 {
-    private $_hotels;
-    private $_hotel;
+    /**
+     * @var \UON\Endpoints\Hotels
+     */
+    private $object;
+
+    /**
+     * @var array
+     */
+    private $hotel = [
+        'name'    => 'Кингконгстоунт',
+        'name_en' => 'Kinkongstoun'
+    ];
+
+    /**
+     * @var int
+     */
     public static $hotelId;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
+        $config->set('token', getenv('API_TOKEN'));
 
-        $this->_hotels = new Hotels($config);
-        $this->_hotel = [
-            'name' => 'Кингконгстоунт',
-            'name_en' => 'Kinkongstoun'
-        ];
+        $this->object = new Hotels($config);
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
-        $result = $this->_hotels->create($this->_hotel);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->create($this->hotel);
+        $this->assertIsObject($result);
 
         // TODO: Remove this after bug will be fixed
         // Small bug, each second requests to system have a 0 into result
-        if ($result['message']->id === 0) {
-            $result['message']->id = 2;
+        if ($result->id === 0) {
+            $result->id = 2;
         }
 
-        self::$hotelId = $result['message']->id;
+        self::$hotelId = $result->id;
     }
 
-    public function testRead()
+    public function testRead(): void
     {
-        $result = $this->_hotels->all('1');
-        $this->assertInternalType('array', $result);
+        $result = $this->object->all('1');
+        $this->assertIsObject($result);
 
-        $result = $this->_hotels->get(self::$hotelId);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->get(self::$hotelId);
+        $this->assertIsObject($result);
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
-        $update = $this->_hotels->update(self::$hotelId, $this->_hotel);
-        $this->assertInternalType('array', $update);
+        $result = $this->object->update(self::$hotelId, $this->hotel);
+        $this->assertIsObject($result);
     }
 
-    public function testDelete()
+    public function testDelete(): void
     {
-        $delete = $this->_hotels->delete(self::$hotelId);
-        $this->assertInternalType('array', $delete);
+        $result = $this->object->delete(self::$hotelId);
+        $this->assertIsObject($result);
     }
 }

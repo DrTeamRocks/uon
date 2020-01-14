@@ -67,6 +67,7 @@ class Config implements ConfigInterface
             'format'          => 'json',
 
             // Main parameters
+            'auto_exec'       => true,
             'timeout'         => 20,
             'user_agent'      => 'UON PHP Client',
             'base_uri'        => 'https://api.u-on.ru'

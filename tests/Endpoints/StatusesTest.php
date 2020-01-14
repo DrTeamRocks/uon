@@ -8,23 +8,28 @@ use UON\Endpoints\Statuses;
 
 class StatusesTest extends TestCase
 {
-    private $_statuses;
+    /**
+     * @var \UON\Endpoints\Statuses
+     */
+    private $object;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
+        $config->set('token', getenv('API_TOKEN'));
 
-        $this->_statuses = new Statuses($config);
+        $this->object = new Statuses($config);
     }
 
-    public function testRead()
+    public function testGet(): void
     {
-        $result = $this->_statuses->get();
-        $this->assertInternalType('array', $result);
+        $result = $this->object->get();
+        $this->assertIsObject($result);
+    }
 
-        $result = $this->_statuses->getLead();
-        $this->assertInternalType('array', $result);
+    public function testGetLead(): void
+    {
+        $result = $this->object->getLead();
+        $this->assertIsObject($result);
     }
 }

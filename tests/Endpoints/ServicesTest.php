@@ -8,39 +8,48 @@ use UON\Endpoints\Services;
 
 class ServicesTest extends TestCase
 {
-    private $_services;
-    private $_service;
+    /**
+     * @var \UON\Endpoints\Services
+     */
+    private $object;
+
+    /**
+     * @var array
+     */
+    private $service = [
+        'r_id'    => 1,
+        'type_id' => 1
+    ];
+
+    /**
+     * @var int
+     */
     public static $serviceId;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
         $config = new Config();
-        $config->set('token', file_get_contents(__DIR__ . '/../_token.txt'));
+        $config->set('token', getenv('API_TOKEN'));
 
-        $this->_services = new Services($config);
-        $this->_service = array(
-            'r_id' => '1',
-            'type_id' => '1'
-        );
+        $this->object = new Services($config);
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
-        $result = $this->_services->create($this->_service);
-        self::$serviceId = $result['message']->id;
-        $this->assertInternalType('array', $result);
+        $result          = $this->object->create($this->service);
+        self::$serviceId = $result->id;
+        $this->assertIsObject($result);
     }
 
-    public function testRead()
+    public function testRead(): void
     {
-        $result = $this->_services->getTypes();
-        $this->assertInternalType('array', $result);
+        $result = $this->object->getTypes();
+        $this->assertIsObject($result);
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
-        $result = $this->_services->update(self::$serviceId, $this->_service);
-        $this->assertInternalType('array', $result);
+        $result = $this->object->update(self::$serviceId, $this->service);
+        $this->assertIsObject($result);
     }
 }

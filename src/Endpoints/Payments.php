@@ -36,17 +36,49 @@ class Payments extends Client
      *
      * @link https://api.u-on.ru/{key}/payment/list/{date_from}/{date_to}.{_format}
      *
-     * @param string $date_from Start of dates range
-     * @param string $date_to   End of dates range
-     * @param int    $page      Number of page, 1 by default
+     * @param string $dateFrom Start of dates range
+     * @param string $dateTo   End of dates range
+     * @param int    $page     Number of page, 1 by default
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function all($date_from, $date_to, $page = 1): QueryInterface
+    public function all(string $dateFrom, string $dateTo, $page = 1): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
-        $this->endpoint = 'payment/list/' . $date_from . '/' . $date_to . '/' . $page;
+        $this->endpoint = 'payment/list/' . $dateFrom . '/' . $dateTo . '/' . $page;
+
+        return $this;
+    }
+
+    /**
+     * Get list of all payment views
+     *
+     * @link https://api.u-on.ru/{key}/payment_form.{_format}
+     *
+     * @return \UON\Interfaces\QueryInterface
+     */
+    public function allForms(): QueryInterface
+    {
+        // Set HTTP params
+        $this->type     = 'get';
+        $this->endpoint = 'payment_form';
+
+        return $this;
+    }
+
+    /**
+     * Get list of all other payment types
+     *
+     * @link https://api.u-on.ru/{key}/payment_other_type.{_format}
+     *
+     * @return \UON\Interfaces\QueryInterface
+     */
+    public function allOtherTypes(): QueryInterface
+    {
+        // Set HTTP params
+        $this->type     = 'get';
+        $this->endpoint = 'payment_other_type';
 
         return $this;
     }
@@ -60,7 +92,7 @@ class Payments extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function get($id): QueryInterface
+    public function get(int $id): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
@@ -79,7 +111,7 @@ class Payments extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function update($id, array $parameters): QueryInterface
+    public function update(int $id, array $parameters): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'post';
@@ -98,7 +130,7 @@ class Payments extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function delete($id): QueryInterface
+    public function delete(int $id): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'post';

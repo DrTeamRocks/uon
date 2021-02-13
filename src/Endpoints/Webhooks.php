@@ -2,20 +2,14 @@
 
 namespace UON\Endpoints;
 
-use UON\Client;
 use UON\Interfaces\QueryInterface;
 
-/**
- * Class Hotels
- *
- * @package UON\Endpoint
- */
-class Hotels extends Client
+class Webhooks extends \UON\Client
 {
     /**
-     * Create new hotel
+     * Create a new webhook
      *
-     * @link https://api.u-on.ru/{key}/hotel/create.{_format}
+     * @link https://api.u-on.ru/{key}/webhook/create.{_format}
      *
      * @param array $parameters List of parameters
      *
@@ -25,16 +19,16 @@ class Hotels extends Client
     {
         // Set HTTP params
         $this->type     = 'post';
-        $this->endpoint = 'hotel/create';
+        $this->endpoint = 'webhook/create';
         $this->params   = $parameters;
 
         return $this;
     }
 
     /**
-     * Get a list of hotels (divided by pages, 100 hotels per page)
+     * Get a list of webhooks (divided by pages, 100 hotels per page)
      *
-     * @link https://api.u-on.ru/{key}/hotels/{page}.{_format}
+     * @link https://api.u-on.ru/{key}/webhook/{page}.{_format}
      *
      * @param int $page Number of page, 1 by default
      *
@@ -44,35 +38,17 @@ class Hotels extends Client
     {
         // Set HTTP params
         $this->type     = 'get';
-        $this->endpoint = 'hotels/' . $page;
+        $this->endpoint = 'webhook/' . $page;
 
         return $this;
     }
 
     /**
-     * Get information about hotel
+     * Update information about webhook
      *
-     * @link https://api.u-on.ru/{key}/hotel/{id}.{_format}
+     * @link https://api.u-on.ru/{key}/webhook/update/{id}.{_format}
      *
-     * @param int $id Unique hotel ID
-     *
-     * @return \UON\Interfaces\QueryInterface
-     */
-    public function get(int $id): QueryInterface
-    {
-        // Set HTTP params
-        $this->type     = 'get';
-        $this->endpoint = 'hotel/' . $id;
-
-        return $this;
-    }
-
-    /**
-     * Update information about hotel
-     *
-     * @link https://api.u-on.ru/{key}/hotel/update/{id}.{_format}
-     *
-     * @param int   $id         Unique hotel ID
+     * @param int   $id         Unique webhook ID
      * @param array $parameters List of parameters
      *
      * @return \UON\Interfaces\QueryInterface
@@ -81,18 +57,18 @@ class Hotels extends Client
     {
         // Set HTTP params
         $this->type     = 'post';
-        $this->endpoint = 'hotel/update/' . $id;
+        $this->endpoint = 'webhook/update/' . $id;
         $this->params   = $parameters;
 
         return $this;
     }
 
     /**
-     * Delete selected hotel from database
+     * Delete selected webhook from database
      *
-     * @link https://api.u-on.ru/{key}/hotel/delete/{id}.{_format}
+     * @link https://api.u-on.ru/{key}/webhook/delete/{id}.{_format}
      *
-     * @param int $id Unique hotel ID
+     * @param int $id Unique webhook ID
      *
      * @return \UON\Interfaces\QueryInterface
      */
@@ -100,9 +76,8 @@ class Hotels extends Client
     {
         // Set HTTP params
         $this->type     = 'post';
-        $this->endpoint = 'hotel/delete/' . $id;
+        $this->endpoint = 'webhook/delete/' . $id;
 
         return $this;
     }
-
 }

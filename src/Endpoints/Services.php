@@ -57,7 +57,7 @@ class Services extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function update($id, array $parameters): QueryInterface
+    public function update(int $id, array $parameters): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'post';

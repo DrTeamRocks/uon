@@ -21,7 +21,7 @@ class Users extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function all($page = 1): QueryInterface
+    public function all(int $page = 1): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
@@ -39,7 +39,7 @@ class Users extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function get($id): QueryInterface
+    public function get(int $id): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
@@ -95,7 +95,7 @@ class Users extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function getPhone($phone): QueryInterface
+    public function getPhone(string $phone): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
@@ -111,7 +111,7 @@ class Users extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function getEmail($email): QueryInterface
+    public function getEmail(string $email): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
@@ -126,17 +126,17 @@ class Users extends Client
      *
      * @link https://api.u-on.ru/{key}/user/updated/{date_from}/{date_to}.{_format}
      *
-     * @param string $date_from Start of dates range
-     * @param string $date_to   End of dates range
-     * @param int    $page      Number of page, 1 by default
+     * @param string $dateFrom Start of dates range
+     * @param string $dateTo   End of dates range
+     * @param int    $page     Number of page, 1 by default
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function getUpdated($date_from, $date_to, $page = 1): QueryInterface
+    public function getUpdated(string $dateFrom, string $dateTo, int $page = 1): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
-        $this->endpoint = 'user/updated/' . $date_from . '/' . $date_to . '/' . $page;
+        $this->endpoint = 'user/updated/' . $dateFrom . '/' . $dateTo . '/' . $page;
 
         return $this;
     }
@@ -189,7 +189,7 @@ class Users extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function update($id, $parameters): QueryInterface
+    public function update(int $id, array $parameters): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'post';

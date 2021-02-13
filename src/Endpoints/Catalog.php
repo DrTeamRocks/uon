@@ -13,7 +13,7 @@ use UON\Interfaces\QueryInterface;
 class Catalog extends Client
 {
     /**
-     * Get services of "I'am operator" by page number (first page by default)
+     * Get services of "I'm operator" by page number (first page by default)
      *
      * @link https://api.u-on.ru/{key}/bcard-bonus-by-card/{id}.{_format}
      *
@@ -31,7 +31,7 @@ class Catalog extends Client
     }
 
     /**
-     * Create services of "I'am operator"
+     * Create services of "I'm operator"
      *
      * @link https://api.u-on.ru/{key}/bcard-activate/create.{_format}
      *
@@ -50,7 +50,7 @@ class Catalog extends Client
     }
 
     /**
-     * Update services of "I'am operator"
+     * Update services of "I'm operator"
      *
      * @link https://api.u-on.ru/{key}/catalog-service/update/{id}.{_format}
      *

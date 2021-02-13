@@ -32,6 +32,24 @@ class Reminders extends Client
     }
 
     /**
+     * Get list of all reminder
+     *
+     * @link https://api.u-on.ru/{key}/reminder/{page}.{_format}
+     *
+     * @param int $page Unique ID of reminder
+     *
+     * @return \UON\Interfaces\QueryInterface
+     */
+    public function all(int $page = 1): QueryInterface
+    {
+        // Set HTTP params
+        $this->type     = 'post';
+        $this->endpoint = 'reminder/' . $page;
+
+        return $this;
+    }
+
+    /**
      * Get reminder by id
      *
      * @link https://api.u-on.ru/{key}/reminder/{r_id}.{_format}
@@ -40,7 +58,7 @@ class Reminders extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function get($id): QueryInterface
+    public function get(int $id): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';

@@ -41,7 +41,7 @@ class Leads extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function getByClient($id, $page = 1): QueryInterface
+    public function getByClient(int $id, int $page = 1): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
@@ -59,7 +59,7 @@ class Leads extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function get($id): QueryInterface
+    public function get(int $id): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
@@ -73,18 +73,18 @@ class Leads extends Client
      *
      * @link https://api.u-on.ru/{key}/lead/{date_from}/{date_to}.{_format}
      *
-     * @param string   $date_from Start of dates range
-     * @param string   $date_to   End of dates range
-     * @param int      $page      Number of page, 1 by default
-     * @param int|null $source_id Source ID, eg ID of SMS or JivoSite
+     * @param string   $dateFrom Start of dates range
+     * @param string   $dateTo   End of dates range
+     * @param int      $page     Number of page, 1 by default
+     * @param int|null $sourceId Source ID, eg ID of SMS or JivoSite
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function getDate($date_from, $date_to, $page = 1, $source_id = null): QueryInterface
+    public function getDate(string $dateFrom, string $dateTo, int $page = 1, $sourceId = null): QueryInterface
     {
-        $endpoint = '/leads/' . $date_from . '/' . $date_to;
-        if (null !== $source_id) {
-            $endpoint .= '/' . $source_id;
+        $endpoint = '/leads/' . $dateFrom . '/' . $dateTo;
+        if (null !== $sourceId) {
+            $endpoint .= '/' . $sourceId;
         }
         $endpoint .= '/' . $page;
 
@@ -98,7 +98,7 @@ class Leads extends Client
     /**
      * Get lead data by filters
      *
-     * @link https://api.u-on.ru/{key}/lead/search.{_format}
+     * @link  https://api.u-on.ru/{key}/lead/search.{_format}
      * @since 1.8.2
      *
      * @param array $parameters List of parameters
@@ -110,6 +110,7 @@ class Leads extends Client
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'lead/search';
+        $this->params   = $parameters;
 
         return $this;
     }

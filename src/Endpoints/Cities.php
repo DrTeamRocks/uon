@@ -36,16 +36,16 @@ class Cities extends Client
      *
      * @link https://api.u-on.ru/{key}/cities/{country_id}.{_format}
      *
-     * @param int $id_country Unique ID of country
-     * @param int $page       Number of page, 1 by default
+     * @param int $countryId Unique ID of country
+     * @param int $page      Number of page, 1 by default
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function all($id_country, $page = 1): QueryInterface
+    public function all(int $countryId, int $page = 1): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
-        $this->endpoint = 'cities/' . $id_country . '/' . $page;
+        $this->endpoint = 'cities/' . $countryId . '/' . $page;
 
         return $this;
     }
@@ -60,11 +60,12 @@ class Cities extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function update($id, array $parameters): QueryInterface
+    public function update(int $id, array $parameters): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'city/update/' . $id;
+        $this->params   = $parameters;
 
         return $this;
     }

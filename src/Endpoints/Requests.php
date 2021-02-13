@@ -117,7 +117,7 @@ class Requests extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function get($id, array $parameters = []): QueryInterface
+    public function get(int $id, array $parameters = []): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'post';
@@ -136,7 +136,7 @@ class Requests extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function getActions($id): QueryInterface
+    public function getActions(int $id): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
@@ -155,7 +155,7 @@ class Requests extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function getByClient($id, $page = 1): QueryInterface
+    public function getByClient(int $id, int $page = 1): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
@@ -170,18 +170,18 @@ class Requests extends Client
      * @link https://api.u-on.ru/{key}/request/{date_from}/{date_to}.{_format}
      * @link https://api.u-on.ru/{key}/request/{date_from}/{date_to}/{source_id}.{_format}
      *
-     * @param string   $date_from Start of dates range
-     * @param string   $date_to   End of dates range
-     * @param int      $page      Number of page, 1 by default
-     * @param int|null $source_id Source ID, eg ID of SMS or JivoSite
+     * @param string   $dateFrom Start of dates range
+     * @param string   $dateTo   End of dates range
+     * @param int      $page     Number of page, 1 by default
+     * @param int|null $sourceId Source ID, eg ID of SMS or JivoSite
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function getDate($date_from, $date_to, $page = 1, $source_id = null): QueryInterface
+    public function getDate(string $dateFrom, string $dateTo, int $page = 1, int $sourceId = null): QueryInterface
     {
-        $endpoint = '/requests/' . $date_from . '/' . $date_to;
-        if (null !== $source_id) {
-            $endpoint .= '/' . $source_id;
+        $endpoint = '/requests/' . $dateFrom . '/' . $dateTo;
+        if (null !== $sourceId) {
+            $endpoint .= '/' . $sourceId;
         }
         $endpoint .= '/' . $page;
 
@@ -197,17 +197,17 @@ class Requests extends Client
      *
      * @link https://api.u-on.ru/{key}/request/{date_from}/{date_to}.{_format}
      *
-     * @param string $date_from Start of dates range
-     * @param string $date_to   End of dates range
-     * @param int    $page      Number of page, 1 by default
+     * @param string $dateFrom Start of dates range
+     * @param string $dateTo   End of dates range
+     * @param int    $page     Number of page, 1 by default
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function getDateActions($date_from, $date_to, $page = 1): QueryInterface
+    public function getDateActions(string $dateFrom, string $dateTo, int $page = 1): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
-        $this->endpoint = 'request-action/' . $date_from . '/' . $date_to . '/' . $page;
+        $this->endpoint = 'request-action/' . $dateFrom . '/' . $dateTo . '/' . $page;
 
         return $this;
     }
@@ -217,17 +217,37 @@ class Requests extends Client
      *
      * @link https://api.u-on.ru/{key}/request/updated/{date_from}/{date_to}.{_format}
      *
-     * @param string $date_from Start of dates range
-     * @param string $date_to   End of dates range
-     * @param int    $page      Number of page, 1 by default
+     * @param string $dateFrom Start of dates range
+     * @param string $dateTo   End of dates range
+     * @param int    $page     Number of page, 1 by default
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function getUpdated($date_from, $date_to, $page = 1): QueryInterface
+    public function getUpdated(string $dateFrom, string $dateTo, int $page = 1): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
-        $this->endpoint = 'requests/updated/' . $date_from . '/' . $date_to . '/' . $page;
+        $this->endpoint = 'requests/updated/' . $dateFrom . '/' . $dateTo . '/' . $page;
+
+        return $this;
+    }
+
+    /**
+     * Get updates requests by dates range
+     *
+     * @link https://api.u-on.ru/{key}/requests/closed/{date_from}/{date_to}/{page}.{_format}
+     *
+     * @param string $dateFrom Start of dates range
+     * @param string $dateTo   End of dates range
+     * @param int    $page     Number of page, 1 by default
+     *
+     * @return \UON\Interfaces\QueryInterface
+     */
+    public function getClosed(string $dateFrom, string $dateTo, int $page = 1): QueryInterface
+    {
+        // Set HTTP params
+        $this->type     = 'get';
+        $this->endpoint = 'requests/closed/' . $dateFrom . '/' . $dateTo . '/' . $page;
 
         return $this;
     }
@@ -237,11 +257,9 @@ class Requests extends Client
      *
      * @link https://api.u-on.ru/{key}/travel-type.{_format}
      *
-     * @param array $parameters List of parameters [id, name]
-     *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function getTravelType(array $parameters = []): QueryInterface
+    public function getTravelType(): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
@@ -297,7 +315,7 @@ class Requests extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function update($id, array $parameters): QueryInterface
+    public function update(int $id, array $parameters): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'post';
@@ -316,7 +334,7 @@ class Requests extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function deleteFile($id): QueryInterface
+    public function deleteFile(int $id): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'post';

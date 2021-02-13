@@ -83,7 +83,7 @@ class Bcard extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function getByCard($id): QueryInterface
+    public function getByCard(int $id): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
@@ -101,7 +101,7 @@ class Bcard extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function getByUser($id): QueryInterface
+    public function getByUser(int $id): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';

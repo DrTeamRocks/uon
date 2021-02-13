@@ -8,134 +8,106 @@ use UON\Interfaces\QueryInterface;
 /**
  * Class Misc
  *
- * @package UON\Endpoint
+ * @package    UON\Endpoint
+ * @deprecated Will be removed in 2.1
  */
 class Misc extends Client
 {
     /**
      * Add flights into voucher
      *
-     * @link https://api.u-on.ru/{key}/avia/create.{_format}
+     * https://api.u-on.ru/{key}/avia/create.{_format}
      *
-     * @param array $parameters - List of parameters
+     * @param array $parameters List of parameters
      *
      * @return \UON\Interfaces\QueryInterface
+     * @deprecated Use \UON\Endpoints\Avia::create(array $parameters) instead
      */
     public function createAvia(array $parameters): QueryInterface
     {
-        // Set HTTP params
-        $this->type     = 'post';
-        $this->endpoint = 'avia/create';
-        $this->params   = $parameters;
-
-        return $this;
+        return $this->avia->create($parameters);
     }
 
     /**
      * Add information about call
      *
-     * @link https://api.u-on.ru/{key}/call_history/create.{_format}
+     * https://api.u-on.ru/{key}/call_history/create.{_format}
      *
-     * @param array $parameters - List of parameters
+     * @param array $parameters List of parameters
      *
      * @return \UON\Interfaces\QueryInterface
+     * @deprecated Use \UON\Endpoints\CallHistory::create(array $parameters)
      */
     public function createCall(array $parameters): QueryInterface
     {
-        // Set HTTP params
-        $this->type     = 'post';
-        $this->endpoint = 'call_history/create';
-        $this->params   = $parameters;
-
-        return $this;
+        return $this->callHistory->create($parameters);
     }
 
     /**
      * Add information about mail item
      *
-     * @link https://api.u-on.ru/{key}/mail/create.{_format}
+     * https://api.u-on.ru/{key}/mail/create.{_format}
      *
-     * @param array $parameters - List of parameters
+     * @param array $parameters List of parameters
      *
      * @return \UON\Interfaces\QueryInterface
+     * @deprecated Use \UON\Endpoints\Mail::create(array $parameters)
      */
     public function createMail(array $parameters): QueryInterface
     {
-        // Set HTTP params
-        $this->type     = 'post';
-        $this->endpoint = 'mail/create';
-        $this->params   = $parameters;
-
-        return $this;
+        return $this->mails->create($parameters);
     }
 
     /**
      * Get a list of currencies
      *
-     * @link https://api.u-on.ru/{key}/currency.{_format}
-     *
-     * @param array $parameters - List of parameters
+     * https://api.u-on.ru/{key}/currency.{_format}
      *
      * @return \UON\Interfaces\QueryInterface
+     * @deprecated Use \UON\Endpoints\Currencies::all()
      */
-    public function getCurrency(array $parameters = []): QueryInterface
+    public function getCurrency(): QueryInterface
     {
-        // Set HTTP params
-        $this->type     = 'get';
-        $this->endpoint = 'currency';
-        $this->params   = $parameters;
-
-        return $this;
+        return $this->currencies->all();
     }
 
     /**
      * Get a list of managers
      *
-     * @link https://api.u-on.ru/{key}/manager.{_format}
+     * https://api.u-on.ru/{key}/manager.{_format}
      *
      * @return \UON\Interfaces\QueryInterface
+     * @deprecated Use \UON\Endpoints\Managers::all()
      */
     public function getManagers(): QueryInterface
     {
-        // Set HTTP params
-        $this->type     = 'get';
-        $this->endpoint = 'manager';
-
-        return $this;
+        return $this->managers->all();
     }
 
     /**
      * Get the list of offices
      *
-     * @link https://api.u-on.ru/{key}/company-office.{_format}
-     *
-     * @param array $parameters List of parameters
+     * https://api.u-on.ru/{key}/company-office.{_format}
      *
      * @return \UON\Interfaces\QueryInterface
+     * @deprecated Use \UON\Endpoints\Offices::all()
      */
-    public function getOffices(array $parameters = []): QueryInterface
+    public function getOffices(): QueryInterface
     {
-        // Set HTTP params
-        $this->type     = 'get';
-        $this->endpoint = 'company-office';
-
-        return $this;
+        return $this->offices->all();
     }
 
     /**
      * Get reason deny list
      *
-     * @link https://api.u-on.ru/{key}/reason_deny.{_format}
+     * https://api.u-on.ru/{key}/reason_deny.{_format}
      *
      * @return \UON\Interfaces\QueryInterface
+     * @deprecated Use \UON\Endpoints\ReasonsDeny::all()
      */
     public function getReasonDeny(): QueryInterface
     {
-        // Set HTTP params
-        $this->type     = 'get';
-        $this->endpoint = 'reason_deny';
-
-        return $this;
+        return $this->reasonsDeny->all();
     }
 
 }

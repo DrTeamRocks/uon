@@ -6,16 +6,17 @@ use UON\Client;
 use UON\Interfaces\QueryInterface;
 
 /**
- * Class Hotels
+ * Class ExtendedFields
  *
- * @package UON\Endpoint
+ * @package UON\Endpoints
+ * @since   2.0
  */
-class Hotels extends Client
+class ExtendedFields extends Client
 {
     /**
-     * Create new hotel
+     * Create new extended field
      *
-     * @link https://api.u-on.ru/{key}/hotel/create.{_format}
+     * @link https://api.u-on.ru/{key}/extended_field/create.{_format}
      *
      * @param array $parameters List of parameters
      *
@@ -25,18 +26,18 @@ class Hotels extends Client
     {
         // Set HTTP params
         $this->type     = 'post';
-        $this->endpoint = 'hotel/create';
+        $this->endpoint = 'extended_field/create';
         $this->params   = $parameters;
 
         return $this;
     }
 
     /**
-     * Get a list of hotels (divided by pages, 100 hotels per page)
+     * Get list of all extended fields
      *
-     * @link https://api.u-on.ru/{key}/hotels/{page}.{_format}
+     * @link https://api.u-on.ru/{key}/extended_field/{page}.{_format
      *
-     * @param int $page Number of page, 1 by default
+     * @param int $page Number of page with extended fields
      *
      * @return \UON\Interfaces\QueryInterface
      */
@@ -44,35 +45,17 @@ class Hotels extends Client
     {
         // Set HTTP params
         $this->type     = 'get';
-        $this->endpoint = 'hotels/' . $page;
+        $this->endpoint = 'extended_field/' . $page;
 
         return $this;
     }
 
     /**
-     * Get information about hotel
+     * Update extended field by ID
      *
-     * @link https://api.u-on.ru/{key}/hotel/{id}.{_format}
+     * @link https://api.u-on.ru/{key}/extended_field/update/{id}.{_format}
      *
-     * @param int $id Unique hotel ID
-     *
-     * @return \UON\Interfaces\QueryInterface
-     */
-    public function get(int $id): QueryInterface
-    {
-        // Set HTTP params
-        $this->type     = 'get';
-        $this->endpoint = 'hotel/' . $id;
-
-        return $this;
-    }
-
-    /**
-     * Update information about hotel
-     *
-     * @link https://api.u-on.ru/{key}/hotel/update/{id}.{_format}
-     *
-     * @param int   $id         Unique hotel ID
+     * @param int   $id         Unique country ID
      * @param array $parameters List of parameters
      *
      * @return \UON\Interfaces\QueryInterface
@@ -81,16 +64,16 @@ class Hotels extends Client
     {
         // Set HTTP params
         $this->type     = 'post';
-        $this->endpoint = 'hotel/update/' . $id;
+        $this->endpoint = 'extended_field/update/' . $id;
         $this->params   = $parameters;
 
         return $this;
     }
 
     /**
-     * Delete selected hotel from database
+     * Delete selected extended field
      *
-     * @link https://api.u-on.ru/{key}/hotel/delete/{id}.{_format}
+     * @link https://api.u-on.ru/{key}/extended_field/delete/{id}.{_format}
      *
      * @param int $id Unique hotel ID
      *
@@ -100,7 +83,7 @@ class Hotels extends Client
     {
         // Set HTTP params
         $this->type     = 'post';
-        $this->endpoint = 'hotel/delete/' . $id;
+        $this->endpoint = 'extended_field/delete/' . $id;
 
         return $this;
     }

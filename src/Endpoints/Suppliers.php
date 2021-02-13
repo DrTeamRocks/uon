@@ -60,7 +60,7 @@ class Suppliers extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function all(array $parameters = [], $page = 1): QueryInterface
+    public function all(array $parameters = [], int $page = 1): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
@@ -80,7 +80,7 @@ class Suppliers extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function get($id, array $parameters = []): QueryInterface
+    public function get(int $id, array $parameters = []): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'get';
@@ -119,7 +119,7 @@ class Suppliers extends Client
      *
      * @return \UON\Interfaces\QueryInterface
      */
-    public function update($id, array $parameters): QueryInterface
+    public function update(int $id, array $parameters): QueryInterface
     {
         // Set HTTP params
         $this->type     = 'post';

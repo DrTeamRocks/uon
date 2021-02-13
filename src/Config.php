@@ -69,7 +69,7 @@ class Config implements ConfigInterface
             // Main parameters
             'auto_exec'       => true,
             'timeout'         => 20,
-            'user_agent'      => 'UON PHP Client',
+            'user_agent'      => 'U-On PHP Client v2.x',
             'base_uri'        => 'https://api.u-on.ru'
         ];
 

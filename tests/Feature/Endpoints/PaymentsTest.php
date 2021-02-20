@@ -1,15 +1,15 @@
 <?php
 
-namespace UON\Tests\Endpoints;
+namespace Uon\Tests\Feature\Endpoints;
 
 use PHPUnit\Framework\TestCase;
-use UON\Config;
-use UON\Endpoints\Payments;
+use Uon\Config;
+use Uon\Endpoints\Payments;
 
 class PaymentsTest extends TestCase
 {
     /**
-     * @var \UON\Endpoints\Payments
+     * @var \Uon\Endpoints\Payments
      */
     private $object;
 
@@ -29,41 +29,40 @@ class PaymentsTest extends TestCase
 
     public function setUp(): void
     {
-        $config = new Config();
-        $config->set('token', getenv('API_TOKEN'));
+        $config = new Config(['token' => getenv('API_TOKEN')]);
 
         $this->object = new Payments($config);
     }
 
-    public function testCreate(): void
+    public function test_create(): void
     {
         $result          = $this->object->create($this->payment);
         self::$paymentId = $result->id;
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
     public function testRead(): void
     {
         $result = $this->object->get(self::$paymentId);
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
 
         // Date for next method
         $today    = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime('tomorrow'));
 
         $result = $this->object->all($today, $tomorrow);
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
-    public function testUpdate(): void
+    public function test_update(): void
     {
         $result = $this->object->update(self::$paymentId, $this->payment);
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
-    public function testDelete(): void
+    public function test_delete(): void
     {
         $result = $this->object->delete(self::$paymentId);
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 }

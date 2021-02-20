@@ -1,15 +1,15 @@
 <?php
 
-namespace UON\Tests\Endpoints;
+namespace Uon\Tests\Feature\Endpoints;
 
 use PHPUnit\Framework\TestCase;
-use UON\Config;
-use UON\Endpoints\Reminders;
+use Uon\Config;
+use Uon\Endpoints\Reminders;
 
 class RemindersTest extends TestCase
 {
     /**
-     * @var \UON\Endpoints\Reminders
+     * @var \Uon\Endpoints\Reminders
      */
     private $object;
 
@@ -29,8 +29,7 @@ class RemindersTest extends TestCase
 
     public function setUp(): void
     {
-        $config = new Config();
-        $config->set('token', getenv('API_TOKEN'));
+        $config = new Config(['token' => getenv('API_TOKEN')]);
 
         $this->object = new Reminders($config);
 
@@ -38,17 +37,17 @@ class RemindersTest extends TestCase
         $this->reminder['datetime'] = date('Y-m-d H:i:s');
     }
 
-    public function testCreate(): void
+    public function test_create(): void
     {
         $result           = $this->object->create($this->reminder);
         self::$reminderId = $result->id;
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
     public function testRead(): void
     {
         $result = $this->object->get(self::$reminderId);
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
 }

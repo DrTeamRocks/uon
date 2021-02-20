@@ -1,15 +1,15 @@
 <?php
 
-namespace UON\Tests;
+namespace Uon\Tests\Feature\Endpoints;
 
 use PHPUnit\Framework\TestCase;
-use UON\Config;
-use UON\Endpoints\Suppliers;
+use Uon\Config;
+use Uon\Endpoints\Suppliers;
 
 class SuppliersTest extends TestCase
 {
     /**
-     * @var \UON\Endpoints\Suppliers
+     * @var \Uon\Endpoints\Suppliers
      */
     private $object;
 
@@ -18,7 +18,7 @@ class SuppliersTest extends TestCase
      */
     private $supplier = [
         'name'    => 'supplier name',
-        'type_id' => 1
+        'type_id' => 1,
     ];
 
     /**
@@ -40,44 +40,45 @@ class SuppliersTest extends TestCase
 
     public function setUp(): void
     {
-        $config = new Config();
-        $config->set('token', getenv('API_TOKEN'));
+        $config = new Config(['token' => getenv('API_TOKEN')]);
 
         $this->object = new Suppliers($config);
     }
 
-    public function testCreate(): void
+    public function test_create(): void
     {
-        $result           = $this->object->create($this->supplier);
+        $result = $this->object->create($this->supplier);
+
         self::$supplierId = $result->id;
-        $this->assertIsObject($result);
+
+        self::assertIsObject($result);
     }
 
     public function testRead(): void
     {
         $result = $this->object->all();
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
 
         $result = $this->object->get(self::$supplierId);
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
-    public function testUpdate(): void
+    public function test_update(): void
     {
         $result = $this->object->update(self::$supplierId, $this->supplier);
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
-    public function testCreateType(): void
+    public function test_createType(): void
     {
         $result       = $this->object->createType($this->type);
         self::$typeId = $result->id;
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
     public function testReadType(): void
     {
         $result = $this->object->getTypes(['id' => self::$typeId]);
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 }

@@ -1,24 +1,23 @@
 <?php
 
-namespace UON\Tests\Unit;
+namespace Uon\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use UON\Config;
+use Uon\Config;
 
 class ConfigTest extends TestCase
 {
-
     public function testAll(): void
     {
         $obj = new Config();
-        $this->assertIsArray($obj->all());
+        self::assertIsArray($obj->all());
     }
 
     public function test__construct(): void
     {
         $obj = new Config();
-        $this->assertIsObject($obj);
-        $this->assertInstanceOf(Config::class, $obj);
+        self::assertIsObject($obj);
+        self::assertInstanceOf(Config::class, $obj);
     }
 
     public function testSet(): void
@@ -33,16 +32,15 @@ class ConfigTest extends TestCase
         $obj->token = 'test';
         $array      = $obj->guzzle();
 
-        $this->assertIsArray($array);
-        $this->assertArrayHasKey('timeout', $array);
+        self::assertIsArray($array);
+        self::assertArrayHasKey('timeout', $array);
     }
 
     public function testGet(): void
     {
         $this->expectException(\ErrorException::class);
         $obj = new Config();
-        $this->assertEquals(10, $obj->get('seconds'));
-        $this->assertNull($obj->get('dummy'));
+        self::assertEquals(10, $obj->get('seconds'));
+        self::assertNull($obj->get('dummy'));
     }
-
 }

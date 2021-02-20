@@ -1,15 +1,15 @@
 <?php
 
-namespace UON\Tests\Endpoints;
+namespace Uon\Tests\Feature\Endpoints;
 
 use PHPUnit\Framework\TestCase;
-use UON\Config;
-use UON\Endpoints\Services;
+use Uon\Config;
+use Uon\Endpoints\Services;
 
 class ServicesTest extends TestCase
 {
     /**
-     * @var \UON\Endpoints\Services
+     * @var \Uon\Endpoints\Services
      */
     private $object;
 
@@ -18,7 +18,7 @@ class ServicesTest extends TestCase
      */
     private $service = [
         'r_id'    => 1,
-        'type_id' => 1
+        'type_id' => 1,
     ];
 
     /**
@@ -28,28 +28,29 @@ class ServicesTest extends TestCase
 
     public function setUp(): void
     {
-        $config = new Config();
-        $config->set('token', getenv('API_TOKEN'));
+        $config = new Config(['token' => getenv('API_TOKEN')]);
 
         $this->object = new Services($config);
     }
 
-    public function testCreate(): void
+    public function test_create(): void
     {
-        $result          = $this->object->create($this->service);
+        $result = $this->object->create($this->service);
+
         self::$serviceId = $result->id;
-        $this->assertIsObject($result);
+
+        self::assertIsObject($result);
     }
 
     public function testRead(): void
     {
         $result = $this->object->getTypes();
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
-    public function testUpdate(): void
+    public function test_update(): void
     {
         $result = $this->object->update(self::$serviceId, $this->service);
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 }

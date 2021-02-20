@@ -1,15 +1,15 @@
 <?php
 
-namespace UON\Tests\Endpoints;
+namespace Uon\Tests\Feature\Endpoints;
 
 use PHPUnit\Framework\TestCase;
-use UON\Config;
-use UON\Endpoints\Nutrition;
+use Uon\Config;
+use Uon\Endpoints\Nutrition;
 
 class NutritionTest extends TestCase
 {
     /**
-     * @var \UON\Endpoints\Nutrition
+     * @var \Uon\Endpoints\Nutrition
      */
     private $object;
 
@@ -28,29 +28,28 @@ class NutritionTest extends TestCase
 
     public function setUp(): void
     {
-        $config = new Config();
-        $config->set('token', getenv('API_TOKEN'));
+        $config = new Config(['token' => getenv('API_TOKEN')]);
 
         $this->object = new Nutrition($config);
     }
 
-    public function testCreate(): void
+    public function test_create(): void
     {
         $result            = $this->object->create($this->nutrition);
         self::$nutritionId = $result->id;
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
     public function testRead(): void
     {
         $result = $this->object->all();
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
-    public function testUpdate(): void
+    public function test_update(): void
     {
         $result = $this->object->update(self::$nutritionId, $this->nutrition);
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
 }

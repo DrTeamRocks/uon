@@ -1,15 +1,15 @@
 <?php
 
-namespace UON\Tests\Endpoints;
+namespace Uon\Tests\Feature\Endpoints;
 
 use PHPUnit\Framework\TestCase;
-use UON\Config;
-use UON\Endpoints\Sources;
+use Uon\Config;
+use Uon\Endpoints\Sources;
 
 class SourcesTest extends TestCase
 {
     /**
-     * @var \UON\Endpoints\Sources
+     * @var \Uon\Endpoints\Sources
      */
     private $object;
 
@@ -17,26 +17,25 @@ class SourcesTest extends TestCase
      * @var array
      */
     private $source = [
-        'rs_name' => 'source name'
+        'rs_name' => 'source name',
     ];
 
     public function setUp(): void
     {
-        $config = new Config();
-        $config->set('token', getenv('API_TOKEN'));
+        $config = new Config(['token' => getenv('API_TOKEN')]);
 
         $this->object = new Sources($config);
     }
 
-    public function testCreate()
+    public function test_create(): void
     {
         $result = $this->object->create($this->source);
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
-    public function testRead()
+    public function test_all(): void
     {
         $result = $this->object->all();
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 }

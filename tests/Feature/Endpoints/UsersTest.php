@@ -1,13 +1,16 @@
 <?php
 
-namespace UON\Tests;
+namespace Uon\Tests\Feature\Endpoints;
 
 use PHPUnit\Framework\TestCase;
-use UON\Config;
-use UON\Endpoints\Users;
+use Uon\Config;
+use Uon\Endpoints\Users;
 
 class UsersTest extends TestCase
 {
+    /**
+     * @var \Uon\Endpoints\Users
+     */
     private $object;
 
     /**
@@ -17,7 +20,7 @@ class UsersTest extends TestCase
         'u_name'  => 'User',
         'u_sname' => 'Test',
         'u_phone' => '123456789',
-        'u_email' => 'king@roll.com'
+        'u_email' => 'king@roll.com',
     ];
 
     /**
@@ -27,81 +30,83 @@ class UsersTest extends TestCase
 
     public function setUp(): void
     {
-        $config = new Config();
-        $config->set('token', getenv('API_TOKEN'));
+        $config = new Config(['token' => getenv('API_TOKEN')]);
 
         $this->object = new Users($config);
     }
 
-    public function testCreate(): void
+    public function test_create(): void
     {
-        $result       = $this->object->create($this->user);
+        $result = $this->object->create($this->user);
+
         self::$userId = $result->id;
-        $this->assertIsObject($result);
+
+        self::assertIsObject($result);
     }
 
-    public function testAll(): void
+    public function test_all(): void
     {
         $result = $this->object->all();
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
-    public function testGet(): void
+    public function test_get(): void
     {
         $result = $this->object->get(self::$userId);
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
-    public function testSearch(): void
+    public function test_search(): void
     {
         $result = $this->object->search();
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
-    public function testGetLabel(): void
+    public function test_getLabel(): void
     {
         $result = $this->object->getLabel();
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
-    public function testGetPhone(): void
+    public function test_getPhone(): void
     {
         $result = $this->object->getPhone('123456789');
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
-    public function testGetEmail(): void
+    public function test_getEmail(): void
     {
         $result = $this->object->getEmail('king@roll.com');
-        $this->assertIsObject($result);
+        self::assertIsArray($result);
+        self::assertIsObject($result[0]);
     }
 
-    public function testGetUpdated(): void
+    public function test_getUpdated(): void
     {
         // Date for next method
         $today    = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime('tomorrow'));
 
         $result = $this->object->getUpdated($today, $tomorrow);
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
-    public function testCreateFile(): void
+    public function test_createFile(): void
     {
         $file   = [
             'u_id'      => self::$userId,
             'filename'  => 'http://static.skaip.org/img/emoticons/180x180/f6fcff/penguin.gif',
             'name'      => 'имя файл жпг',
-            'file_note' => 'extremal'
+            'file_note' => 'extremal',
         ];
         $result = $this->object->createFile($file);
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
-    public function testUpdate(): void
+    public function test_update(): void
     {
         $result = $this->object->update(self::$userId, $this->user);
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
     }
 
 }

@@ -1,9 +1,10 @@
 <?php
 
-namespace UON\Tests\Unit;
+namespace Uon\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use UON\Client;
+use Uon\Client;
+use Uon\Endpoints\Cash;
 
 class ClientTest extends TestCase
 {
@@ -20,27 +21,26 @@ class ClientTest extends TestCase
     public function test__construct(): void
     {
         $obj = new Client(['token' => $this->token]);
-        $this->assertIsObject($obj);
-        $this->assertInstanceOf(Client::class, $obj);
+        self::assertIsObject($obj);
+        self::assertInstanceOf(Client::class, $obj);
     }
 
-    public function test__get(): void
+    public function test_get(): void
     {
         $obj = new Client(['token' => $this->token]);
-        $this->assertInstanceOf(\UON\Endpoints\Cash::class, $obj->cash);
+        self::assertInstanceOf(Cash::class, $obj->cash);
     }
 
-    public function test__set(): void
+//    public function test_call(): void
+//    {
+//        $obj = new Client(['token' => $this->token]);
+//        $test = $obj->cash->get();
+//        self::assertInstanceOf(Cash::class, $obj->cash);
+//    }
+
+    public function test_isset(): void
     {
         $obj = new Client(['token' => $this->token]);
-        $obj->cash->get()->exec();
-        $this->assertInstanceOf(\UON\Endpoints\Cash::class, $obj->cash);
+        self::assertFalse(isset($obj->dummy));
     }
-
-    public function test__isset(): void
-    {
-        $obj = new Client(['token' => $this->token]);
-        $this->assertFalse(isset($obj->dummy));
-    }
-
 }

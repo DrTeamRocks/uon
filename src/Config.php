@@ -1,8 +1,12 @@
 <?php
 
-namespace UON;
+namespace Uon;
 
-use UON\Interfaces\ConfigInterface;
+use Uon\Exceptions\UonParameterNotAllowedException;
+use Uon\Exceptions\UonParameterNotSetException;
+use Uon\Interfaces\ConfigInterface;
+use function in_array;
+use function implode;
 
 class Config implements ConfigInterface
 {
@@ -21,7 +25,7 @@ class Config implements ConfigInterface
         'debug',
         'verbose',
         'track_redirects',
-        'format'
+        'format',
     ];
 
     /**
@@ -39,7 +43,7 @@ class Config implements ConfigInterface
      *
      * @var array
      */
-    private $_parameters;
+    private $parameters;
 
     /**
      * Config constructor.
@@ -51,7 +55,7 @@ class Config implements ConfigInterface
     public function __construct(array $parameters = [])
     {
         // Set default parameters of client
-        $this->_parameters = [
+        $this->parameters = [
             // Errors must be disabled by default, because we need to get error codes
             // @link http://docs.guzzlephp.org/en/stable/request-options.html#http-errors
             'http_errors'     => false,
@@ -70,7 +74,7 @@ class Config implements ConfigInterface
             'auto_exec'       => true,
             'timeout'         => 20,
             'user_agent'      => 'U-On PHP Client v2.x',
-            'base_uri'        => 'https://api.u-on.ru'
+            'base_uri'        => 'https://api.u-on.ru',
         ];
 
         // Overwrite parameters by client input
@@ -82,86 +86,95 @@ class Config implements ConfigInterface
     /**
      * Magic setter parameter by name
      *
-     * @param string               $name  Name of parameter
-     * @param string|bool|int|null $value Value of parameter
+     * @param string               $parameter Name of parameter
+     * @param string|bool|int|null $value     Value of parameter
      *
      * @throws \ErrorException
      */
-    public function __set(string $name, $value)
+    public function __set(string $parameter, $value)
     {
-        $this->set($name, $value);
+        $this->set($parameter, $value);
     }
 
     /**
      * Check if parameter if available
      *
-     * @param string $name Name of parameter
+     * @param string $parameter Name of parameter
      *
      * @return bool
      */
-    public function __isset($name): bool
+    public function __isset(string $parameter): bool
     {
-        return isset($this->_parameters[$name]);
+        return isset($this->parameters[$parameter]);
     }
 
     /**
      * Get parameter via magic call
      *
-     * @param string $name Name of parameter
+     * @param string $parameter Name of parameter
      *
      * @return bool|int|string|null
      * @throws \ErrorException
      */
-    public function __get($name)
+    public function __get(string $parameter)
     {
-        return $this->get($name);
+        return $this->get($parameter);
     }
 
     /**
      * Remove parameter from array
      *
-     * @param string $name Name of parameter
+     * @param string $parameter Name of parameter
      */
-    public function __unset($name)
+    public function __unset(string $parameter)
     {
-        unset($this->_parameters[$name]);
+        unset($this->parameters[$parameter]);
     }
 
     /**
      * Set parameter by name
      *
-     * @param string               $name  Name of parameter
-     * @param string|bool|int|null $value Value of parameter
+     * @param string               $parameter Name of parameter
+     * @param string|bool|int|null $value     Value of parameter
      *
-     * @return \UON\Interfaces\ConfigInterface
-     * @throws \ErrorException
+     * @return \Uon\Interfaces\ConfigInterface
+     * @throws \Uon\Exceptions\UonParameterNotAllowedException
      */
-    public function set(string $name, $value): ConfigInterface
+    public function set(string $parameter, $value): ConfigInterface
     {
-        if (!\in_array($name, self::ALLOWED, false)) {
-            throw new \ErrorException("Parameter \"$name\" is not in available list [" . implode(',', self::ALLOWED) . ']');
+        if (!in_array($parameter, self::ALLOWED, false)) {
+            throw new UonParameterNotAllowedException("Parameter \"$parameter\" is not allowed [" . implode(',', self::ALLOWED) . ']');
         }
 
         // Add parameters into array
-        $this->_parameters[$name] = $value;
+        $this->parameters[$parameter] = $value;
         return $this;
     }
 
     /**
      * Get available parameter by name
      *
-     * @param string $name Name of parameter
+     * @param string $parameter Name of parameter
      *
      * @return bool|int|string|null
-     * @throws \ErrorException
+     * @throws \Uon\Exceptions\UonParameterNotSetException
      */
-    public function get(string $name)
+    public function get(string $parameter)
     {
-        if (!isset($this->_parameters[$name])) {
-            throw new \ErrorException("Parameter \"$name\" is not in set");
+        if (!isset($this->parameters[$parameter])) {
+
+            if ($parameter === 'auto_exec') {
+                return true;
+            }
+
+            if ($parameter === 'debug') {
+                return false;
+            }
+
+            throw new UonParameterNotSetException("Parameter \"$parameter\" is not in set");
         }
 
-        return $this->_parameters[$name];
+        return $this->parameters[$parameter];
     }
 
     /**
@@ -171,14 +184,14 @@ class Config implements ConfigInterface
      */
     public function all(): array
     {
-        return $this->_parameters;
+        return $this->parameters;
     }
 
     /**
      * Return all ready for Guzzle parameters
      *
      * @return array
-     * @throws \ErrorException
+     * @throws \Uon\Exceptions\UonParameterNotSetException
      */
     public function guzzle(): array
     {
@@ -189,7 +202,7 @@ class Config implements ConfigInterface
             'debug'           => $this->get('debug'),
             'headers'         => [
                 'User-Agent' => $this->get('user_agent'),
-            ]
+            ],
         ];
 
         // Proxy is optional

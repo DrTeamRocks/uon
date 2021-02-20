@@ -9,17 +9,15 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/DrTeamRocks/uon/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/DrTeamRocks/uon/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/DrTeamRocks/uon/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/DrTeamRocks/uon/?branch=master)
 
-# U-On Travel REST API Client (unofficial)
+# U-On Travel API Client (unofficial)
 
-A simple client that allows to work with RESTful API of U-On Travel company.
+A simple client that allows to work with API of U-On Travel company.
 
 ```shell
 composer require drteam/uon
 ```
 
 This library is ready for production usage, all source codes provided "as is".
-
-About [migration to 1.8](https://github.com/DrTeamRocks/uon/wiki/Миграция-с-1.7-(и-ниже)-на-1.8-(и-выше)).
 
 ## How to use
 

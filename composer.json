@@ -9,12 +9,12 @@
   ],
   "autoload": {
     "psr-4": {
-      "UON\\": "./src/"
+      "Uon\\": "./src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Tests\\": "./tests/"
+      "Uon\\Tests\\": "./tests/"
     }
   },
   "description": "U-On Travel RESTful API Client",

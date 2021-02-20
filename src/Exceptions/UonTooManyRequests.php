@@ -1,6 +1,6 @@
 <?php
 
-namespace UON\Exceptions;
+namespace Uon\Exceptions;
 
 use ErrorException;
 

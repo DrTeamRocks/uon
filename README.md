@@ -9,11 +9,13 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/DrTeamRocks/uon/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/DrTeamRocks/uon/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/DrTeamRocks/uon/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/DrTeamRocks/uon/?branch=master)
 
-# U-On Travel RESTful API Client (unofficial)
+# U-On Travel REST API Client (unofficial)
 
 A simple client that allows to work with RESTful API of U-On Travel company.
 
-    composer require drteam/uon
+```shell
+composer require drteam/uon
+```
 
 This library is ready for production usage, all source codes provided "as is".
 
@@ -27,24 +29,24 @@ About [migration to 1.8](https://github.com/DrTeamRocks/uon/wiki/Миграци�
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Main object for work with API
-$uon = new \UON\API('some_token');
+$uon = new \Uon\Client(['token' => 'some_token']);
 
 // Some examples
 $users    = $uon->users->all();        // Get a list of all users
 $user     = $uon->users->get(1);       // Get user by unique id
 $request  = $uon->requests->get(1);    // Get request by unique ID
-$managers = $uon->misc->getManagers(); // Get list of managers
+$managers = $uon->managers->all();     // Get list of managers
 ```
 
 See other examples of usage [here](extra) separated by class names.
 
-All available methods of all classes with descriptions you can find [here](README.API.md).
+All available methods of all classes with descriptions you can find [here](README.Client.md).
 
 ### How to configure the client
 
 ```php
 // Enable config class
-use \UON\Config;
+use \Uon\Config;
 
 // Class with configuration options
 $config = new Config();
@@ -59,37 +61,37 @@ $config = new Config([
 ]);
 ```
 
-Object of Config should be added as parameter of API client:
+Object of Config should be added as parameter of client:
 
 ```php
-use \UON\Config;
-use \UON\API;
+use \Uon\Config;
+use \Uon\Client;
 
 $config = new Config([
     'token'   => 'some_token',
     'timeout' => 10
 ]);
 
-$client = new API($config);
+$client = new Client($config);
 ```
 
 But you also can use array of parameters:
 
 ```php
-use \UON\API;
+use \Uon\Client;
 
-$client = new API([
+$client = new Client([
     'token'   => 'some_token',
     'timeout' => 10
 ]);
 ```
 
-If you want create API object with default parameters:
+If you want to create Client object with default parameters:
 
 ```php
-use \UON\API;
+use \Uon\Client;
 
-$client = new API('some_token');
+$client = new Client(['token' => 'some_token']);
 ```
 
 ### Available parameters of configuration
@@ -107,7 +109,7 @@ $client = new API('some_token');
 | seconds         | int    | 1       | Time which need wait between tries |
 
 ```php
-$config = new \UON\Config([
+$config = new \Uon\Config([
     'token'   => 'some_token',
     'timeout' => 100,
     'tries'   => 20,

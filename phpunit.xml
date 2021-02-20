@@ -12,7 +12,7 @@
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
     </logging>
     <testsuites>
-        <testsuite name="U-On tests">
+        <testsuite name="U-On Test Suite">
             <directory suffix=".php">./tests/</directory>
         </testsuite>
     </testsuites>

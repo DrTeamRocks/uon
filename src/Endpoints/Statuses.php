@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Class Statuses
  *
- * @package UON\Endpoint
+ * @package Uon\Endpoint
  */
 class Statuses extends Client
 {
@@ -19,16 +18,16 @@ class Statuses extends Client
      *
      * @param array|null $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function get(array $parameters = []): QueryInterface
+    public function get(array $parameters = [])
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'status';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -38,16 +37,15 @@ class Statuses extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getLead(array $parameters = []): QueryInterface
+    public function getLead(array $parameters = [])
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'status_lead';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
-
 }

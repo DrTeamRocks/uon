@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Class Insurances
  *
- * @package UON\Endpoints
+ * @package Uon\Endpoints
  * @since   2.0
  */
 class Insurances extends Client
@@ -18,14 +17,14 @@ class Insurances extends Client
      *
      * @link https://api.u-on.ru/{key}/insurance.{_format}
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function all(): QueryInterface
+    public function all()
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'insurance';
 
-        return $this;
+        return $this->done();
     }
 }

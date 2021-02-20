@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Class Mails
  *
- * @package UON\Endpoints
+ * @package Uon\Endpoints
  * @since   2.0
  */
 class Mails extends Client
@@ -20,15 +19,15 @@ class Mails extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function create(array $parameters): QueryInterface
+    public function create(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'mail/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 }

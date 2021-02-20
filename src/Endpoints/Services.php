@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Class Services
  *
- * @package UON\Endpoint
+ * @package Uon\Endpoint
  */
 class Services extends Client
 {
@@ -19,16 +18,16 @@ class Services extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function create(array $parameters): QueryInterface
+    public function create(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'service/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -36,15 +35,15 @@ class Services extends Client
      *
      * @link https://api.u-on.ru/{key}/service_type.{_format}
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getTypes(): QueryInterface
+    public function getTypes()
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'service_type';
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -55,16 +54,15 @@ class Services extends Client
      * @param int   $id         Unique ID of service
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function update(int $id, array $parameters): QueryInterface
+    public function update(int $id, array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'service/update/' . $id;
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
-
 }

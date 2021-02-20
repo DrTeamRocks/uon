@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Class Countries
  *
- * @package UON\Endpoint
+ * @package Uon\Endpoint
  */
 class Countries extends Client
 {
@@ -19,16 +18,16 @@ class Countries extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function create(array $parameters): QueryInterface
+    public function create(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'country/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -36,15 +35,15 @@ class Countries extends Client
      *
      * @link https://api.u-on.ru/{key}/countries.{_format}
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function all(): QueryInterface
+    public function all()
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'countries';
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -55,16 +54,15 @@ class Countries extends Client
      * @param int   $id         Unique country ID
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function update(int $id, array $parameters): QueryInterface
+    public function update(int $id, array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'country/update/' . $id;
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
-
 }

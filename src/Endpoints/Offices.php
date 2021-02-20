@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Class Offices
  *
- * @package UON\Endpoints
+ * @package Uon\Endpoints
  * @since   2.0
  */
 class Offices extends Client
@@ -18,14 +17,14 @@ class Offices extends Client
      *
      * @link https://api.u-on.ru/{key}/company-office.{_format}
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function all(): QueryInterface
+    public function all()
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'company-office';
 
-        return $this;
+        return $this->done();
     }
 }

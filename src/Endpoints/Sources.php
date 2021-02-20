@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Class Statuses
  *
- * @package UON\Endpoint
+ * @package Uon\Endpoint
  */
 class Sources extends Client
 {
@@ -19,16 +18,16 @@ class Sources extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function create(array $parameters): QueryInterface
+    public function create(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'source/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -36,15 +35,14 @@ class Sources extends Client
      *
      * @link https://api.u-on.ru/{key}/source.{_format}
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function all(): QueryInterface
+    public function all()
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'source';
 
-        return $this;
+        return $this->done();
     }
-
 }

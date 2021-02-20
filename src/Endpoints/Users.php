@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Class Users
  *
- * @package UON\Endpoint
+ * @package Uon\Endpoint
  */
 class Users extends Client
 {
@@ -19,15 +18,15 @@ class Users extends Client
      *
      * @param int $page Number of page, 1 by default
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function all(int $page = 1): QueryInterface
+    public function all(int $page = 1)
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'users/' . $page;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -37,15 +36,15 @@ class Users extends Client
      *
      * @param int $id
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function get(int $id): QueryInterface
+    public function get(int $id)
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'user/' . $id;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -55,16 +54,16 @@ class Users extends Client
      *
      * @param array $parameters Some parameters for search [telegram, whatsapp, viber, instagram]
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function search(array $parameters = []): QueryInterface
+    public function search(array $parameters = [])
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'user/search';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -74,16 +73,16 @@ class Users extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getLabel(array $parameters = []): QueryInterface
+    public function getLabel(array $parameters = [])
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'user-label';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -93,15 +92,15 @@ class Users extends Client
      *
      * @param string $phone Number of client phone
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getPhone(string $phone): QueryInterface
+    public function getPhone(string $phone)
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'user/phone/' . $phone;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -109,16 +108,16 @@ class Users extends Client
      *
      * @param string $email Email of client
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getEmail(string $email): QueryInterface
+    public function getEmail(string $email)
     {
         // Set HTTP params
-        $this->type     = 'get';
+        $this->type     = 'post';
         $this->endpoint = 'user/email';
         $this->params   = ['email' => $email];
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -130,15 +129,15 @@ class Users extends Client
      * @param string $dateTo   End of dates range
      * @param int    $page     Number of page, 1 by default
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getUpdated(string $dateFrom, string $dateTo, int $page = 1): QueryInterface
+    public function getUpdated(string $dateFrom, string $dateTo, int $page = 1)
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'user/updated/' . $dateFrom . '/' . $dateTo . '/' . $page;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -148,16 +147,16 @@ class Users extends Client
      *
      * @param array $parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function create(array $parameters): QueryInterface
+    public function create(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'user/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -167,16 +166,16 @@ class Users extends Client
      *
      * @param array $parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function createFile(array $parameters): QueryInterface
+    public function createFile(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'user-file/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -187,16 +186,15 @@ class Users extends Client
      * @param int   $id         ID of client
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function update(int $id, array $parameters): QueryInterface
+    public function update(int $id, array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'user/update/' . $id;
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
-
 }

@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Class ExtendedFields
  *
- * @package UON\Endpoints
+ * @package Uon\Endpoints
  * @since   2.0
  */
 class ExtendedFields extends Client
@@ -20,16 +19,16 @@ class ExtendedFields extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function create(array $parameters): QueryInterface
+    public function create(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'extended_field/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -39,15 +38,15 @@ class ExtendedFields extends Client
      *
      * @param int $page Number of page with extended fields
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function all(int $page = 1): QueryInterface
+    public function all(int $page = 1)
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'extended_field/' . $page;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -58,16 +57,16 @@ class ExtendedFields extends Client
      * @param int   $id         Unique country ID
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function update(int $id, array $parameters): QueryInterface
+    public function update(int $id, array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'extended_field/update/' . $id;
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -77,15 +76,14 @@ class ExtendedFields extends Client
      *
      * @param int $id Unique hotel ID
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function delete(int $id): QueryInterface
+    public function delete(int $id)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'extended_field/delete/' . $id;
 
-        return $this;
+        return $this->done();
     }
-
 }

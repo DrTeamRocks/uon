@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Class Avia
  *
- * @package UON\Endpoints
+ * @package Uon\Endpoints
  * @since   2.0
  */
 class Avia extends Client
@@ -20,15 +19,15 @@ class Avia extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return object|\Psr\Http\Message\ResponseInterface|\Uon\Interfaces\ClientInterface
      */
-    public function create(array $parameters): QueryInterface
+    public function create(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'avia/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 }

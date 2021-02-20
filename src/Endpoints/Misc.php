@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Class Misc
  *
- * @package    UON\Endpoint
+ * @package    Uon\Endpoint
  * @deprecated Will be removed in 2.1
  */
 class Misc extends Client
@@ -20,10 +19,10 @@ class Misc extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
-     * @deprecated Use \UON\Endpoints\Avia::create(array $parameters) instead
+     * @return \Uon\Interfaces\ClientInterface
+     * @deprecated Use \Uon\Endpoints\Avia::create(array $parameters) instead
      */
-    public function createAvia(array $parameters): QueryInterface
+    public function createAvia(array $parameters)
     {
         return $this->avia->create($parameters);
     }
@@ -35,10 +34,10 @@ class Misc extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
-     * @deprecated Use \UON\Endpoints\CallHistory::create(array $parameters)
+     * @return \Uon\Interfaces\ClientInterface
+     * @deprecated Use \Uon\Endpoints\CallHistory::create(array $parameters)
      */
-    public function createCall(array $parameters): QueryInterface
+    public function createCall(array $parameters)
     {
         return $this->callHistory->create($parameters);
     }
@@ -50,10 +49,10 @@ class Misc extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
-     * @deprecated Use \UON\Endpoints\Mail::create(array $parameters)
+     * @return \Uon\Interfaces\ClientInterface
+     * @deprecated Use \Uon\Endpoints\Mail::create(array $parameters)
      */
-    public function createMail(array $parameters): QueryInterface
+    public function createMail(array $parameters)
     {
         return $this->mails->create($parameters);
     }
@@ -63,10 +62,10 @@ class Misc extends Client
      *
      * https://api.u-on.ru/{key}/currency.{_format}
      *
-     * @return \UON\Interfaces\QueryInterface
-     * @deprecated Use \UON\Endpoints\Currencies::all()
+     * @return \Uon\Interfaces\ClientInterface
+     * @deprecated Use \Uon\Endpoints\Currencies::all()
      */
-    public function getCurrency(): QueryInterface
+    public function getCurrency()
     {
         return $this->currencies->all();
     }
@@ -76,10 +75,10 @@ class Misc extends Client
      *
      * https://api.u-on.ru/{key}/manager.{_format}
      *
-     * @return \UON\Interfaces\QueryInterface
-     * @deprecated Use \UON\Endpoints\Managers::all()
+     * @return \Uon\Interfaces\ClientInterface
+     * @deprecated Use \Uon\Endpoints\Managers::all()
      */
-    public function getManagers(): QueryInterface
+    public function getManagers()
     {
         return $this->managers->all();
     }
@@ -89,10 +88,10 @@ class Misc extends Client
      *
      * https://api.u-on.ru/{key}/company-office.{_format}
      *
-     * @return \UON\Interfaces\QueryInterface
-     * @deprecated Use \UON\Endpoints\Offices::all()
+     * @return \Uon\Interfaces\ClientInterface
+     * @deprecated Use \Uon\Endpoints\Offices::all()
      */
-    public function getOffices(): QueryInterface
+    public function getOffices()
     {
         return $this->offices->all();
     }
@@ -102,10 +101,10 @@ class Misc extends Client
      *
      * https://api.u-on.ru/{key}/reason_deny.{_format}
      *
-     * @return \UON\Interfaces\QueryInterface
-     * @deprecated Use \UON\Endpoints\ReasonsDeny::all()
+     * @return \Uon\Interfaces\ClientInterface
+     * @deprecated Use \Uon\Endpoints\ReasonsDeny::all()
      */
-    public function getReasonDeny(): QueryInterface
+    public function getReasonDeny()
     {
         return $this->reasonsDeny->all();
     }

@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Class Reminders
  *
- * @package UON\Endpoint
+ * @package Uon\Endpoint
  */
 class Reminders extends Client
 {
@@ -19,16 +18,16 @@ class Reminders extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function create(array $parameters): QueryInterface
+    public function create(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'reminder/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -38,15 +37,15 @@ class Reminders extends Client
      *
      * @param int $page Unique ID of reminder
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function all(int $page = 1): QueryInterface
+    public function all(int $page = 1)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'reminder/' . $page;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -56,15 +55,14 @@ class Reminders extends Client
      *
      * @param int $id Unique ID of reminder
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function get(int $id): QueryInterface
+    public function get(int $id)
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'reminder/' . $id;
 
-        return $this;
+        return $this->done();
     }
-
 }

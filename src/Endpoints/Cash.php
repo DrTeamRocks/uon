@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Class Cash
  *
- * @package UON\Endpoint
+ * @package Uon\Endpoint
  */
 class Cash extends Client
 {
@@ -24,16 +23,16 @@ class Cash extends Client
      *
      * @param array $parameters List of parameters ['id', 'name', 'name_en']
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function get(array $parameters = []): QueryInterface
+    public function get(array $parameters = [])
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'cash';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -43,16 +42,15 @@ class Cash extends Client
      *
      * @param array $parameters List of parameters ['name']
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function create(array $parameters): QueryInterface
+    public function create(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'cash/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
-
 }

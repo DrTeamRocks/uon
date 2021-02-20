@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Class for management services of "I'am operator"
  *
- * @package UON\Endpoint
+ * @package Uon\Endpoint
  */
 class Catalog extends Client
 {
@@ -19,15 +18,15 @@ class Catalog extends Client
      *
      * @param int $page Number of page, 1 by default
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function get(int $page = 1): QueryInterface
+    public function get(int $page = 1)
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'catalog-service/' . $page;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -37,16 +36,16 @@ class Catalog extends Client
      *
      * @param array $parameters List of parameters [s_id ...]
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function create(array $parameters): QueryInterface
+    public function create(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'catalog-service/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -57,16 +56,15 @@ class Catalog extends Client
      * @param int   $id         Unique ID of element
      * @param array $parameters List of parameters [s_id ...]
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function update(int $id, array $parameters): QueryInterface
+    public function update(int $id, array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'catalog-service/update/' . $id;
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
-
 }

@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Collection of methods for work with bonus cards
  *
- * @package UON\Endpoint
+ * @package Uon\Endpoint
  */
 class Bcard extends Client
 {
@@ -24,16 +23,16 @@ class Bcard extends Client
      *
      * @param array $parameters List of parameters [bc_number, user_id]
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function activate(array $parameters): QueryInterface
+    public function activate(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'bcard-activate/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -43,16 +42,16 @@ class Bcard extends Client
      *
      * @param array $parameters List of parameters [number, bonuses etc.]
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function create(array $parameters): QueryInterface
+    public function create(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'bcard/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -62,16 +61,16 @@ class Bcard extends Client
      *
      * @param array $parameters List of parameters [bc_number, user_id etc.]
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function createBonus(array $parameters): QueryInterface
+    public function createBonus(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'bcard-bonus/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -81,15 +80,15 @@ class Bcard extends Client
      *
      * @param int $id Unique card ID
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getByCard(int $id): QueryInterface
+    public function getByCard(int $id)
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'bcard-bonus-by-card/' . $id;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -99,15 +98,14 @@ class Bcard extends Client
      *
      * @param int $id Unique user ID
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getByUser(int $id): QueryInterface
+    public function getByUser(int $id)
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'bcard-bonus-by-user/' . $id;
 
-        return $this;
+        return $this->done();
     }
-
 }

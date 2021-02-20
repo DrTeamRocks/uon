@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Collection of methods for work with leads created by users
  *
- * @package UON\Endpoint
+ * @package Uon\Endpoint
  */
 class Leads extends Client
 {
@@ -19,16 +18,16 @@ class Leads extends Client
      *
      * @param array $parameters List of parameters [r_id_internal, r_dat, status_id, sources etc.]
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function create(array $parameters): QueryInterface
+    public function create(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'lead/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -39,15 +38,15 @@ class Leads extends Client
      * @param int $id   Unique lead ID
      * @param int $page Number of page, 1 by default
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getByClient(int $id, int $page = 1): QueryInterface
+    public function getByClient(int $id, int $page = 1)
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'lead-by-client/' . $id . '/' . $page;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -57,15 +56,15 @@ class Leads extends Client
      *
      * @param int $id Unique lead ID
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function get(int $id): QueryInterface
+    public function get(int $id)
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'lead/' . $id;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -78,11 +77,11 @@ class Leads extends Client
      * @param int      $page     Number of page, 1 by default
      * @param int|null $sourceId Source ID, eg ID of SMS or JivoSite
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getDate(string $dateFrom, string $dateTo, int $page = 1, $sourceId = null): QueryInterface
+    public function getDate(string $dateFrom, string $dateTo, int $page = 1, $sourceId = null)
     {
-        $endpoint = '/leads/' . $dateFrom . '/' . $dateTo;
+        $endpoint = 'leads/' . $dateFrom . '/' . $dateTo;
         if (null !== $sourceId) {
             $endpoint .= '/' . $sourceId;
         }
@@ -92,7 +91,7 @@ class Leads extends Client
         $this->type     = 'get';
         $this->endpoint = $endpoint;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -103,16 +102,15 @@ class Leads extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function search(array $parameters = []): QueryInterface
+    public function search(array $parameters = [])
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'lead/search';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
-
 }

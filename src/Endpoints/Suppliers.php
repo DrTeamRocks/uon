@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Class Suppliers
  *
- * @package UON\Endpoint
+ * @package Uon\Endpoint
  */
 class Suppliers extends Client
 {
@@ -19,16 +18,16 @@ class Suppliers extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function create(array $parameters): QueryInterface
+    public function create(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'supplier/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -38,16 +37,16 @@ class Suppliers extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function createType(array $parameters): QueryInterface
+    public function createType(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'supplier_type/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -58,16 +57,16 @@ class Suppliers extends Client
      * @param array $parameters List of parameters
      * @param int   $page       Number of page, 1 by default
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function all(array $parameters = [], int $page = 1): QueryInterface
+    public function all(array $parameters = [], int $page = 1)
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'suppliers/' . $page;
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -78,16 +77,16 @@ class Suppliers extends Client
      * @param int   $id         ID of partner
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function get(int $id, array $parameters = []): QueryInterface
+    public function get(int $id, array $parameters = [])
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'suppliers/' . $id;
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -97,16 +96,16 @@ class Suppliers extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getTypes(array $parameters = []): QueryInterface
+    public function getTypes(array $parameters = [])
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'supplier_type';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -117,16 +116,15 @@ class Suppliers extends Client
      * @param int   $id         Unique ID of service
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function update(int $id, array $parameters): QueryInterface
+    public function update(int $id, array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'supplier/update/' . $id;
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
-
 }

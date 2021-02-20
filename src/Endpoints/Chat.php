@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Class Chat
  *
- * @package UON\Endpoint
+ * @package Uon\Endpoint
  */
 class Chat extends Client
 {
@@ -19,16 +18,15 @@ class Chat extends Client
      *
      * @param array $parameters List of parameters []
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function create(array $parameters): QueryInterface
+    public function create(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'chat-message/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
-
 }

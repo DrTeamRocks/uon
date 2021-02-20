@@ -1,14 +1,13 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 /**
  * Class Requests
  *
- * @package UON\Endpoint
+ * @package Uon\Endpoint
  */
 class Requests extends Client
 {
@@ -19,16 +18,16 @@ class Requests extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function create(array $parameters): QueryInterface
+    public function create(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'request/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -38,16 +37,16 @@ class Requests extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function createActions(array $parameters): QueryInterface
+    public function createActions(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'request-action/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -57,16 +56,16 @@ class Requests extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function createFile(array $parameters): QueryInterface
+    public function createFile(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'request-file/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -76,16 +75,16 @@ class Requests extends Client
      *
      * @param array $parameters List of parameters [r_id, tourist_id]
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function createTourist(array $parameters): QueryInterface
+    public function createTourist(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'tourists-requests/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -95,16 +94,16 @@ class Requests extends Client
      *
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function search(array $parameters = []): QueryInterface
+    public function search(array $parameters = [])
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'request/search';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -115,16 +114,16 @@ class Requests extends Client
      * @param int   $id         Request unique ID
      * @param array $parameters List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function get(int $id, array $parameters = []): QueryInterface
+    public function get(int $id, array $parameters = [])
     {
         // Set HTTP params
-        $this->type     = 'post';
+        $this->type     = 'get';
         $this->endpoint = 'request/' . $id;
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -134,15 +133,15 @@ class Requests extends Client
      *
      * @param int $id List of parameters
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getActions(int $id): QueryInterface
+    public function getActions(int $id)
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'request-action/' . $id;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -153,15 +152,15 @@ class Requests extends Client
      * @param int $id   List of parameters
      * @param int $page Number of page, 1 by default
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getByClient(int $id, int $page = 1): QueryInterface
+    public function getByClient(int $id, int $page = 1)
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'request-by-client/' . $id . '/' . $page;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -175,11 +174,11 @@ class Requests extends Client
      * @param int      $page     Number of page, 1 by default
      * @param int|null $sourceId Source ID, eg ID of SMS or JivoSite
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getDate(string $dateFrom, string $dateTo, int $page = 1, int $sourceId = null): QueryInterface
+    public function getDate(string $dateFrom, string $dateTo, int $page = 1, int $sourceId = null)
     {
-        $endpoint = '/requests/' . $dateFrom . '/' . $dateTo;
+        $endpoint = 'requests/' . $dateFrom . '/' . $dateTo;
         if (null !== $sourceId) {
             $endpoint .= '/' . $sourceId;
         }
@@ -189,7 +188,7 @@ class Requests extends Client
         $this->type     = 'get';
         $this->endpoint = $endpoint;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -201,15 +200,15 @@ class Requests extends Client
      * @param string $dateTo   End of dates range
      * @param int    $page     Number of page, 1 by default
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getDateActions(string $dateFrom, string $dateTo, int $page = 1): QueryInterface
+    public function getDateActions(string $dateFrom, string $dateTo, int $page = 1)
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'request-action/' . $dateFrom . '/' . $dateTo . '/' . $page;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -221,15 +220,15 @@ class Requests extends Client
      * @param string $dateTo   End of dates range
      * @param int    $page     Number of page, 1 by default
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getUpdated(string $dateFrom, string $dateTo, int $page = 1): QueryInterface
+    public function getUpdated(string $dateFrom, string $dateTo, int $page = 1)
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'requests/updated/' . $dateFrom . '/' . $dateTo . '/' . $page;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -241,15 +240,15 @@ class Requests extends Client
      * @param string $dateTo   End of dates range
      * @param int    $page     Number of page, 1 by default
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getClosed(string $dateFrom, string $dateTo, int $page = 1): QueryInterface
+    public function getClosed(string $dateFrom, string $dateTo, int $page = 1)
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'requests/closed/' . $dateFrom . '/' . $dateTo . '/' . $page;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -257,15 +256,15 @@ class Requests extends Client
      *
      * @link https://api.u-on.ru/{key}/travel-type.{_format}
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getTravelType(): QueryInterface
+    public function getTravelType()
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'travel-type';
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -275,15 +274,15 @@ class Requests extends Client
      *
      * @param array $parameters List of parameters [template_id, request_id etc.]
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getDocument(array $parameters = []): QueryInterface
+    public function getDocument(array $parameters = [])
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'request-document';
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -293,16 +292,16 @@ class Requests extends Client
      *
      * @param array $parameters List of parameters [name]
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function createTravelType(array $parameters): QueryInterface
+    public function createTravelType(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'travel-type/create';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -313,16 +312,16 @@ class Requests extends Client
      * @param int   $id         Unique ID of request's
      * @param array $parameters List of parameters [r_cl_id]
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function update(int $id, array $parameters): QueryInterface
+    public function update(int $id, array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'request/update/' . $id;
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -332,15 +331,15 @@ class Requests extends Client
      *
      * @param int $id Unique ID of file
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function deleteFile(int $id): QueryInterface
+    public function deleteFile(int $id)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'request/delete/' . $id;
 
-        return $this;
+        return $this->done();
     }
 
     /**
@@ -350,16 +349,15 @@ class Requests extends Client
      *
      * @param array $parameters List of parameters [r_id, tourist_id]
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function deleteTourist(array $parameters): QueryInterface
+    public function deleteTourist(array $parameters)
     {
         // Set HTTP params
         $this->type     = 'post';
         $this->endpoint = 'tourists-requests/delete';
         $this->params   = $parameters;
 
-        return $this;
+        return $this->done();
     }
-
 }

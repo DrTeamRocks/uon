@@ -1,9 +1,8 @@
 <?php
 
-namespace UON\Endpoints;
+namespace Uon\Endpoints;
 
-use UON\Client;
-use UON\Interfaces\QueryInterface;
+use Uon\Client;
 
 class Visa extends Client
 {
@@ -12,14 +11,14 @@ class Visa extends Client
      *
      * @link https://api.u-on.ru/{key}/visa.{_format}
      *
-     * @return \UON\Interfaces\QueryInterface
+     * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function all(): QueryInterface
+    public function all()
     {
         // Set HTTP params
         $this->type     = 'get';
         $this->endpoint = 'visa';
 
-        return $this;
+        return $this->done();
     }
 }

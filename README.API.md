@@ -1,12 +1,12 @@
 ## Список классов и их методов
 
 ```php
-$config = new \UON\Config();
+$config = new \Uon\Config();
 $config->set('token', 'your-uon-token');
-$uon = new \UON\API($config);
+$uon = new \Uon\API($config);
 ```
 
-### \UON\Endpoint\Bcard()
+### \Uon\Endpoint\Bcard()
 
 `$uon->bcard`
 
@@ -19,7 +19,7 @@ getByCard($id)              // Получение транзакций бону�
 getByUser($id)              // Получение транзакций бонусной карты клиента (по ID клиента)
 ```
 
-### \UON\Endpoint\Cash()
+### \Uon\Endpoint\Cash()
 
 `$uon->cash`
 
@@ -30,7 +30,7 @@ get($params)                // Получение списка касс
 create($params)             // Добавление кассы
 ```
 
-### \UON\Endpoint\Catalog()
+### \Uon\Endpoint\Catalog()
 
 `$uon->catalog`
 
@@ -42,7 +42,7 @@ create($params)             // Создание услуги Я-оператор
 update($id, $params)        // Обновление услуги Я-оператор
 ```
 
-### \UON\Endpoint\Chat()
+### \Uon\Endpoint\Chat()
 
 `$uon->chat`
 
@@ -52,7 +52,7 @@ update($id, $params)        // Обновление услуги Я-операт
 create($params)             // Отправка сообщения от менеджера другому менеджеру или туристу
 ```
 
-### \UON\Endpoint\Cities()
+### \Uon\Endpoint\Cities()
 
 `$uon->cities`
 
@@ -64,7 +64,7 @@ create($params)             // Добавление города
 update($id, $params)        // Обновление данных по городу
 ```
 
-### \UON\Endpoint\Hotels()
+### \Uon\Endpoint\Hotels()
 
 `$uon->hotels`
 
@@ -78,7 +78,7 @@ update($id, $params)        // Обновление данных по отелю
 delete($id)                 // Удаление отеля
 ```
 
-### \UON\Endpoint\Countries()
+### \Uon\Endpoint\Countries()
 
 `$uon->countries`
 
@@ -90,7 +90,7 @@ create($params)             // Добавление страны
 update($id, $params)        // Обновление данных по стране
 ```
 
-### \UON\Endpoint\Leads()
+### \Uon\Endpoint\Leads()
 
 `$uon->leads`
 
@@ -104,7 +104,7 @@ getDate($date_from, $date_to, $page)  // Получение данных по л
 getDate($date_from, $date_to, $page, $source_id)  // Получение данных по лидам / обращениям согласно источнику (постранично)
 ```
 
-### \UON\Endpoint\Misc()
+### \Uon\Endpoint\Misc()
 
 `$uon->misc`
 
@@ -121,7 +121,7 @@ getOffices($param)          // Получить список офисов
 getReasonDeny()             // Получить список причин отказа
 ```
 
-### \UON\Endpoint\Nutrition()
+### \Uon\Endpoint\Nutrition()
 
 `$uon->nutrition`
 
@@ -133,7 +133,7 @@ create($params)             // Добавление питания
 update($id, $params)        // Обновление типа питания
 ```
 
-### \UON\Endpoint\Payments()
+### \Uon\Endpoint\Payments()
 
 `$uon->payments`
 
@@ -147,7 +147,7 @@ update($id, $params)        // Изменение платежа
 delete($id)                 // Удаление платежа
 ```
 
-### \UON\Endpoint\Reminders()
+### \Uon\Endpoint\Reminders()
 
 `$uon->reminders`
 
@@ -158,7 +158,7 @@ get()                       // Получение списка напомина�
 create($r_id)               // Добавление напоминания в заявку
 ```
 
-### \UON\Endpoint\Requests()
+### \Uon\Endpoint\Requests()
 
 `$uon->requests`
 
@@ -193,7 +193,7 @@ getTravelType($params)      // Получение типов заявки
 createTravelType($name)     // Добавление нового типа заявки
 ```
 
-### \UON\Endpoint\Services()
+### \Uon\Endpoint\Services()
 
 `$uon->services`
 
@@ -205,7 +205,7 @@ create($params)             // Добавление услуги в заявку
 update($id, $params)        // Обновление данных по услуге
 ```
 
-### \UON\Endpoint\Sources()
+### \Uon\Endpoint\Sources()
 
 `$uon->sources`
 
@@ -216,7 +216,7 @@ all()                       // Список источников заявки
 create($params)             // Добавление источника заявки
 ```
 
-### \UON\Endpoint\Statuses()
+### \Uon\Endpoint\Statuses()
 
 `$uon->statuses`
 
@@ -227,7 +227,7 @@ get($params)                // Получение списка статусов
 getLead($params)            // Получение списка статусов обращений
 ```
 
-### \UON\Endpoint\Suppliers()
+### \Uon\Endpoint\Suppliers()
 
 `$uon->suppliers`
 
@@ -242,7 +242,7 @@ getType($id)                // Получение типов партнеров
 createType($params)         // Добавление типа партнера
 ```
 
-### \UON\Endpoint\Users()
+### \Uon\Endpoint\Users()
 
 `$uon->users`
 

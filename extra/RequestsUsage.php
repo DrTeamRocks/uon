@@ -1,12 +1,15 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$config = new \UON\Config();
-$config
-    ->set('token', file_get_contents(__DIR__ . '/../tests/_token.txt'))
-    ->set('timeout', 10);
+use Uon\Config;
+use Uon\Client;
 
-$uon = new \UON\API($config);
+$config = new Config([
+    'token'   => file_get_contents(__DIR__ . '/../tests/_token.txt'),
+    'timeout' => 10,
+]);
+
+$uon = new Client($config);
 
 // Get request by id
 $request = $uon->requests->get('1234');
@@ -23,7 +26,7 @@ $dateSource = $uon->requests->getDate('2017-06-01', '2017-06-10', '1');
 // Get the document, for this need to know IDs of template and request
 $doc = $uon->requests->getDocument([
     'template_id' => '45',
-    'request_id' => '69',
+    'request_id'  => '69',
 ]);
 
 // Data array of new user (or details for update)

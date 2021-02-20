@@ -1,32 +1,32 @@
 <?php
 
-namespace UON\Interfaces;
+namespace Uon\Interfaces;
 
-/**
- * @author  Paul Rock <paul@drteam.rocks>
- * @link    http://drteam.rocks
- * @license MIT
- * @package UON\Interfaces
- */
+use Psr\Http\Message\ResponseInterface;
+
 interface ClientInterface
 {
     /**
-     * Array of allowed methods
+     * Execute request and return response
+     *
+     * @return null|object Array with data or NULL if error
+     *
+     * @throws \Uon\Exceptions\UonEmptyResponseException If empty response received from U-On
+     * @throws \Uon\Exceptions\UonTooManyRequests If amount or repeats is more than allowed
+     * @throws \Uon\Exceptions\UonParameterNotSetException If config parameter is not set
+     * @throws \Uon\Exceptions\UonHttpClientException If http exception occurred
      */
-    const ALLOWED_METHODS = ['get', 'post', 'put', 'delete'];
+    public function exec();
 
     /**
-     * Count of allowed tries
+     * Execute query and return RAW response from remote API
+     *
+     * @return null|\Psr\Http\Message\ResponseInterface RAW response or NULL if error
+     *
+     * @throws \Uon\Exceptions\UonEmptyResponseException If empty response received from U-On
+     * @throws \Uon\Exceptions\UonTooManyRequests If amount or repeats is more than allowed
+     * @throws \Uon\Exceptions\UonParameterNotSetException If config parameter is not set
+     * @throws \Uon\Exceptions\UonHttpClientException If http exception occurred
      */
-    const TRIES = 10;
-
-    /**
-     * Waiting time
-     */
-    const SECONDS = 1;
-
-    /**
-     * Max request timeout per try
-     */
-    const MAX_REQUEST_TIMEOUT = 10.0;
+    public function raw(): ?ResponseInterface;
 }

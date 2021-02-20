@@ -1,57 +1,40 @@
 <?php
 
-namespace UON\Interfaces;
-
-use UON\Config;
+namespace Uon\Interfaces;
 
 interface ConfigInterface
 {
     /**
-     * List of allowed parameters
-     */
-    const ALLOWED = [
-        'token',
-        'timeout',
-        'allow_redirects',
-        'http_errors',
-        'decode_content',
-        'verify',
-        'cookies',
-        // For the error 429
-        'tries',
-        'seconds'
-    ];
-
-    /**
      * Set parameter by name
      *
-     * @param   string          $parameter
-     * @param   string|bool|int $value
-     * @return  Config
+     * @param string          $parameter
+     * @param string|bool|int $value
+     *
+     * @return \Uon\Interfaces\ConfigInterface
      */
-    public function set($parameter, $value);
+    public function set(string $parameter, $value): ConfigInterface;
 
     /**
      * Get available parameter by name
      *
-     * @param   string $parameter
-     * @return  string|bool|int
+     * @param string $parameter
+     *
+     * @return string|bool|int
      */
-    public function get($parameter);
+    public function get(string $parameter);
 
     /**
-     * Return all allowed parameters
+     * Get all available parameters
      *
-     * @return  array
+     * @return array
      */
-    public function getAllowed();
+    public function all(): array;
 
     /**
-     * Return all preconfigured parameters
+     * Return all ready for Guzzle parameters
      *
-     * @param   bool $ignore
-     * @return  array
+     * @return array
+     * @throws \ErrorException
      */
-    public function getParameters($ignore = false);
-
+    public function guzzle(): array;
 }

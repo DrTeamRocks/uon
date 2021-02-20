@@ -1,51 +1,56 @@
 <?php
 
-namespace UON;
+namespace Uon;
 
 use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
-use UON\Exceptions\UonEmptyResponseException;
-use UON\Exceptions\UonTooManyRequests;
-use UON\Interfaces\QueryInterface;
+use Uon\Exceptions\UonEmptyResponseException;
+use Uon\Exceptions\UonHttpClientException;
+use Uon\Exceptions\UonTooManyRequests;
+use Uon\Interfaces\ClientInterface;
+use function str_replace;
+use function strtoupper;
+use function ucwords;
 
 /**
  * @author  Paul Rock <paul@drteam.rocks>
  * @link    http://drteam.rocks
  * @license MIT
- * @package UON
+ * @package Uon
  *
- * @property \UON\Endpoints\Avia           $avia           Aero transfer
- * @property \UON\Endpoints\Bcard          $bcard          Bonus cards
- * @property \UON\Endpoints\CallHistory    $callHistory    History of calls
- * @property \UON\Endpoints\Cash           $cash           Money operations
- * @property \UON\Endpoints\Catalog        $catalog        Catalog of products
- * @property \UON\Endpoints\Chat           $chat           For work with chat messages
- * @property \UON\Endpoints\Cities         $cities         Cities of countries
- * @property \UON\Endpoints\Countries      $countries      Work with countries
- * @property \UON\Endpoints\Currencies     $currencies     Work with currencies
- * @property \UON\Endpoints\ExtendedFields $extendedFields For manipulation with extended fields
- * @property \UON\Endpoints\Hotels         $hotels         Hotels methods
- * @property \UON\Endpoints\Leads          $leads          Details about clients
- * @property \UON\Endpoints\Mails          $mails          For work with emails
- * @property \UON\Endpoints\Managers       $managers       Get access to list of managers (sale operators)
- * @property \UON\Endpoints\Misc           $misc           Optional single methods
- * @property \UON\Endpoints\Notifications  $notifications  For creating new notifications for managers
- * @property \UON\Endpoints\Nutrition      $nutrition      Some methods about eat
- * @property \UON\Endpoints\Offices        $offices        Get access to list of all offices
- * @property \UON\Endpoints\Payments       $payments       Payment methods
- * @property \UON\Endpoints\ReasonsDeny    $reasonsDeny    List of all deny reasons
- * @property \UON\Endpoints\Reminders      $reminders      Work with reminders
- * @property \UON\Endpoints\Requests       $requests       New requests from people
- * @property \UON\Endpoints\Services       $services       All available services
- * @property \UON\Endpoints\Sources        $sources        All available sources
- * @property \UON\Endpoints\Statuses       $statuses       Request statuses
- * @property \UON\Endpoints\Suppliers      $suppliers      External companies
- * @property \UON\Endpoints\Users          $users          For work with users
- * @property \UON\Endpoints\Visa           $visa           For work with visa statuses
- * @property \UON\Endpoints\Webhooks       $webhooks       Webhooks management
+ * @property \Uon\Endpoints\Avia           $avia           Aero transfer
+ * @property \Uon\Endpoints\Bcard          $bcard          Bonus cards
+ * @property \Uon\Endpoints\CallHistory    $callHistory    History of calls
+ * @property \Uon\Endpoints\Cash           $cash           Money operations
+ * @property \Uon\Endpoints\Catalog        $catalog        Catalog of products
+ * @property \Uon\Endpoints\Chat           $chat           For work with chat messages
+ * @property \Uon\Endpoints\Cities         $cities         Cities of countries
+ * @property \Uon\Endpoints\Countries      $countries      Work with countries
+ * @property \Uon\Endpoints\Currencies     $currencies     Work with currencies
+ * @property \Uon\Endpoints\ExtendedFields $extendedFields For manipulation with extended fields
+ * @property \Uon\Endpoints\Hotels         $hotels         Hotels methods
+ * @property \Uon\Endpoints\Leads          $leads          Details about clients
+ * @property \Uon\Endpoints\Mails          $mails          For work with emails
+ * @property \Uon\Endpoints\Managers       $managers       Get access to list of managers (sale operators)
+ * @property \Uon\Endpoints\Misc           $misc           Optional single methods
+ * @property \Uon\Endpoints\Notifications  $notifications  For creating new notifications for managers
+ * @property \Uon\Endpoints\Nutrition      $nutrition      Some methods about eat
+ * @property \Uon\Endpoints\Offices        $offices        Get access to list of all offices
+ * @property \Uon\Endpoints\Payments       $payments       Payment methods
+ * @property \Uon\Endpoints\ReasonsDeny    $reasonsDeny    List of all deny reasons
+ * @property \Uon\Endpoints\Reminders      $reminders      Work with reminders
+ * @property \Uon\Endpoints\Requests       $requests       New requests from people
+ * @property \Uon\Endpoints\Services       $services       All available services
+ * @property \Uon\Endpoints\Sources        $sources        All available sources
+ * @property \Uon\Endpoints\Statuses       $statuses       Request statuses
+ * @property \Uon\Endpoints\Suppliers      $suppliers      External companies
+ * @property \Uon\Endpoints\Users          $users          For work with users
+ * @property \Uon\Endpoints\Visa           $visa           For work with visa statuses
+ * @property \Uon\Endpoints\Webhooks       $webhooks       Webhooks management
  */
-class Client implements QueryInterface
+class Client implements ClientInterface
 {
     /**
      * @var string
@@ -62,7 +67,7 @@ class Client implements QueryInterface
     /**
      * Object of main config
      *
-     * @var \UON\Config
+     * @var \Uon\Config
      */
     public $config;
 
@@ -95,7 +100,7 @@ class Client implements QueryInterface
     /**
      * API constructor.
      *
-     * @param array|\UON\Config $config
+     * @param array|\Uon\Config $config
      * @param bool              $init
      *
      * @throws \ErrorException
@@ -156,7 +161,6 @@ class Client implements QueryInterface
      * @param string $name
      *
      * @return bool|object
-     * @throws \ErrorException
      */
     public function __get(string $name)
     {
@@ -168,34 +172,7 @@ class Client implements QueryInterface
         $class = $this->namespace . '\\' . $this->snakeToPascal($name);
 
         // Try to create object by name
-        $object = new $class($this->config);
-
-        return $this->config->get('auto_exec') ? $object->exec() : $object;
-    }
-
-    /**
-     * Magic method required for call of another classes
-     *
-     * @param string $name
-     * @param array  $arguments
-     *
-     * @return bool|object
-     * @throws \ErrorException
-     */
-    public function __call(string $name, array $arguments)
-    {
-        // Set class name as namespace
-        $class = $this->namespace . '\\' . $this->snakeToPascal($name) . 's';
-
-        // Try to create object by name
-        $object = new $class($this->config);
-
-        // Call user function from endpoint class
-        $func = call_user_func_array($object, $arguments);
-
-        dd($func->exec());
-
-        return $this->config->get('auto_exec') ? $func->exec() : $func;
+        return new $class($this->config);
     }
 
     /**
@@ -229,8 +206,10 @@ class Client implements QueryInterface
      * @param array  $params List of parameters
      *
      * @return \Psr\Http\Message\ResponseInterface|null
-     * @throws \ErrorException
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @throws \Uon\Exceptions\UonTooManyRequests
+     * @throws \Uon\Exceptions\UonParameterNotSetException
+     * @throws \Uon\Exceptions\UonHttpClientException
      */
     private function repeatRequest(string $type, string $url, array $params = []): ?ResponseInterface
     {
@@ -239,37 +218,39 @@ class Client implements QueryInterface
         for ($i = 1; $i <= $this->config->get('tries'); $i++) {
 
             $requestEndpoint =
-                $this->config->get('base_uri')
-                . '/'
-                . $this->config->get('token')
-                . '/'
-                . $url
-                . '.'
-                . $this->config->get('format');
+                $this->config->get('base_uri') . '/'
+                . $this->config->get('token') . '/'
+                . $url . '.' . $this->config->get('format');
 
             if ($this->config->get('verbose')) {
-                error_log('[' . $type . '] endpoint:' . $requestEndpoint . ' parameters:' . json_encode($params));
+                var_dump('[' . $type . '] endpoint:' . $requestEndpoint . ' parameters:' . json_encode($params));
             }
 
-            if (empty($params)) {
-                // Execute the request to server
-                $result = $this->client->request($type, $requestEndpoint);
-            } else {
-                // Execute the request to server
-                $result = $this->client->request($type, $requestEndpoint, [RequestOptions::FORM_PARAMS => $params]);
-            }
+            try {
 
-            // Check the code status
-            $code = $result->getStatusCode();
+                if (empty($params)) {
+                    // Execute the request to server
+                    $result = $this->client->request($type, $requestEndpoint);
+                } else {
+                    // Execute the request to server
+                    $result = $this->client->request($type, $requestEndpoint, [RequestOptions::FORM_PARAMS => $params]);
+                }
 
-            // If success response from server
-            if ($code === 200 || $code === 201) {
-                return $result;
-            }
+                // Check the code status
+                $code = $result->getStatusCode();
 
-            // If not "too many requests", then probably some bug on remote or our side
-            if ($code !== 429) {
-                throw new UonTooManyRequests();
+                // If success response from server
+                if ($code === 200 || $code === 201) {
+                    return $result;
+                }
+
+                // If not "too many requests", then probably some bug on remote or our side
+                if ($code !== 429) {
+                    throw new UonTooManyRequests();
+                }
+
+            } catch (GuzzleException $exception) {
+                throw new UonHttpClientException($exception);
             }
 
             // Waiting in seconds
@@ -284,8 +265,10 @@ class Client implements QueryInterface
      * Execute request and return response
      *
      * @return null|object Array with data or NULL if error
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \ErrorException
+     *
+     * @throws \Uon\Exceptions\UonEmptyResponseException
+     * @throws \Uon\Exceptions\UonTooManyRequests
+     * @throws \Uon\Exceptions\UonHttpClientException
      */
     public function exec()
     {
@@ -296,8 +279,10 @@ class Client implements QueryInterface
      * Execute query and return RAW response from remote API
      *
      * @return null|\Psr\Http\Message\ResponseInterface RAW response or NULL if error
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \ErrorException
+     *
+     * @throws \Uon\Exceptions\UonEmptyResponseException
+     * @throws \Uon\Exceptions\UonTooManyRequests
+     * @throws \Uon\Exceptions\UonHttpClientException
      */
     public function raw(): ?ResponseInterface
     {
@@ -313,8 +298,10 @@ class Client implements QueryInterface
      * @param bool   $raw             Return data in raw format
      *
      * @return null|object|ResponseInterface Array with data, RAW response or NULL if error
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \ErrorException
+     *
+     * @throws \Uon\Exceptions\UonEmptyResponseException If empty response received from U-On
+     * @throws \Uon\Exceptions\UonTooManyRequests If amount or repeats is more than allowed
+     * @throws \Uon\Exceptions\UonHttpClientException If http exception occurred
      */
     private function doRequest(string $type, string $requestEndpoint, array $params = [], bool $raw = false)
     {
@@ -338,4 +325,17 @@ class Client implements QueryInterface
         return json_decode($result->getBody(), false);
     }
 
+    /**
+     * @since 2.0
+     *
+     * @return null|object|\Uon\Interfaces\ClientInterface
+     *
+     * @throws \Uon\Exceptions\UonEmptyResponseException
+     * @throws \Uon\Exceptions\UonHttpClientException
+     * @throws \Uon\Exceptions\UonTooManyRequests
+     */
+    protected function done()
+    {
+        return $this->config->get('auto_exec') ? $this->exec() : $this;
+    }
 }

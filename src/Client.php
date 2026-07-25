@@ -294,7 +294,7 @@ class Client implements ClientInterface
      *
      * @param string $type            Request method
      * @param string $requestEndpoint Api request endpoint
-     * @param mixed  $params          List of parameters
+     * @param array  $params          List of parameters
      * @param bool   $raw             Return data in raw format
      *
      * @return null|object|ResponseInterface Array with data, RAW response or NULL if error

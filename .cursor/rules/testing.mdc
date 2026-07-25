@@ -1,0 +1,31 @@
+---
+description: Test layout, conventions and commands
+globs: tests/**/*.php
+alwaysApply: false
+---
+
+# Testing
+
+## Layout
+
+- `tests/Unit/` - `Client` and `Config` behavior.
+- `tests/Feature/Endpoints/` - one file per endpoint, offline.
+- `tests/E2E/` - real API, read-only, skipped without `UON_API_TOKEN`.
+- `tests/TestCase.php` - base case wiring a Guzzle `MockHandler`.
+
+## Conventions
+
+- Feature and Unit tests never hit the network. Build the endpoint with
+  `$this->make(EndpointClass::class)` (mocked transport) and call it.
+- Assert three things: the result is an object, the HTTP method, and the request
+  path, via `$this->assertRequest('GET', '/currency.json')`.
+- One behavior per test method; the mock queues one response per call, so only
+  make several calls in a test when you queue extra responses.
+- E2E tests must stay read-only and self-skip when the token env is absent.
+
+## Commands
+
+```shell
+vendor/bin/phpunit --testsuite Unit,Feature
+UON_API_TOKEN=xxx vendor/bin/phpunit --testsuite E2E
+```

@@ -1,0 +1,14 @@
+---
+description: Code style and language-level constraints
+---
+
+# Code style
+
+- PSR-4 autoloading, PSR-12 style formatting, 4-space indent.
+- Minimum PHP is 7.4. Do NOT use newer syntax in `src/`: no constructor property
+  promotion, enums, `readonly`, `match`, first-class callable syntax, `mixed` type.
+- Always use explicit nullable types (`?int $x = null`), never implicit.
+- Keep phpdoc accurate; `@param` and `@return` must match native types. PHPStan
+  level 5 over `src/` is enforced in CI.
+- Comments and identifiers in English.
+- Throw the specific `Uon\Exceptions\*` type; all of them extend `\ErrorException`.

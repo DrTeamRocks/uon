@@ -1,13 +1,9 @@
-![U-On Travel Logo](u-on.png)
+![U-On Travel Logo](assets/u-on.png)
 
 [![Latest Stable Version](https://poser.pugx.org/drteam/uon/v/stable)](https://packagist.org/packages/drteam/uon)
-[![Build Status](https://travis-ci.org/DrTeamRocks/uon.svg?branch=master)](https://travis-ci.org/DrTeamRocks/uon)
+[![Tests](https://github.com/DrTeamRocks/uon/actions/workflows/tests.yml/badge.svg)](https://github.com/DrTeamRocks/uon/actions/workflows/tests.yml)
 [![Total Downloads](https://poser.pugx.org/drteam/uon/downloads)](https://packagist.org/packages/drteam/uon)
 [![License](https://poser.pugx.org/drteam/uon/license)](https://packagist.org/packages/drteam/uon)
-[![PHP 7 ready](https://php7ready.timesplinter.ch/DrTeamRocks/uon/master/badge.svg)](https://travis-ci.org/DrTeamRocks/uon)
-[![Code Climate](https://codeclimate.com/github/DrTeamRocks/uon/badges/gpa.svg)](https://codeclimate.com/github/DrTeamRocks/uon)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/DrTeamRocks/uon/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/DrTeamRocks/uon/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/DrTeamRocks/uon/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/DrTeamRocks/uon/?branch=master)
 
 # U-On Travel API Client (unofficial)
 
@@ -18,6 +14,12 @@ composer require drteam/uon
 ```
 
 This library is ready for production usage, all source codes provided "as is".
+
+## Requirements
+
+* PHP >= 7.4 (tested on 7.4, 8.0, 8.1, 8.2, 8.3, 8.4 and 8.5)
+* ext-curl, ext-json
+* guzzlehttp/guzzle ^7.4
 
 ## How to use
 
@@ -38,7 +40,7 @@ $managers = $uon->managers->all();     // Get list of managers
 
 See other examples of usage [here](extra) separated by class names.
 
-All available methods of all classes with descriptions you can find [here](README.Client.md).
+All available methods of all classes with descriptions you can find [here](README.API.md).
 
 ### How to configure the client
 
@@ -94,17 +96,22 @@ $client = new Client(['token' => 'some_token']);
 
 ### Available parameters of configuration
 
-| Parameter       | Type   | Default | Description |
-|-----------------|--------|---------|-------------|
-| token           | string |         | Token for work with system |
-| timeout         | int    | 1       | Timeout which client must wait answer from server |
-| allow_redirects | bool   | true    | Allow redirection from one url to another |
-| http_errors     | bool   | false   | Enable http errors instead Exceptions |
-| decode_content  | bool   | true    | If you need decode content by server |
-| verify          | bool   | true    | Content verification |
-| cookies         | int    | 10      | Use cookies |
-| tries           | int    | 10      | Count of tries if server answer 429 error code |
-| seconds         | int    | 1       | Time which need wait between tries |
+| Parameter       | Type     | Default                | Description |
+|-----------------|----------|------------------------|-------------|
+| token           | string   | _(required)_           | Token for work with the system |
+| format          | string   | `json`                 | Response format, `json` or `xml` |
+| timeout         | int      | `20`                   | Seconds to wait for the server answer |
+| tries           | int      | `2`                    | Count of tries if server answers with 429 error code |
+| seconds         | int      | `10`                   | Seconds to wait between tries |
+| base_uri        | string   | `https://api.u-on.ru`  | Base URL of the API |
+| user_agent      | string   | `U-On PHP Client v2.x` | User-Agent header sent with each request |
+| proxy           | string   | _(none)_               | Proxy URL passed to Guzzle |
+| handler         | callable | _(none)_               | Custom Guzzle handler, mainly for testing |
+| track_redirects | bool     | `false`                | Track redirects via Guzzle |
+| debug           | bool     | `false`                | Enable Guzzle debug output |
+| verbose         | bool     | `false`                | Dump each request endpoint and its parameters |
+
+Any other parameter name will throw a `UonParameterNotAllowedException`.
 
 ```php
 $config = new \Uon\Config([
@@ -160,7 +167,32 @@ print_r($results);
 ## How to get API token
 
 You need login into your account, then go to the
-**Settings > API and WebHooks** page and copy token code from API block.
+**Settings > Integrations > API / WebHooks** page, create a key (tick the POST
+and GET checkboxes) and copy the token code from the API block.
+
+## Running tests
+
+The `Unit` and `Feature` suites are fully mocked via Guzzle's `MockHandler`, so
+they run offline and do not touch the real U-On API nor require a valid token.
+
+```shell
+composer install
+vendor/bin/phpunit --testsuite Unit,Feature
+```
+
+The `E2E` suite performs read-only calls against the real API. It is skipped
+unless a token is provided through the `UON_API_TOKEN` environment variable:
+
+```shell
+UON_API_TOKEN=your_real_token vendor/bin/phpunit --testsuite E2E
+```
+
+Static analysis and linting are available too:
+
+```shell
+vendor/bin/parallel-lint src tests
+vendor/bin/phpstan analyse
+```
 
 ## How to help to project
 

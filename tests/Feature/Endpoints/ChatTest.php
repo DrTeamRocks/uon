@@ -2,36 +2,16 @@
 
 namespace Uon\Tests\Feature\Endpoints;
 
-use PHPUnit\Framework\TestCase;
-use Uon\Config;
 use Uon\Endpoints\Chat;
+use Uon\Tests\TestCase;
 
 class ChatTest extends TestCase
 {
-    /**
-     * @var \Uon\Endpoints\Chat
-     */
-    private $chat;
-
-    /**
-     * @var array
-     */
-    private $message = [
-        'user_id_from' => 1,
-        'user_id_to'   => 1,
-        'text'         => 'chat message text',
-    ];
-
-    public function setUp(): void
-    {
-        $config = new Config(['token' => getenv('API_TOKEN')]);
-
-        $this->chat = new Chat($config);
-    }
-
     public function test_create(): void
     {
-        $result = $this->chat->create($this->message);
+        $result = $this->make(Chat::class)->create(['text' => 'hello']);
+
         self::assertIsObject($result);
+        $this->assertRequest('POST', '/chat-message/create.json');
     }
 }

@@ -2,83 +2,56 @@
 
 namespace Uon\Tests\Feature\Endpoints;
 
-use PHPUnit\Framework\TestCase;
-use Uon\Config;
 use Uon\Endpoints\Suppliers;
+use Uon\Tests\TestCase;
 
 class SuppliersTest extends TestCase
 {
-    /**
-     * @var \Uon\Endpoints\Suppliers
-     */
-    private $object;
-
-    /**
-     * @var array
-     */
-    private $supplier = [
-        'name'    => 'supplier name',
-        'type_id' => 1,
-    ];
-
-    /**
-     * @var array
-     */
-    private $type = [
-        'name' => 'supplier type name',
-    ];
-
-    /**
-     * @var int
-     */
-    public static $supplierId;
-
-    /**
-     * @var int
-     */
-    public static $typeId;
-
-    public function setUp(): void
-    {
-        $config = new Config(['token' => getenv('API_TOKEN')]);
-
-        $this->object = new Suppliers($config);
-    }
-
     public function test_create(): void
     {
-        $result = $this->object->create($this->supplier);
-
-        self::$supplierId = $result->id;
+        $result = $this->make(Suppliers::class)->create(['name' => 'Supplier']);
 
         self::assertIsObject($result);
+        $this->assertRequest('POST', '/supplier/create.json');
     }
 
-    public function testRead(): void
+    public function test_create_type(): void
     {
-        $result = $this->object->all();
-        self::assertIsObject($result);
+        $result = $this->make(Suppliers::class)->createType(['name' => 'Type']);
 
-        $result = $this->object->get(self::$supplierId);
         self::assertIsObject($result);
+        $this->assertRequest('POST', '/supplier_type/create.json');
+    }
+
+    public function test_all(): void
+    {
+        $result = $this->make(Suppliers::class)->all();
+
+        self::assertIsObject($result);
+        $this->assertRequest('GET', '/suppliers/1.json');
+    }
+
+    public function test_get(): void
+    {
+        $result = $this->make(Suppliers::class)->get(5);
+
+        self::assertIsObject($result);
+        $this->assertRequest('GET', '/suppliers/5.json');
+    }
+
+    public function test_get_types(): void
+    {
+        $result = $this->make(Suppliers::class)->getTypes();
+
+        self::assertIsObject($result);
+        $this->assertRequest('GET', '/supplier_type.json');
     }
 
     public function test_update(): void
     {
-        $result = $this->object->update(self::$supplierId, $this->supplier);
-        self::assertIsObject($result);
-    }
+        $result = $this->make(Suppliers::class)->update(5, ['name' => 'Renamed']);
 
-    public function test_createType(): void
-    {
-        $result       = $this->object->createType($this->type);
-        self::$typeId = $result->id;
         self::assertIsObject($result);
-    }
-
-    public function testReadType(): void
-    {
-        $result = $this->object->getTypes(['id' => self::$typeId]);
-        self::assertIsObject($result);
+        $this->assertRequest('POST', '/supplier/update/5.json');
     }
 }

@@ -2,72 +2,48 @@
 
 namespace Uon\Tests\Feature\Endpoints;
 
-use PHPUnit\Framework\TestCase;
-use Uon\Config;
 use Uon\Endpoints\Hotels;
+use Uon\Tests\TestCase;
 
 class HotelsTest extends TestCase
 {
-    /**
-     * @var \Uon\Endpoints\Hotels
-     */
-    private $hotels;
-
-    /**
-     * @var array
-     */
-    private $hotel = [
-        'name'    => 'Кингконгстоунт',
-        'name_en' => 'Kinkongstoun',
-    ];
-
-    /**
-     * @var int
-     */
-    public static $hotelId;
-
-    public function setUp(): void
-    {
-        $config = new Config(['token' => getenv('API_TOKEN')]);
-
-        $this->hotels = new Hotels($config);
-    }
-
     public function test_create(): void
     {
-        $result = $this->hotels->create($this->hotel);
+        $result = $this->make(Hotels::class)->create(['name' => 'Test Hotel']);
+
         self::assertIsObject($result);
-
-        // TODO: Remove this after bug will be fixed
-        // Small bug, each second requests to system have a 0 into result
-        if ($result->id === 0) {
-            $result->id = 2;
-        }
-
-        self::$hotelId = $result->id;
+        $this->assertRequest('POST', '/hotel/create.json');
     }
 
     public function test_all(): void
     {
-        $result = $this->hotels->all('1');
+        $result = $this->make(Hotels::class)->all(2);
+
         self::assertIsObject($result);
+        $this->assertRequest('GET', '/hotels/2.json');
     }
 
     public function test_get(): void
     {
-        $result = $this->hotels->get(self::$hotelId);
+        $result = $this->make(Hotels::class)->get(5);
+
         self::assertIsObject($result);
+        $this->assertRequest('GET', '/hotel/5.json');
     }
 
     public function test_update(): void
     {
-        $result = $this->hotels->update(self::$hotelId, $this->hotel);
+        $result = $this->make(Hotels::class)->update(5, ['name' => 'Renamed']);
+
         self::assertIsObject($result);
+        $this->assertRequest('POST', '/hotel/update/5.json');
     }
 
     public function test_delete(): void
     {
-        $result = $this->hotels->delete(self::$hotelId);
+        $result = $this->make(Hotels::class)->delete(5);
+
         self::assertIsObject($result);
+        $this->assertRequest('POST', '/hotel/delete/5.json');
     }
 }

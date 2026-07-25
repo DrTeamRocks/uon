@@ -2,54 +2,32 @@
 
 namespace Uon\Tests\Feature\Endpoints;
 
-use PHPUnit\Framework\TestCase;
-use Uon\Config;
 use Uon\Endpoints\Nutrition;
+use Uon\Tests\TestCase;
 
 class NutritionTest extends TestCase
 {
-    /**
-     * @var \Uon\Endpoints\Nutrition
-     */
-    private $object;
-
-    /**
-     * @var array
-     */
-    private $nutrition = [
-        'name'    => 'Хавчик',
-        'name_en' => 'Yammi'
-    ];
-
-    /**
-     * @var int
-     */
-    public static $nutritionId;
-
-    public function setUp(): void
-    {
-        $config = new Config(['token' => getenv('API_TOKEN')]);
-
-        $this->object = new Nutrition($config);
-    }
-
     public function test_create(): void
     {
-        $result            = $this->object->create($this->nutrition);
-        self::$nutritionId = $result->id;
+        $result = $this->make(Nutrition::class)->create(['name' => 'All inclusive']);
+
         self::assertIsObject($result);
+        $this->assertRequest('POST', '/nutrition/create.json');
     }
 
-    public function testRead(): void
+    public function test_all(): void
     {
-        $result = $this->object->all();
+        $result = $this->make(Nutrition::class)->all();
+
         self::assertIsObject($result);
+        $this->assertRequest('GET', '/nutrition.json');
     }
 
     public function test_update(): void
     {
-        $result = $this->object->update(self::$nutritionId, $this->nutrition);
-        self::assertIsObject($result);
-    }
+        $result = $this->make(Nutrition::class)->update(2, ['name' => 'Breakfast']);
 
+        self::assertIsObject($result);
+        $this->assertRequest('POST', '/nutrition/update/2.json');
+    }
 }

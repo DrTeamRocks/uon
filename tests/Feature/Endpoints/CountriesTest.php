@@ -2,56 +2,32 @@
 
 namespace Uon\Tests\Feature\Endpoints;
 
-use PHPUnit\Framework\TestCase;
-use Uon\Config;
 use Uon\Endpoints\Countries;
+use Uon\Tests\TestCase;
 
 class CountriesTest extends TestCase
 {
-    /**
-     * @var \Uon\Endpoints\Countries
-     */
-    private $countries;
-
-    /**
-     * @var array
-     */
-    private $country = [
-        'name'    => 'Кингконгстоунт',
-        'name_en' => 'Kinkongstoun',
-    ];
-
-    /**
-     * @var int
-     */
-    public static $countryId;
-
-    public function setUp(): void
-    {
-        $config = new Config(['token' => getenv('API_TOKEN')]);
-
-        $this->countries = new Countries($config);
-    }
-
     public function test_create(): void
     {
-        $result = $this->countries->create($this->country);
-
-        self::$countryId = $result->id;
+        $result = $this->make(Countries::class)->create(['name' => 'Test Country']);
 
         self::assertIsObject($result);
+        $this->assertRequest('POST', '/country/create.json');
     }
 
     public function test_all(): void
     {
-        $result = $this->countries->all();
+        $result = $this->make(Countries::class)->all();
+
         self::assertIsObject($result);
+        $this->assertRequest('GET', '/countries.json');
     }
 
     public function test_update(): void
     {
-        $result = $this->countries->update(self::$countryId, $this->country);
-        self::assertIsObject($result);
-    }
+        $result = $this->make(Countries::class)->update(5, ['name' => 'Renamed']);
 
+        self::assertIsObject($result);
+        $this->assertRequest('POST', '/country/update/5.json');
+    }
 }

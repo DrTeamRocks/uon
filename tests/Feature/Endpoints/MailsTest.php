@@ -1,40 +1,17 @@
 <?php
 
-namespace Endpoints;
+namespace Uon\Tests\Feature\Endpoints;
 
-use PHPUnit\Framework\TestCase;
-use Uon\Config;
 use Uon\Endpoints\Mails;
+use Uon\Tests\TestCase;
 
 class MailsTest extends TestCase
 {
-    /**
-     * @var \Uon\Endpoints\Mails
-     */
-    private $mails;
-
-    /**
-     * @var array
-     */
-    private $mail = [
-        'email_to'   => 'test@mail.com',
-        'email_from' => 'test@mail.com',
-        'subject'    => 'Test subject',
-        'text'       => 'Some text',
-    ];
-
-    public function setUp(): void
-    {
-        $config = new Config(['token' => getenv('API_TOKEN')]);
-
-        $this->mail['datetime'] = date('Y-m-d H:i:s');
-
-        $this->mails = new Mails($config);
-    }
-
     public function test_create(): void
     {
-        $result = $this->mails->create($this->mail);
+        $result = $this->make(Mails::class)->create(['subject' => 'Hello']);
+
         self::assertIsObject($result);
+        $this->assertRequest('POST', '/mail/create.json');
     }
 }

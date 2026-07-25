@@ -2,48 +2,48 @@
 
 namespace Uon\Tests\Feature\Endpoints;
 
-use PHPUnit\Framework\TestCase;
-use Uon\Config;
 use Uon\Endpoints\Bcard;
+use Uon\Tests\TestCase;
 
 class BcardTest extends TestCase
 {
-    /**
-     * @var \Uon\Endpoints\Bcard
-     */
-    private $bcard;
-
-    /**
-     * @var array
-     */
-    private $cardSample;
-
-    public function setUp(): void
+    public function test_create(): void
     {
-        $config = new Config(['token' => getenv('API_TOKEN')]);
+        $result = $this->make(Bcard::class)->create(['number' => '123']);
 
-        $this->bcard      = new Bcard($config);
-        $this->cardSample = [
-            'bc_number' => '0000000001',
-            'user_id'   => 2,
-        ];
-    }
-
-    public function test_getByCard(): void
-    {
-        $result = $this->bcard->getByCard($this->cardSample['bc_number']);
         self::assertIsObject($result);
-    }
-
-    public function test_getByUser(): void
-    {
-        $result = $this->bcard->getByUser($this->cardSample['user_id']);
-        self::assertIsObject($result);
+        $this->assertRequest('POST', '/bcard/create.json');
     }
 
     public function test_activate(): void
     {
-        $result = $this->bcard->activate($this->cardSample);
+        $result = $this->make(Bcard::class)->activate(['number' => '123']);
+
         self::assertIsObject($result);
+        $this->assertRequest('POST', '/bcard-activate/create.json');
+    }
+
+    public function test_create_bonus(): void
+    {
+        $result = $this->make(Bcard::class)->createBonus(['bonus' => 100]);
+
+        self::assertIsObject($result);
+        $this->assertRequest('POST', '/bcard-bonus/create.json');
+    }
+
+    public function test_get_by_card(): void
+    {
+        $result = $this->make(Bcard::class)->getByCard(5);
+
+        self::assertIsObject($result);
+        $this->assertRequest('GET', '/bcard-bonus-by-card/5.json');
+    }
+
+    public function test_get_by_user(): void
+    {
+        $result = $this->make(Bcard::class)->getByUser(7);
+
+        self::assertIsObject($result);
+        $this->assertRequest('GET', '/bcard-bonus-by-user/7.json');
     }
 }

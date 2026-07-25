@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="./vendor/autoload.php" colors="true">
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
-            <exclude>
-                <directory suffix=".php">./tests</directory>
-            </exclude>
-        </whitelist>
-    </filter>
-    <logging>
-        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
-    </logging>
+<phpunit bootstrap="vendor/autoload.php"
+         colors="true">
     <testsuites>
-        <testsuite name="U-On Test Suite">
-            <directory suffix=".php">./tests/</directory>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Feature">
+            <directory>tests/Feature</directory>
+        </testsuite>
+        <testsuite name="E2E">
+            <directory>tests/E2E</directory>
         </testsuite>
     </testsuites>
     <php>
-        <ini name="display_errors" value="On"/>
-        <ini name="display_startup_errors" value="On"/>
-        <env name="API_TOKEN" value="0Gay64k3Cx4D48qSXTAq"/>
+        <env name="API_TOKEN" value="test-token"/>
     </php>
 </phpunit>

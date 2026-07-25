@@ -57,6 +57,24 @@ class ConfigTest extends TestCase
         self::assertSame(10, $config->get('seconds'));
     }
 
+    public function test_guzzle_passes_verify_when_set(): void
+    {
+        $config = new Config([
+            'token'  => 'test-token',
+            'verify' => false,
+        ]);
+
+        self::assertArrayHasKey('verify', $config->guzzle());
+        self::assertFalse($config->guzzle()['verify']);
+    }
+
+    public function test_guzzle_omits_verify_by_default(): void
+    {
+        $config = new Config(['token' => 'test-token']);
+
+        self::assertArrayNotHasKey('verify', $config->guzzle());
+    }
+
     public function test_get_unknown_parameter_throws(): void
     {
         $this->expectException(UonParameterNotSetException::class);

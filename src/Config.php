@@ -26,6 +26,7 @@ class Config implements ConfigInterface
         'verbose',
         'track_redirects',
         'format',
+        'verify',
     ];
 
     /**
@@ -213,6 +214,12 @@ class Config implements ConfigInterface
         // Handler is optional for tests
         if (isset($this->handler)) {
             $options['handler'] = $this->handler;
+        }
+
+        // SSL verification is optional, allows to disable it when the remote
+        // certificate is broken (see issue #16)
+        if (isset($this->verify)) {
+            $options['verify'] = $this->verify;
         }
 
         return $options;

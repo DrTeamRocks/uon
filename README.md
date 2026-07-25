@@ -110,6 +110,7 @@ $client = new Client(['token' => 'some_token']);
 | track_redirects | bool     | `false`                | Track redirects via Guzzle |
 | debug           | bool     | `false`                | Enable Guzzle debug output |
 | verbose         | bool     | `false`                | Dump each request endpoint and its parameters |
+| verify          | bool     | _(Guzzle default)_     | SSL verification, set to `false` to disable it for a broken remote certificate |
 
 Any other parameter name will throw a `UonParameterNotAllowedException`.
 

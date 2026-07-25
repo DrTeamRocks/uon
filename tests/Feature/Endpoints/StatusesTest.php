@@ -2,33 +2,24 @@
 
 namespace Uon\Tests\Feature\Endpoints;
 
-use PHPUnit\Framework\TestCase;
-use Uon\Config;
 use Uon\Endpoints\Statuses;
+use Uon\Tests\TestCase;
 
 class StatusesTest extends TestCase
 {
-    /**
-     * @var \Uon\Endpoints\Statuses
-     */
-    private $object;
-
-    public function setUp(): void
-    {
-        $config = new Config(['token' => getenv('API_TOKEN')]);
-
-        $this->object = new Statuses($config);
-    }
-
     public function test_get(): void
     {
-        $result = $this->object->get();
+        $result = $this->make(Statuses::class)->get();
+
         self::assertIsObject($result);
+        $this->assertRequest('GET', '/status.json');
     }
 
-    public function test_getLead(): void
+    public function test_get_lead(): void
     {
-        $result = $this->object->getLead();
+        $result = $this->make(Statuses::class)->getLead();
+
         self::assertIsObject($result);
+        $this->assertRequest('GET', '/status_lead.json');
     }
 }

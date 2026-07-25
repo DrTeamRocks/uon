@@ -1,43 +1,47 @@
 {
-  "authors": [
-    {
-      "homepage": "https://github.com/EvilFreelancer",
-      "email": "paul@drteam.rocks",
-      "name": "Paul Rock",
-      "role": "Developer"
+    "name": "drteam/uon",
+    "description": "U-On Travel RESTful API Client",
+    "homepage": "https://api.u-on.ru/doc",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "u-on",
+        "rest",
+        "api-client",
+        "client"
+    ],
+    "authors": [
+        {
+            "name": "Pavel Rykov",
+            "email": "paul@drteam.rocks",
+            "homepage": "https://github.com/EvilFreelancer",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.4"
+    },
+    "require-dev": {
+        "php-parallel-lint/php-parallel-lint": "^1.4",
+        "phpstan/phpstan": "^1.12",
+        "phpunit/phpunit": "^9.6 || ^10.5 || ^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Uon\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Uon\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
     }
-  ],
-  "autoload": {
-    "psr-4": {
-      "Uon\\": "./src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Uon\\Tests\\": "./tests/"
-    }
-  },
-  "description": "U-On Travel RESTful API Client",
-  "homepage": "https://api.u-on.ru/doc",
-  "keywords": [
-    "u-on",
-    "rest",
-    "api-client",
-    "client"
-  ],
-  "license": "MIT",
-  "name": "drteam/uon",
-  "require": {
-    "php": "^7.2",
-    "ext-curl": "*",
-    "ext-json": "*",
-    "guzzlehttp/guzzle": "^7.1"
-  },
-  "require-dev": {
-    "guzzlehttp/guzzle": "^7.1.x-dev",
-    "larapack/dd": "^1.1",
-    "phpunit/phpunit": "^8.0"
-  },
-  "type": "library",
-  "minimum-stability": "stable"
 }

@@ -2,111 +2,88 @@
 
 namespace Uon\Tests\Feature\Endpoints;
 
-use PHPUnit\Framework\TestCase;
-use Uon\Config;
 use Uon\Endpoints\Users;
+use Uon\Tests\TestCase;
 
 class UsersTest extends TestCase
 {
-    /**
-     * @var \Uon\Endpoints\Users
-     */
-    private $object;
-
-    /**
-     * @var array
-     */
-    private $user = [
-        'u_name'  => 'User',
-        'u_sname' => 'Test',
-        'u_phone' => '123456789',
-        'u_email' => 'king@roll.com',
-    ];
-
-    /**
-     * @var int
-     */
-    public static $userId;
-
-    public function setUp(): void
-    {
-        $config = new Config(['token' => getenv('API_TOKEN')]);
-
-        $this->object = new Users($config);
-    }
-
-    public function test_create(): void
-    {
-        $result = $this->object->create($this->user);
-
-        self::$userId = $result->id;
-
-        self::assertIsObject($result);
-    }
-
     public function test_all(): void
     {
-        $result = $this->object->all();
+        $result = $this->make(Users::class)->all(2);
+
         self::assertIsObject($result);
+        $this->assertRequest('GET', '/users/2.json');
     }
 
     public function test_get(): void
     {
-        $result = $this->object->get(self::$userId);
+        $result = $this->make(Users::class)->get(5);
+
         self::assertIsObject($result);
+        $this->assertRequest('GET', '/user/5.json');
     }
 
     public function test_search(): void
     {
-        $result = $this->object->search();
+        $result = $this->make(Users::class)->search(['phone' => '123']);
+
         self::assertIsObject($result);
+        $this->assertRequest('POST', '/user/search.json');
     }
 
-    public function test_getLabel(): void
+    public function test_get_label(): void
     {
-        $result = $this->object->getLabel();
+        $result = $this->make(Users::class)->getLabel();
+
         self::assertIsObject($result);
+        $this->assertRequest('GET', '/user-label.json');
     }
 
-    public function test_getPhone(): void
+    public function test_get_phone(): void
     {
-        $result = $this->object->getPhone('123456789');
+        $result = $this->make(Users::class)->getPhone('123456789');
+
         self::assertIsObject($result);
+        $this->assertRequest('GET', '/user/phone/123456789.json');
     }
 
-    public function test_getEmail(): void
+    public function test_get_email(): void
     {
-        $result = $this->object->getEmail('king@roll.com');
-        self::assertIsArray($result);
-        self::assertIsObject($result[0]);
+        $result = $this->make(Users::class)->getEmail('king@roll.com');
+
+        self::assertIsObject($result);
+        $this->assertRequest('POST', '/user/email.json');
     }
 
-    public function test_getUpdated(): void
+    public function test_get_updated(): void
     {
-        // Date for next method
-        $today    = date('Y-m-d');
-        $tomorrow = date('Y-m-d', strtotime('tomorrow'));
+        $result = $this->make(Users::class)->getUpdated('2026-01-01', '2026-01-02');
 
-        $result = $this->object->getUpdated($today, $tomorrow);
         self::assertIsObject($result);
+        $this->assertRequest('GET', '/user/updated/2026-01-01/2026-01-02/1.json');
     }
 
-    public function test_createFile(): void
+    public function test_create(): void
     {
-        $file   = [
-            'u_id'      => self::$userId,
-            'filename'  => 'http://static.skaip.org/img/emoticons/180x180/f6fcff/penguin.gif',
-            'name'      => 'имя файл жпг',
-            'file_note' => 'extremal',
-        ];
-        $result = $this->object->createFile($file);
+        $result = $this->make(Users::class)->create(['u_name' => 'Test']);
+
         self::assertIsObject($result);
+        $this->assertRequest('POST', '/user/create.json');
+    }
+
+    public function test_create_file(): void
+    {
+        $result = $this->make(Users::class)->createFile(['u_id' => 1]);
+
+        self::assertIsObject($result);
+        $this->assertRequest('POST', '/user-file/create.json');
     }
 
     public function test_update(): void
     {
-        $result = $this->object->update(self::$userId, $this->user);
-        self::assertIsObject($result);
-    }
+        $result = $this->make(Users::class)->update(5, ['u_name' => 'Renamed']);
 
+        self::assertIsObject($result);
+        $this->assertRequest('POST', '/user/update/5.json');
+    }
 }

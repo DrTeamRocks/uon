@@ -176,7 +176,7 @@ class Requests extends Client
      *
      * @return null|object|\Uon\Interfaces\ClientInterface
      */
-    public function getDate(string $dateFrom, string $dateTo, int $page = 1, int $sourceId = null)
+    public function getDate(string $dateFrom, string $dateTo, int $page = 1, ?int $sourceId = null)
     {
         $endpoint = 'requests/' . $dateFrom . '/' . $dateTo;
         if (null !== $sourceId) {

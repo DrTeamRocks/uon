@@ -1,6 +1,7 @@
 # Ignoring directories.
 /.idea/
 /vendor/
+/.phpunit.cache/
 
 # Ignoring files.
 /.phpunit.result.cache

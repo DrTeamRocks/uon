@@ -16,7 +16,7 @@ class Statuses extends Client
      *
      * @link https://api.u-on.ru/{key}/status.{_format}
      *
-     * @param array|null $parameters List of parameters
+     * @param array $parameters List of parameters
      *
      * @return null|object|\Uon\Interfaces\ClientInterface
      */

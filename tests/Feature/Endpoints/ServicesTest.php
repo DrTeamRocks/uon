@@ -2,55 +2,32 @@
 
 namespace Uon\Tests\Feature\Endpoints;
 
-use PHPUnit\Framework\TestCase;
-use Uon\Config;
 use Uon\Endpoints\Services;
+use Uon\Tests\TestCase;
 
 class ServicesTest extends TestCase
 {
-    /**
-     * @var \Uon\Endpoints\Services
-     */
-    private $object;
-
-    /**
-     * @var array
-     */
-    private $service = [
-        'r_id'    => 1,
-        'type_id' => 1,
-    ];
-
-    /**
-     * @var int
-     */
-    public static $serviceId;
-
-    public function setUp(): void
-    {
-        $config = new Config(['token' => getenv('API_TOKEN')]);
-
-        $this->object = new Services($config);
-    }
-
     public function test_create(): void
     {
-        $result = $this->object->create($this->service);
-
-        self::$serviceId = $result->id;
+        $result = $this->make(Services::class)->create(['c_id' => 1, 'koef' => 1.5, 'price' => 1000]);
 
         self::assertIsObject($result);
+        $this->assertRequest('POST', '/service/create.json');
     }
 
-    public function testRead(): void
+    public function test_get_types(): void
     {
-        $result = $this->object->getTypes();
+        $result = $this->make(Services::class)->getTypes();
+
         self::assertIsObject($result);
+        $this->assertRequest('GET', '/service_type.json');
     }
 
     public function test_update(): void
     {
-        $result = $this->object->update(self::$serviceId, $this->service);
+        $result = $this->make(Services::class)->update(5, ['price' => 2000]);
+
         self::assertIsObject($result);
+        $this->assertRequest('POST', '/service/update/5.json');
     }
 }

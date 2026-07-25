@@ -2,52 +2,32 @@
 
 namespace Uon\Tests\Feature\Endpoints;
 
-use PHPUnit\Framework\TestCase;
-use Uon\Config;
 use Uon\Endpoints\Reminders;
+use Uon\Tests\TestCase;
 
 class RemindersTest extends TestCase
 {
-    /**
-     * @var \Uon\Endpoints\Reminders
-     */
-    private $object;
-
-    /**
-     * @var array
-     */
-    private $reminder = [
-        'r_id'    => 1,
-        'type_id' => 1,
-        'text'    => 'some cool text of reminder'
-    ];
-
-    /**
-     * @var int
-     */
-    public static $reminderId;
-
-    public function setUp(): void
-    {
-        $config = new Config(['token' => getenv('API_TOKEN')]);
-
-        $this->object = new Reminders($config);
-
-        // Fix datetime
-        $this->reminder['datetime'] = date('Y-m-d H:i:s');
-    }
-
     public function test_create(): void
     {
-        $result           = $this->object->create($this->reminder);
-        self::$reminderId = $result->id;
+        $result = $this->make(Reminders::class)->create(['text' => 'Call client']);
+
         self::assertIsObject($result);
+        $this->assertRequest('POST', '/reminder/create.json');
     }
 
-    public function testRead(): void
+    public function test_all(): void
     {
-        $result = $this->object->get(self::$reminderId);
+        $result = $this->make(Reminders::class)->all(2);
+
         self::assertIsObject($result);
+        $this->assertRequest('POST', '/reminder/2.json');
     }
 
+    public function test_get(): void
+    {
+        $result = $this->make(Reminders::class)->get(5);
+
+        self::assertIsObject($result);
+        $this->assertRequest('GET', '/reminder/5.json');
+    }
 }

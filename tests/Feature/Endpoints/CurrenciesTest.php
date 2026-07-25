@@ -1,28 +1,17 @@
 <?php
 
-namespace Endpoints;
+namespace Uon\Tests\Feature\Endpoints;
 
-use PHPUnit\Framework\TestCase;
-use Uon\Config;
 use Uon\Endpoints\Currencies;
+use Uon\Tests\TestCase;
 
 class CurrenciesTest extends TestCase
 {
-    /**
-     * @var \Uon\Endpoints\Currencies
-     */
-    private $object;
-
-    public function setUp(): void
-    {
-        $config = new Config(['token' => getenv('API_TOKEN')]);
-
-        $this->object = new Currencies($config);
-    }
-
     public function test_all(): void
     {
-        $result = $this->object->all();
+        $result = $this->make(Currencies::class)->all();
+
         self::assertIsObject($result);
+        $this->assertRequest('GET', '/currency.json');
     }
 }

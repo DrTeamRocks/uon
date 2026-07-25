@@ -1,0 +1,98 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  # Stage 1: static checks. Everything else waits for this to pass.
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: curl, json
+          coverage: none
+          tools: composer:v2
+
+      - name: Validate composer.json
+        run: composer validate --strict
+
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction --no-progress
+
+      - name: PHP syntax lint
+        run: vendor/bin/parallel-lint src tests
+
+      - name: Static analysis (PHPStan)
+        run: vendor/bin/phpstan analyse --no-progress
+
+  # Stage 2a: unit and feature tests on every supported PHP version, in parallel.
+  tests:
+    name: Tests PHP ${{ matrix.php }}
+    needs: lint
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ '7.4', '8.0', '8.1', '8.2', '8.3', '8.4', '8.5' ]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, json, mbstring
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction --no-progress
+
+      - name: Run unit and feature tests
+        run: |
+          FLAGS="--fail-on-warning"
+          case "${{ matrix.php }}" in
+            7.4|8.0) ;;
+            *) FLAGS="$FLAGS --fail-on-deprecation" ;;
+          esac
+          vendor/bin/phpunit --testsuite Unit,Feature $FLAGS
+
+  # Stage 2b: end-to-end tests against the real API. Runs in parallel with the
+  # matrix. Skips automatically when the UON_API_TOKEN secret is not configured
+  # (for example on pull requests from forks).
+  e2e:
+    name: E2E
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: curl, json
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction --no-progress
+
+      - name: Run end-to-end tests
+        env:
+          UON_API_TOKEN: ${{ secrets.UON_API_TOKEN }}
+        run: vendor/bin/phpunit --testsuite E2E

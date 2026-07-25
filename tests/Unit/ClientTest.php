@@ -2,45 +2,49 @@
 
 namespace Uon\Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
 use Uon\Client;
 use Uon\Endpoints\Cash;
+use Uon\Endpoints\Currencies;
+use Uon\Tests\TestCase;
 
 class ClientTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $token;
-
-    public function setUp(): void
+    public function test_construct_from_config(): void
     {
-        $this->token = getenv('API_TOKEN');
+        $client = new Client($this->mockConfig());
+
+        self::assertInstanceOf(Client::class, $client);
     }
 
-    public function test__construct(): void
+    public function test_construct_from_array(): void
     {
-        $obj = new Client(['token' => $this->token]);
-        self::assertIsObject($obj);
-        self::assertInstanceOf(Client::class, $obj);
+        $client = new Client(['token' => 'test-token']);
+
+        self::assertInstanceOf(Client::class, $client);
     }
 
-    public function test_get(): void
+    public function test_magic_getter_resolves_endpoints(): void
     {
-        $obj = new Client(['token' => $this->token]);
-        self::assertInstanceOf(Cash::class, $obj->cash);
+        $client = new Client($this->mockConfig());
+
+        self::assertInstanceOf(Cash::class, $client->cash);
+        self::assertInstanceOf(Currencies::class, $client->currencies);
     }
 
-//    public function test_call(): void
-//    {
-//        $obj = new Client(['token' => $this->token]);
-//        $test = $obj->cash->get();
-//        self::assertInstanceOf(Cash::class, $obj->cash);
-//    }
-
-    public function test_isset(): void
+    public function test_isset_returns_false_for_unknown_property(): void
     {
-        $obj = new Client(['token' => $this->token]);
-        self::assertFalse(isset($obj->dummy));
+        $client = new Client($this->mockConfig());
+
+        self::assertFalse(isset($client->dummy));
+    }
+
+    public function test_endpoint_performs_request(): void
+    {
+        $client = new Client($this->mockConfig());
+
+        $result = $client->currencies->all();
+
+        self::assertIsObject($result);
+        $this->assertRequest('GET', '/currency.json');
     }
 }

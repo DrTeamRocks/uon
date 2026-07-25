@@ -2,64 +2,56 @@
 
 namespace Uon\Tests\Feature\Endpoints;
 
-use PHPUnit\Framework\TestCase;
-use Uon\Config;
 use Uon\Endpoints\Leads;
+use Uon\Tests\TestCase;
 
 class LeadsTest extends TestCase
 {
-    /**
-     * @var \Uon\Endpoints\Leads
-     */
-    private $leads;
-
-    /**
-     * @var array
-     */
-    private $newLead = [
-        'note'    => 'Test lead',
-        'u_email' => 'test@example.com',
-        'u_phone' => '123456789',
-    ];
-
-    /**
-     * @var int
-     */
-    public static $leadId;
-
-    public function setUp(): void
-    {
-        $config = new Config(['token' => getenv('API_TOKEN')]);
-
-        $this->leads = new Leads($config);
-    }
-
     public function test_create(): void
     {
-        $result = $this->leads->create($this->newLead);
+        $result = $this->make(Leads::class)->create(['u_name' => 'Test']);
 
-        if (isset($result->id)) {
-            self::$leadId = $result->id;
-            self::assertIsObject($result);
-        }
+        self::assertIsObject($result);
+        $this->assertRequest('POST', '/lead/create.json');
     }
 
     public function test_get(): void
     {
-        if (null !== self::$leadId) {
-            $result = $this->leads->get(self::$leadId);
-            self::assertIsObject($result);
-        }
-    }
+        $result = $this->make(Leads::class)->get(5);
 
-    public function test_getDate(): void
-    {
-        // Date for next method
-        $today    = date('Y-m-d');
-        $tomorrow = date('Y-m-d', strtotime('tomorrow'));
-
-        $result = $this->leads->getDate($today, $tomorrow);
         self::assertIsObject($result);
+        $this->assertRequest('GET', '/lead/5.json');
     }
 
+    public function test_get_by_client(): void
+    {
+        $result = $this->make(Leads::class)->getByClient(1, 2);
+
+        self::assertIsObject($result);
+        $this->assertRequest('GET', '/lead-by-client/1/2.json');
+    }
+
+    public function test_get_date(): void
+    {
+        $result = $this->make(Leads::class)->getDate('2026-01-01', '2026-01-02');
+
+        self::assertIsObject($result);
+        $this->assertRequest('GET', '/leads/2026-01-01/2026-01-02/1.json');
+    }
+
+    public function test_get_date_with_source(): void
+    {
+        $result = $this->make(Leads::class)->getDate('2026-01-01', '2026-01-02', 1, 7);
+
+        self::assertIsObject($result);
+        $this->assertRequest('GET', '/leads/2026-01-01/2026-01-02/7/1.json');
+    }
+
+    public function test_search(): void
+    {
+        $result = $this->make(Leads::class)->search(['phone' => '123']);
+
+        self::assertIsObject($result);
+        $this->assertRequest('GET', '/lead/search.json');
+    }
 }
